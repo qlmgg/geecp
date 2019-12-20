@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 19/12/2019 16:04:08
+ Date: 20/12/2019 09:17:01
 */
 
 SET NAMES utf8mb4;
@@ -67,7 +67,7 @@ CREATE TABLE `gee_adminuser`  (
 -- ----------------------------
 -- Records of gee_adminuser
 -- ----------------------------
-INSERT INTO `gee_adminuser` VALUES (1, 'admin', '', '', '$2y$11$cub.Y9NiD6OhSrWo/q.TsegCVglCDoP7Mg6GLuVMuE.mBA5xGBVPa', '', '::1', 1557120679, 1576741532, 1576741532, '0', '超级管理员', 8);
+INSERT INTO `gee_adminuser` VALUES (1, 'admin', '', '', '$2y$11$cub.Y9NiD6OhSrWo/q.TsegCVglCDoP7Mg6GLuVMuE.mBA5xGBVPa', '', '::1', 1557120679, 1576749279, 1576749279, '0', '超级管理员', 8);
 
 -- ----------------------------
 -- Table structure for gee_annexconfig
@@ -265,7 +265,12 @@ CREATE TABLE `gee_log`  (
   `create_time` int(11) NOT NULL COMMENT '操作时间',
   `update_time` int(11) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 661 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 662 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of gee_log
+-- ----------------------------
+INSERT INTO `gee_log` VALUES (661, '超级管理员 登录了，登录IP为：::1', '::1', 1576749279, 1576749279);
 
 -- ----------------------------
 -- Table structure for gee_msgmodel
@@ -567,7 +572,7 @@ INSERT INTO `gee_route` VALUES (76, '添加操作系统版本', 'addostype', 8, 
 INSERT INTO `gee_route` VALUES (77, '添加操作系统验证', 'addostypeAuth', 8, '0', 0, 0, NULL);
 INSERT INTO `gee_route` VALUES (78, '删除操作系统版本', 'delostype', 8, '0', 0, 0, NULL);
 INSERT INTO `gee_route` VALUES (80, '编辑物理服务器信息', 'editserver', 1, '0', 0, 0, NULL);
-INSERT INTO `gee_route` VALUES (81, '实名认证', 'realverify', 16, '0', 0, 0, 'fa-check');
+INSERT INTO `gee_route` VALUES (81, '实名认证', 'realverify', 16, '1', 0, 0, 'fa-check');
 INSERT INTO `gee_route` VALUES (82, '通过认证', 'passreal', 16, '0', 0, 0, NULL);
 INSERT INTO `gee_route` VALUES (83, '拒绝认证', 'rejectreal', 16, '0', 0, 0, NULL);
 INSERT INTO `gee_route` VALUES (84, '企业认证', 'enterpriseverify', 16, '1', 0, 0, 'fa-black-tie');
@@ -774,7 +779,7 @@ CREATE TABLE `gee_user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名(英文)',
   `password` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `salt` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '加密盐值',
+  `salt` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '加密盐值',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '姓名',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
   `is_email` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '邮箱验证 0:未认证 1:已认证',
@@ -796,7 +801,7 @@ CREATE TABLE `gee_user`  (
   `create_time` int(11) NOT NULL COMMENT '注册时间',
   `update_time` int(11) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for gee_user_enterprise
