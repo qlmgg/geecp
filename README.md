@@ -14,10 +14,34 @@ Gee Control Panel v1.0.1
 * 物理机租用
 
 
-## 安装
+## 下载安装包
 
 ~~~
-https://download.geecp.com/geecp-v1.0.1.zip（12月12日开放下载）
+https://gitee.com/qiduocloud/geecp/repository/archive/v1.0.1?format=zip
+~~~
+
+
+## 配置服务器环境
+
+~~~
+推荐LNMP环境
+Nginx （openresty 推荐+）
+PHP 7.2+
+Mysql 5.7 +
+
+更多运行问题参考ThinkPHP5.0运行环境
+~~~
+
+## 前台地址
+
+~~~
+http://yourdomain.com/
+~~~
+
+## 管理地址
+
+~~~
+https://yourdomain.com/manager 账号 admin 密码 123456
 ~~~
 
 ## 使用交流
@@ -25,6 +49,11 @@ https://download.geecp.com/geecp-v1.0.1.zip（12月12日开放下载）
 QQ群：730868267
 ~~~
 
+## 即将到来的版本
+
+~~~
+v1.0.2 对域名管理功能进行支持，支持注册美橙科技和西部数码域名注册服务，并支持插件机制的扩展
+~~~
 ## 文档
 
 [开发指南](http://doc.geecp.com)
