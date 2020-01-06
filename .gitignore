@@ -1,0 +1,5 @@
+/.user.ini
+/.idea/*
+/.travis.yml
+.env
+/runtime/*
