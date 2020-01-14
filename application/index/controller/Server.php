@@ -22,11 +22,27 @@ class Server extends Common
         $osgroup = new GeeOsgroup();
         $ostype = new GeeOstype();
         $serverlist = $server->where('user_id = ' . session('_userInfo')['id'])->order('id desc')->paginate(10);
+        foreach($serverlist as $k=>$v){
+          if($v['end_time'] <= time()){
+            $server->where('id = '.$v['id'])->update(['status'=>1]);
+            $v['status'] = 1;
+          }
+        }
         $this->assign('list', $serverlist);
         $oslist = $osgroup->order('sort desc,id desc')->select();
         $this->assign('oslist', $oslist);
         $defualtOs = $ostype->where('group_id = ' . $oslist[0]['id'])->select();
         $this->assign('ostypelist', $defualtOs);
+
+
+        $data['timeStamp'] = time();
+        $data['randomStr'] = 'Ab1Anv'; 
+        $data['token'] = 'lcmQ3wiK03mdoBhK2rKwtUbd';    //token 自行配置的令牌，不清楚可看概述章节。
+        sort($data,SORT_STRING);
+        $str = implode($data);
+        $signature = md5($str);
+        $signature = strtoupper($signature);    //最终得到加密后全大写的签名
+        $this->assign('test', 'http://182.61.165.199/api/virtual?time='. time().'&random=Ab1Anv&signature='.$signature);
         return $this->fetch('Server/index');
     }
     /**

@@ -1,5 +1,4 @@
-/.user.ini
-/.idea/*
-/.travis.yml
-.env
-/runtime/*
+.idea
+composer.lock
+runtime
+*.log
