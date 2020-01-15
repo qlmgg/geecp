@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 14/01/2020 13:52:14
+ Date: 15/01/2020 13:14:35
 */
 
 SET NAMES utf8mb4;
@@ -908,29 +908,29 @@ CREATE TABLE `gee_ticket_details`  (
 DROP TABLE IF EXISTS `gee_user`;
 CREATE TABLE `gee_user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名(英文)',
-  `password` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `salt` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '加密盐值',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '姓名',
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
-  `is_email` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '邮箱验证 0:未认证 1:已认证',
-  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号',
-  `is_phone` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '手机验证 0:未认证 1:已认证',
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名(英文)',
+  `password` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '密码',
+  `salt` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '加密盐值',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `is_email` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '邮箱验证 0:未认证 1:已认证',
+  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `is_phone` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '手机验证 0:未认证 1:已认证',
   `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '固话',
   `type` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '用户类型 0:个人 1:企业',
   `balance` double(255, 2) NOT NULL DEFAULT 0.00 COMMENT '用户余额',
   `invoice_money` double(11, 0) NULL DEFAULT 0 COMMENT '已开票金额',
   `free_money` double(255, 0) NULL DEFAULT 0 COMMENT '开票冻结金额',
-  `create_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '注册IP',
-  `group_id` int(11) NOT NULL COMMENT '用户组ID',
-  `approve` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '用户认证 0:未认证 1:已认证',
+  `create_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册IP',
+  `group_id` int(11) NULL DEFAULT NULL COMMENT '用户组ID',
+  `approve` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '用户认证 0:未认证 1:已认证',
   `realname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
   `idcard` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '身份证号',
   `realverify` int(11) NULL DEFAULT NULL COMMENT '认证审核 0:未提交申请 1:审核中 2:审核成功 3: 审核失败',
-  `status` enum('0','1','2') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '用户状态 0:正常 1:欠费 2:锁定',
+  `status` enum('0','1','2') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '用户状态 0:正常 1:欠费 2:锁定',
   `last_login_time` int(11) NULL DEFAULT NULL COMMENT '最后登录时间',
-  `create_time` int(11) NOT NULL COMMENT '注册时间',
-  `update_time` int(11) NOT NULL COMMENT '更新时间',
+  `create_time` int(11) NULL DEFAULT NULL COMMENT '注册时间',
+  `update_time` int(11) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
@@ -1025,25 +1025,6 @@ CREATE TABLE `gee_vps`  (
   `end_time` int(11) NULL DEFAULT NULL COMMENT '结束时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for gee_vps_zoneidc
--- ----------------------------
-DROP TABLE IF EXISTS `gee_vps_zoneidc`;
-CREATE TABLE `gee_vps_zoneidc`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL COMMENT '所属用户',
-  `product_id` int(11) NULL DEFAULT NULL COMMENT '产品ID',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务器名称',
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接口回传vpspassword',
-  `attach` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '接口回传备注',
-  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务器内部IP',
-  `status` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '状态',
-  `create_time` int(11) NULL DEFAULT NULL COMMENT '开通时间',
-  `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
-  `end_time` int(11) NULL DEFAULT NULL COMMENT '结束时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for gee_webbasic
