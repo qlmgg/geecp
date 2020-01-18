@@ -136,7 +136,11 @@ class Billing extends Common
         $paypost['body'] = $data['cont'];
         // dump($data);
         // dump($paypost);
-        alipay($paypost, 'http://localhost:201/api/return_url', 'http://localhost:201/api/notify_url');
+        // dump('http://' . $_SERVER['HTTP_HOST'] . '/api/notify_url');
+        // exit;
+        alipay($paypost, 'http://' . $_SERVER['HTTP_HOST'] . '/api/return_url', 'http://' . $_SERVER['HTTP_HOST'] . '/api/notify_url');
+        // dump($html);
+        // return;
 
         $order = new GeeBilling();
         $u = new GeeUser();

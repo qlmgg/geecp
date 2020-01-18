@@ -525,7 +525,7 @@ function vali_data($rule, $data)
 /**
  * 随机名称
  */
-function rand_name($length = 8,$small)
+function rand_name($length = 8,$small="")
 {
     // // 密码字符集，可任意添加你需要的字符
     // $chars = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',

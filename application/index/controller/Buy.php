@@ -104,12 +104,7 @@ class Buy extends Common
             $ret['msg'] = '该订单状态已更变';
             return json_encode($ret);
         }
-        if ((double) $user['balance'] < (double) $info['money']) {
-            $ret['status'] = 400;
-            $ret['msg'] = '余额不足';
-            return json_encode($ret);
-        }
-        if ((int) $data['type']) {
+        if ((int) $data['type'] == 1) {
             //第三方支付
             $billing_save_data['cash'] = '1';
             $prolist = json_decode($info['pro_list']);
@@ -130,8 +125,14 @@ class Buy extends Common
             $paypost['total_amount'] = (double) $info['money'];
             $paypost['subject'] = $info['pro_list'] == '0' ? '账户充值' : '产品购买';
             $paypost['body'] = $info['pro_list'] == '0' ? '账户充值 - 金额为:' . to_double($info['money']) : '产品购买 - 购买产品:' . $name;
-            $html = alipay($paypost, 'http://' . $_SERVER['HTTP_HOST'] . '/api/return_url', 'http://' . $_SERVER['HTTP_HOST'] . '/api/notify_url', 1);
+            $html = alipay($paypost, 'http://' . $_SERVER['HTTP_HOST'] . '/api/notify_url', 'http://' . $_SERVER['HTTP_HOST'] . '/api/return_url', 1);
         } else {
+        	
+	        if ((double) $user['balance'] < (double) $info['money']) {
+	            $ret['status'] = 400;
+	            $ret['msg'] = '余额不足';
+	            return json_encode($ret);
+	        }
             //余额支付
             $userup = db('gee_user')->where('id = ' . session('_userInfo')['id'])->update(['balance' => (double) $user['balance'] - (double) $info['money']]);
             // dump($user);
@@ -318,7 +319,6 @@ class Buy extends Common
                 }
             }
         }
-
         // dump($html);
         // dump(json_encode($ret));
         // return ;

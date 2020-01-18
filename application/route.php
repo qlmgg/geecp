@@ -21,6 +21,9 @@ $homeRoute = new GeeHomeroute();
 Route::rule('uploadImg','admin/Common/uploadimg');
 //邮件发送
 Route::rule('sendEmail','admin/Common/sendEmail');
+Route::rule('/api/return_url','index/Api/return_url');
+Route::rule('/api/notify_url','index/Api/notify_url');
+
 /**
  *  插件路由
  */

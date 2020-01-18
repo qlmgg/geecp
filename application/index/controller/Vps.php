@@ -54,8 +54,10 @@ class Vps extends Common
         $this->assign('proname',$item['name']);
         $items = explode(',',$item['update_list']);
         // dump($items);
-        foreach($items as $k=>$v){
-          $proItems[$k] = $pro->where('id = '.$v)->find();
+        if(!empty($items[0])){
+	        foreach($items as $k=>$v){
+	          $proItems[$k] = $pro->where('id = '.$v)->find();
+	        }
         }
       } else {
         $proItems = $pro->where('type=2')->select();
