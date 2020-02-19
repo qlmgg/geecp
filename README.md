@@ -1,17 +1,30 @@
-Gee Control Panel v1.0.1
+Gee Control Panel 企业版公测（2020/02/20）
 ===============
-
-> 运行环境要求PHP7.1+。
 
 ## 主要新特性
 
 * 支持插件机制
 * 支持模板标签
+* 支持后台手动更新（云端下载更新包）
+* v2版本管理控制台（管理端）
+* 弹性云主机功能支持
+* 域名功能支持
+* 对nokvm/jincloud/solusvm/zstack开放支持
+* 前台产品页面更新
+* 实名认证服务API
+* EasyPanel支持
+
+
 
 ## 支持的功能
 
+* 域名注册
+* 虚拟主机
+* 弹性云主机
 * Hyper-v VPS主机
 * 物理机租用
+* SSL证书功能（即将支持）
+* CDN模块
 
 
 ## 下载安装包
@@ -25,7 +38,7 @@ https://gitee.com/qiduocloud/geecp/repository/archive/v1.0.1?format=zip
 
 ~~~
 推荐LNMP环境
-Nginx （openresty 推荐+）
+Nginx
 PHP 7.2+
 Mysql 5.7 +
 
@@ -49,14 +62,10 @@ https://yourdomain.com/manager 账号 admin 密码 123456
 QQ群：730868267
 ~~~
 
-## 即将到来的版本
 
-~~~
-v1.0.2 对域名管理功能进行支持，支持注册美橙科技和西部数码域名注册服务，并支持插件机制的扩展
-~~~
-## 文档
+## 交流论坛
 
-[开发指南](http://doc.geecp.com)
+[开发指南](http://www.geecp.com)
 
 ## 参与开发
 
@@ -68,7 +77,7 @@ Gee Control Panel（简称“Geecp”）它并不是一款免费软件，当您�
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2018-2019 by GeeStack (http://www.geecp.com)
+版权所有Copyright © 2018-2020 by Geecp (http://www.geecp.com)
 
 All rights reserved。http://www.geecp.com
 
