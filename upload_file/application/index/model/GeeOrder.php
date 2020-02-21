@@ -8,7 +8,8 @@ use think\Model;
  */
 class GeeOrder extends Model
 {
-    //支付渠道
+  protected $name = "Order";
+  //支付渠道
     public function getTypesAttr($var, $data)
     {
         switch ($data['type']) {

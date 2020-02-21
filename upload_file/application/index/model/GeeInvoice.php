@@ -8,6 +8,7 @@ use think\Model;
  */
 class GeeInvoice extends Model
 {
+    protected $name = "Invoice";
 
     //发票类型
     public function getTypesAttr($var, $data)

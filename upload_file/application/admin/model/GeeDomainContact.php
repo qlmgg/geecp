@@ -8,7 +8,8 @@ use think\Db;
  */
 class GeeDomainContact extends Model
 {
-	
+  protected $name = "DomainContact";
+
     //申请用户
     public function getIscheckAttr($var, $data)
     {
@@ -37,10 +38,10 @@ class GeeDomainContact extends Model
       }
       return $ck;
     }
-    
+
     public function getUserAttr($var, $data)
     {
-        $info = Db::name('gee_user')->where('id = '.$data['user_id'])->find();
+        $info = Db::name('user')->where('id = '.$data['user_id'])->find();
         return $info['name'];
     }
 }

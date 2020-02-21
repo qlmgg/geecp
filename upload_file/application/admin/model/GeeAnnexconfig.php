@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeAnnexconfig extends Model
 {
-	
+  protected $name = "Annexconfig";
+
 }

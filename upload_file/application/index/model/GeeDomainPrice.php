@@ -8,5 +8,6 @@ use think\Model;
  */
 class GeeDomainPrice extends Model
 {
-  
+  protected $name = "DomainPrice";
+
 }

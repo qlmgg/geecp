@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeLog extends Model
 {
-   
+  protected $name = "Log";
+
 }

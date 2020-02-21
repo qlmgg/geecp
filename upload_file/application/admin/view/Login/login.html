@@ -28,7 +28,8 @@
 <body class="hold-transition login-page" style="background-image: url(https://cdn.qiduo.net/console/login.jpg); background-repeat: no-repeat; background-position: center; background-size: cover;">
 <div class="login-box" style="height: 295px;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;">
   <div class="login-logo">
-    <a href="" style="color:#fff;"><b>QiDuo</b>管理端</a>
+    <!-- <a href="" style="color:#fff;"><b>QiDuo</b>管理端</a> -->
+    <img src="{$basicInfo.logo}" style="width: 160px;" alt="">
   </div>
   <div class="login-box-body">
     <p class="login-box-msg">请输入您的用户名和密码进行登录</p>
@@ -58,7 +59,7 @@
   </div>
 </div>
 <div class="footer" style="position: absolute;bottom: 0;left: 0;right: 0;margin: auto;color: #fff;text-align: center;height: 140px;line-height: 140px;">
-  Powered By GeeCP V1.0.1 
+  Powered By GeeCP V{$Think.config.geecp.version}
 </div>
 
 <!-- jQuery 3 -->

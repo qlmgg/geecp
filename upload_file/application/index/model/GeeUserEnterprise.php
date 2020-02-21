@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeUserEnterprise extends Model
 {
-   
+  protected $name = 'UserEnterprise';
+
 }

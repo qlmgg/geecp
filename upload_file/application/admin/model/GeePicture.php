@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeePicture extends Model
 {
-	
+  protected $name = "Picture";
+
 }

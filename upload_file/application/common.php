@@ -1,12 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: 流年 <liu21st@gmail.com>
+// | 公告配置文件
 // +----------------------------------------------------------------------
 
 use app\admin\model\GeeEmailconfig; //验证函数类库
@@ -14,6 +8,12 @@ use app\admin\model\GeeMsgmodel; //验证函数类库
 use Firebase\JWT\JWT; // JWT
 use PHPMailer\PHPMailer\PHPMailer; // 消息模板表
 use think\Request; // 交易记录表
+
+
+//引入公共方法
+include_once('common/function/sys_common.php');
+
+
 
 // 应用公共文件
 /**
@@ -300,7 +300,7 @@ function routeAnalysis($fid)
     if (!$fid) {
         return '';
     }
-    $res = db('gee_route')->where('`f_id` = ' . $fid . ' and `is_show` = "1"')->order('id')->select();
+    $res = db('route')->where('`f_id` = ' . $fid . ' and `is_show` = "1"')->order('id')->select();
     if ($res) {
         object_toArray($res);
     }
@@ -314,14 +314,14 @@ function webRouteAnalysis($fid)
     if (!$fid) {
         return '';
     }
-    $hasFid = db('gee_webroute')->where('id = ' . $fid)->find();
+    $hasFid = db('webroute')->where('id = ' . $fid)->find();
 
     if ($hasFid['f_id'] != 0) {
         $res = webRouteAnalysis($hasFid['f_id']);
         // dump($res);
         // exit;
     } else {
-        $res = db('gee_webroute')->where('`is_show` = "1" and `f_id` = ' . $fid)->order('id')->select();
+        $res = db('webroute')->where('`is_show` = "1" and `f_id` = ' . $fid)->order('id')->select();
         if ($res) {
             object_toArray($res);
         }
@@ -338,7 +338,7 @@ function webRouteChildAnalysis($fid)
     if (!$fid) {
         return '';
     }
-    $res = db('gee_webroute')->where('`is_show` = "1" and `f_id` = ' . $fid)->order('id')->select();
+    $res = db('webroute')->where('`is_show` = "1" and `f_id` = ' . $fid)->order('id')->select();
     if ($res) {
         object_toArray($res);
     }
@@ -517,15 +517,18 @@ function vali_data($rule, $data)
             return preg_match('/^[a-zA-Z][\w]{5,16}$/', $data);
             break;
         case 'vpspw':
-            return preg_match(' /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,100}$/', $data);
+            return preg_match('/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,100}$/', $data);
             break;
+        case 'cspwd':
+          return preg_match('/^([a-z0-9\.\@\!\#\$\%\^\*\(\)]){8,32}$/i', $data);
+          break;
     }
 }
 
 /**
  * 随机名称
  */
-function rand_name($length = 8,$small="")
+function rand_name($length = 8,$small='')
 {
     // // 密码字符集，可任意添加你需要的字符
     // $chars = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -555,10 +558,10 @@ function rand_name($length = 8,$small="")
  */
 function vali_name($key, $val, $len, $func)
 {
-    if (!is_int($val) && !is_bool($va)) {
+    if (!is_int($val) && !is_bool($val)) {
         $w = '"' . $val . '"';
     }
-    $has = db('gee_billing')->where('`' . $key . '` = ' . $w)->find();
+    $has = db('billing')->where('`' . $key . '` = ' . $w)->find();
     if ($has) {
         $vali = $this->vali_name($key, $func($len), $len, $func);
         return $vali;
@@ -915,7 +918,7 @@ if (!function_exists('setconfig')) {
             file_put_contents($fileurl, $string); // 写入配置文件
             return true;
         } else {
-            return flase;
+            return false;
         }
     }
 }

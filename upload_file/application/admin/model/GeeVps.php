@@ -5,14 +5,15 @@ use app\admin\model\GeeProduct; // 产品表
 use app\admin\model\GeeProductGroup; // 产品组表
 use app\admin\model\GeeProductClass; // 产品分类表
 use app\admin\model\GeeProductType; // 产品类型表
-use app\admin\model\GeeUser; // 
+use app\admin\model\GeeUser; //
 
 /**
  * VPS表
  */
 class GeeVps extends Model
 {
-	
+  protected $name = "Vps";
+
 	//用户类型
     public function getProductTypeAttr($var,$data)
     {

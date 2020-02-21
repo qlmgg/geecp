@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeProConfig extends Model
 {
-	
+  protected $name = "ProConfig";
+
 }

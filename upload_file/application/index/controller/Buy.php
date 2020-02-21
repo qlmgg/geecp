@@ -97,14 +97,14 @@ class Buy extends Common
         $billing = new GeeBilling();
         $info = $billing->where('`order_number` = "' . $data['order'] . '"')->find();
         $up_w['id'] = $info['id'];
-        $user = db('gee_user')->where('id = ' . session('_userInfo')['id'])->find();
+        $user = db('user')->where('id = ' . session('_userInfo')['id'])->find();
 
         if ($info['status'] != '0' && ($info['order_status'] != '0' && $info['order_status'] != '2')) {
             $ret['status'] = 400;
             $ret['msg'] = '该订单状态已更变';
             return json_encode($ret);
         }
-        if ((int) $data['type'] == 1) {
+        if ((int) $data['type']) {
             //第三方支付
             $billing_save_data['cash'] = '1';
             $prolist = json_decode($info['pro_list']);
@@ -127,16 +127,17 @@ class Buy extends Common
             $paypost['body'] = $info['pro_list'] == '0' ? '账户充值 - 金额为:' . to_double($info['money']) : '产品购买 - 购买产品:' . $name;
             $html = alipay($paypost, 'http://' . $_SERVER['HTTP_HOST'] . '/api/notify_url', 'http://' . $_SERVER['HTTP_HOST'] . '/api/return_url', 1);
         } else {
-        	
-	        if ((double) $user['balance'] < (double) $info['money']) {
-	            $ret['status'] = 400;
-	            $ret['msg'] = '余额不足';
-	            return json_encode($ret);
-	        }
+
+            if ((double) $user['balance'] < (double) $info['money']) {
+                $ret['status'] = 400;
+                $ret['msg'] = '余额不足';
+                return json_encode($ret);
+            }
             //余额支付
-            $userup = db('gee_user')->where('id = ' . session('_userInfo')['id'])->update(['balance' => (double) $user['balance'] - (double) $info['money']]);
+            $userup = db('user')->where('id = ' . session('_userInfo')['id'])->update(['balance' => (double) $user['balance'] - (double) $info['money']]);
             // dump($user);
             // dump($info);
+            // return;
             if (!$userup) {
                 $ret['status'] = 400;
                 $ret['msg'] = '余额扣款失败！';
@@ -148,7 +149,10 @@ class Buy extends Common
                 $pcs = $pc->where('order_number = "' . $data['order'] . '"')->find();
                 $configs = json_decode($pcs['config'], true);
                 $selfPro = json_decode($info['pro_list'], false);
-                // dump($info);
+                // dump($pcs);
+                // dump($configs['order']);
+                // dump($selfPro['pro_list']);
+                // dump($configs['_create_putData']);
                 // return ;
                 if ($configs['_create_putData']) {
                     if ($configs['_create_putData']['class'] == 'domain') {
@@ -240,7 +244,7 @@ class Buy extends Common
                         if ($isfailed) {
                             // dump(session('_userInfo')['balance']);
                             // dump($info['money']);
-                            $userup = db('gee_user')->where('id = ' . session('_userInfo')['id'])->update(['balance' => ((double) session('_userInfo')['balance'] - (double) $info['money']) + (double) $info['money']]);
+                            $userup = db('user')->where('id = ' . session('_userInfo')['id'])->update(['balance' => ((double) session('_userInfo')['balance'] - (double) $info['money']) + (double) $info['money']]);
                             return json_encode($ret);
                         }
                     } else {
@@ -256,6 +260,7 @@ class Buy extends Common
                         // return ;
                         $res = $plug->$func($putData);
                         // dump($res);
+                        // exit;
                         // $ret['status'] = 400;
                         // $ret['msg'] = '请求超时！';
                         // return json_encode($ret);
@@ -319,6 +324,7 @@ class Buy extends Common
                 }
             }
         }
+
         // dump($html);
         // dump(json_encode($ret));
         // return ;

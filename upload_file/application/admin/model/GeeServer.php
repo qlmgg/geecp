@@ -4,7 +4,6 @@ use think\Model;
 use app\admin\model\GeeUser;
 use app\admin\model\GeeProduct;
 use app\admin\model\GeeProductGroup;
-use app\admin\model\GeeServer;
 use app\admin\model\GeeServerAdded;
 use app\admin\model\GeeServerAddedItems;
 use app\admin\model\GeeOsgroup;
@@ -16,12 +15,13 @@ use app\admin\model\GeeOstype;
  */
 class GeeServer extends Model
 {
-	public function getUserAttr($var, $data)
+    protected $name = "Server";
+    public function getUserAttr($var, $data)
     {
       $user = new GeeUser();
       return $user->where('id = '.$data['user_id'])->find()['username'];
     }
-    
+
 	public function getConfigAttr($var, $data)
   {
     $p = new GeeProduct();

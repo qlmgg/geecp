@@ -159,10 +159,10 @@ class Iam extends Common
      * 验证随机名称
      */
     public function vali_name($key,$val,$len,$func){
-      if(!is_int($val) && !is_bool($va)){
+      if(!is_int($val) && !is_bool($val)){
         $w = '"'.$val.'"';
       }
-      $has = db('gee_accesskey')->where('`'.$key.'` = '.$w)->find();
+      $has = db('accesskey')->where('`'.$key.'` = '.$w)->find();
       if($has){
         $vali = $this->vali_name($key,$func($len),$len,$func);
         return $vali;

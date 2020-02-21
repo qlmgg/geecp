@@ -10,6 +10,7 @@ use think\Model;
  */
 class GeeUser extends Model
 {
+	protected $name = "User";
     //用户类型
     public function getUserTypeAttr($var, $data)
     {
@@ -18,7 +19,7 @@ class GeeUser extends Model
     //用户组
     public function getUserGroupAttr($var, $data)
     {
-        return db('gee_usergroup')->where('id = ' . $data['group_id'])->find()['name'] ? db('gee_usergroup')->where('id = ' . $data['group_id'])->find()['name'] : '暂无分组';
+        return db('usergroup')->where('id = ' . $data['group_id'])->find()['name'] ? db('usergroup')->where('id = ' . $data['group_id'])->find()['name'] : '暂无分组';
     }
     //认证状态
     public function getUserApproveAttr($var, $data)

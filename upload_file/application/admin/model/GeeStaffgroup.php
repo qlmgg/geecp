@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeStaffgroup extends Model
 {
-	
+  protected $name = "Staffgroup";
+
 }

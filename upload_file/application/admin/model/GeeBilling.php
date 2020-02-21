@@ -9,7 +9,8 @@ use think\Model;
  */
 class GeeBilling extends Model
 {
-    public function getUserAttr($var, $data)
+  protected $name = "Billing";
+  public function getUserAttr($var, $data)
     {
       $u = new GeeUser();
       $uinfo = $u->where('id = '.$data['user_id'])->find();

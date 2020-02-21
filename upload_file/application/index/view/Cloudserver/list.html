@@ -1,0 +1,164 @@
+{extend name='index@Common/index' /} {block name='content'} <div class="card fs-12">
+    <div class="card-header  border-t" style="background-color: #fff">
+        <div class="tool-list d-flex">
+            <ul class="list-inline mr-auto  m-0">
+                <li class="list-inline-item">
+                    <h4 class="mb-0">实例列表</h4>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-body fs-12">
+        <div class="cont-box">
+            <div class="mb-3">
+                <a class="btn btn-primary btn-sm" href="{:url('index/Cloudserver/create')}"> <i
+                        class="iconfont icon-icon_tianjia"></i>创建实例</a>
+                <!-- <button type="button" class="btn btn-sm  btn-outline-secondary" disabled>开启</button>
+                <button type="button" class="btn btn-sm  btn-outline-secondary" disabled>重启</button>
+                <button type="button" class="btn btn-sm  btn-outline-secondary" disabled>停止</button>
+                <button type="button" class="btn btn-sm  btn-outline-secondary" disabled>续费</button>
+                <select class="form-control-sm  col-1 btn btn-sm  btn-outline-secondary" >
+                    <option selected >批量操作</option>
+                    <option >修改名称</option>
+                  </select> -->
+            </div>
+            <div class="form-group ml-nge">
+                <table class="table table-border">
+                    <thead class="bg-fB p-2">
+                        <tr class="font-weight-light">
+                            <!-- <th>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                </div>
+                            </th> -->
+                            <th class="px-3">实例名称/ID</th>
+                            <th class="p-2">标签</th>
+                            <th class="p-2">状态</th>
+                            <th class="p-2">支付方式</th>
+                            <th class="p-2">到期时间</th>
+                            <th class="p-2">公网IP/带宽</th>
+                            <th class="p-2">内网IP</th>
+                            <th class="p-2">配置/类型</th>
+                            <th class="p-2" style="width: 150px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {if !empty($list[0])} {foreach $list as $k => $v}
+                        <tr>
+                            <td>{$v.title}<br>{$v.name}</td>
+                            <td>默认项目</td>
+                            <td class="{$v.status == '1'?'fc-green':($v.status == '2'?'fc-gray':'fc-red')}">{$v.statuss}
+                            </td>
+                            <td>预付费</td>
+                            <td>{$v.end_time|date='Y-m-d H:i:s',###} </td>
+                            <td>{$v.ip}/{$v.mbps}Mbps</td>
+                            <td>{$v.private_ip}</td>
+                            <td>{$v.ProConfig[1]}核/{$v.ProConfig[2]}GB/{$v.cds_disk}GB/{$v.ProConfig[0]}</td>
+                            <td class="form-inline" style="width:260px">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                    href="{:url('index/Cloudserver/clientarea',['name'=>$v['name']])}">管理产品</a>
+                                <!-- <a class="btn btn-outline-secondary btn-sm ml-3" href="{:url('index/Cloudserver/create',['name'=>$v['name']])}">续费</a> -->
+                            </td>
+                        </tr>
+                        {/foreach} {else /}
+                        <tr>
+                            <td colspan="9" class="text-center">暂无数据</td>
+                        </tr>
+                        {/if}
+                        <!-- <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div>instance-bfdm0hja</div>
+                                <div>i-tbyXsgVK</div>
+                            </td>
+                            <td>默认项目 :</td>
+                            <td class="text-success"><i class="iconfont icon-dian"></i>运行中</td>
+                            <td>预付费</td>
+                            <td>2021-01-10</td>
+                            <td>106.12.183.44/1000Mbps</td>
+                            <td>192.168.0.19</td>
+                            <td>4核/4GB/40GB/密集计算型ic3</td>
+                            <td class="form-inline" style="width:160px">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                    href="{:url('index/Cloudserver/clientarea')}">管理产品</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div>instance-bfdm0hja</div>
+                                <div>i-tbyXsgVK</div>
+                            </td>
+                            <td>默认项目 :</td>
+                            <td class="text-warning"><i class="iconfont icon-dian"></i>重启中</td>
+                            <td>预付费</td>
+                            <td>2021-01-10</td>
+                            <td>106.12.183.44/1000Mbps</td>
+                            <td>192.168.0.19</td>
+                            <td>4核/4GB/40GB/密集计算型ic3</td>
+                            <td class="form-inline" style="width:160px">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                    href="{:url('index/Cloudserver/clientarea')}">管理产品</a>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between pt-3 pl-3">
+            <ul class="mr-auto"></ul>
+            <div class="pagination mb-0"> {$list->render()} </div>
+        </div>
+    </div>
+</div>
+<style>
+    .custom-control-label::before {
+        position: absolute;
+        top: 0rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        pointer-events: none;
+        content: "";
+        background-color: #fff;
+        border: #adb5bd solid 1px;
+    }
+
+    .custom-control-label::after {
+        position: absolute;
+        top: 0rem;
+        left: -1.5rem;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 50% 50%;
+    }
+
+    .success {
+        color: green;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .warning {
+        color: yellow;
+    }
+</style> {/block} {block name='js'} <script>
+</script> {/block}

@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeOstype extends Model
 {
-   
+  protected $name = "Ostype";
+
 }

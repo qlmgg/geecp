@@ -7,9 +7,11 @@ use Think\Db;
  */
 class GeeWebroute extends Model
 {
+	protected $name = "Webroute";
+
   public function getProTypeAttr($var,$data)
   {
-    $title = Db::name('gee_product_type')->where('id = '.$data['is_pro'])->find()['title'];
+    $title = Db::name('product_type')->where('id = '.$data['is_pro'])->find()['title'];
     return $title?$title:'无';
   }
 }

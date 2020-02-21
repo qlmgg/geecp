@@ -13,13 +13,14 @@ use app\admin\model\GeeServer; // 物理服务器表
 use app\admin\model\GeeServerAdded; // 物理服务器增值服务组表
 use app\admin\model\GeeServerAddedItems; // 物理服务器增值服务子项表
 use app\admin\model\GeeMsgmodel; // 邮件模板表
-use app\admin\model\GeeAddons; // 
-use app\admin\model\GeeUser; // 
+use app\admin\model\GeeAddons; //
+use app\admin\model\GeeUser; //
 use app\admin\model\GeeVps; //vps表
 use app\index\model\GeeBilling; //vps表
 use app\index\model\GeeDomain; //域名表
 use app\index\model\GeeDomainPrice; //域名价格表
 use app\admin\model\GeeDomainContact; //域名模板表
+use app\index\model\GeeWebroute; //域名表
 
 use think\Db;
 
@@ -123,7 +124,7 @@ class Service extends Common
     	];
       $server = new GeeServer();
       $log = new GeeLog();
-      
+
       if(!$post['ip'] || !$post['intranetip'] || !$post['username'] || !$post['password']){
     		$ret['status'] = 422;
     		$ret['msg'] = '请先确认服务器的IP/用户名/密码是否填写!';
@@ -155,7 +156,7 @@ class Service extends Common
       $class = new GeeProductClass();
       $classlist = $class->order('id')->select();
       $this->assign('classlist',$classlist);
-      
+
     	if($_GET['id']){
     		$id = $_GET['id'];
     		$productInfo = $product->where('id = '.$id)->find();
@@ -259,7 +260,7 @@ class Service extends Common
       }
       if(!empty($data['plug'])){
         $conf = $plug->where('id',$data['plug'])->find();
-        $config = json_decode($conf['config'],true); 
+        $config = json_decode($conf['config'],true);
         foreach($config as $k=>$v){
           $saveConfig[$k] =  $data[$k];
           unset($data[$k]);
@@ -498,7 +499,7 @@ class Service extends Common
             return json_encode($ret);
         }
       }
-      
+
       $data['is_pro'] = explode(',',$data['is_pro']);
       foreach($data['is_pro'] as $k=>$v){
         $route->where('id = '.$v)->update(['is_pro'=>$id]);
@@ -706,7 +707,7 @@ class Service extends Common
     	$this->assign('list',$list);
       return $this->fetch('Server/vps');
     }
-    
+
     /**
      * 续费VPS
      */
@@ -792,14 +793,14 @@ class Service extends Common
         $str = $v['price'];
         //中文标点
         $char = ",。、！？：；﹑•＂…‘’“”〝〞∕¦‖—　〈〉﹞﹝「」‹›〖〗】【»«』『〕〔》《﹐﹕︰﹔！¡？¿﹖﹌﹏﹋＇´ˊˋ―﹫︳︴¯＿￣﹢﹦﹤‐­˜﹟﹩﹠﹪﹡﹨﹍﹉﹎﹊ˇ︵︶︷︸︹︿﹀︺︽︾ˉ﹁﹂﹃﹄︻︼（）";
-        
+
         $pattern = array(
             '/['.$char.']/u', //中文标点符号
             '/[ ]{2,}/'
         );
       }
       $order_number = date('Ymdhis', time()) . rand(10000, 99999);
-      
+
       $pcConfig['order_number'] = $order_number;
       $pcConfig['config'] = json_encode([
         '_create_putData' => $putData,
@@ -819,7 +820,7 @@ class Service extends Common
             $putData['function'] = $configs['_create_putData']['function'];
         }
         $res = $plug->$func($putData);
-        
+
     		if($res){
     			$saveInfo = [
             'content' => $this->_adminInfo['name'].' 续费了 用户 '.$data['user'].' 的VPS主机 '.$data['name'],
@@ -929,7 +930,7 @@ class Service extends Common
       return $res;
       // return json_encode($res);
     }
-    
+
     public function domainprice(){
       $dp = new GeeDomainPrice();
       $pro = new GeeProduct();

@@ -6,6 +6,9 @@ use think\Controller;
 use app\admin\model\GeeLog; // 日志表
 use app\admin\model\GeeVps; // 用户vps表
 use addons\vps\vps; // 调用vps插件
+use app\admin\model\GeeVhostConfig; //vps表
+use app\admin\model\GeeVhostGroup; //vps表
+use app\admin\model\GeeVhost; //vps表
 
 class Vpss extends Common
 {
@@ -113,7 +116,7 @@ class Vpss extends Common
             $ret['msg'] = '三年提交有误！';
             return json_encode($ret);
         }
-	
+
     	if(isset($id) && !empty($id)){
     		$w['id'] = $id;
     		$vhostres = $vhost->save($data,$w);

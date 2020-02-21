@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeEmailconfig extends Model
 {
-	
+  protected $name = "Emailconfig";
+
 }

@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeAddons extends Model
 {
-	
+  protected $name = "Addons";
+
 }

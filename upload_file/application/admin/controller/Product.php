@@ -65,15 +65,18 @@ class Product extends Common
           $nowPlugConfig = json_decode($nowPlugConfig,true);
           $html = '';
           foreach($nowPlugConfig as $k=>$v){
+            // dump($v);
+            // dump($nowConfig);
+
             switch($v['type']){
               case 'text':
-                  $html .= '<div class="form-group"><label for="'.$k.'" class="col-sm-2 control-label">'.$k.'</label><div class="col-sm-10"><input type="'.$v['type'].'" class="form-control" id="'.$k.'" name="'.$k.'" placeholder="请输入'.$k.'" value="'.$nowConfig[$k].'" autocomplete="off"></div></div>';
+                  $html .= '<div class="form-group"><label for="'.$k.'" class="col-sm-2 control-label">'.($v['title']?$v['title']:$k).'</label><div class="col-sm-10"><input type="'.$v['type'].'" class="form-control" id="'.$k.'" name="'.$k.'" placeholder="'.($v['place']?$v['place']:'请输入'.($v['title']?$v['title']:$k)).'" value="'.$nowConfig[$k].'" autocomplete="off"></div></div>';
                   break;
               case 'password':
-                  $html .= '<div class="form-group"><label for="'.$k.'" class="col-sm-2 control-label">'.$k.'</label><div class="col-sm-10"><input type="'.$v['type'].'" class="form-control" id="'.$k.'" name="'.$k.'" placeholder="请输入'.$k.'" value="'.$nowConfig[$k].'" autocomplete="off"></div></div>';
+                  $html .= '<div class="form-group"><label for="'.$k.'" class="col-sm-2 control-label">'.($v['title']?$v['title']:$k).'</label><div class="col-sm-10"><input type="'.$v['type'].'" class="form-control" id="'.$k.'" name="'.$k.'" placeholder="'.($v['place']?$v['place']:'请输入'.($v['title']?$v['title']:$k)).'" value="'.$nowConfig[$k].'" autocomplete="off"></div></div>';
                   break;
               case 'textarea':
-                  $html .= '<div class="form-group"><label for="'.$k.'" class="col-sm-2 control-label">'.$k.'</label><div class="col-sm-10"><textarea name="'.$k.'" id="'.$k.'" class="form-control" cols="30" rows="10" placeholder="请输入'.$k.'">'.$nowConfig[$k].'</textarea></div></div>';
+                  $html .= '<div class="form-group"><label for="'.$k.'" class="col-sm-2 control-label">'.($v['title']?$v['title']:$k).'</label><div class="col-sm-10"><textarea name="'.$k.'" id="'.$k.'" class="form-control" cols="30" rows="10" placeholder="'.($v['place']?$v['place']:'请输入'.($v['title']?$v['title']:$k)).'">'.$nowConfig[$k].'</textarea></div></div>';
                   break;
             }
           }
@@ -118,8 +121,9 @@ class Product extends Common
     	// 	$ret['status'] = 422;
     	// 	$ret['msg'] = '邮件模板ID提交有误！';
     	// 	return json_encode($ret);
-    	// }
-    	if($data['type'] != '5'){
+      // }
+      // dump($data['type']);
+    	if($data['type'] != '5' && $data['type'] != '9'){
         if(!isset($data['month']) || empty($data['month'])){
           $ret['status'] = 422;
           $ret['msg'] = '月价格提交有误！';

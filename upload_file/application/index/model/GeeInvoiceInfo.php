@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeInvoiceInfo extends Model
 {
-   
+  protected $name = "InvoiceInfo";
+
 }

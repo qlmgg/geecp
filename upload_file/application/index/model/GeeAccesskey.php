@@ -8,5 +8,6 @@ use think\Model;
  */
 class GeeAccesskey extends Model
 {
-  
+  protected $name = "Accesskey";
+
 }

@@ -9,6 +9,7 @@ use app\index\model\GeeUser; // 用户表
  */
 class GeeInvoice extends Model
 {
+    protected $name = "Invoice";
 
     //申请用户
     public function getUsernameAttr($var, $data)

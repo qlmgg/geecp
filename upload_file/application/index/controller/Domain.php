@@ -212,7 +212,7 @@ class Domain extends Common
     {
         $d = new GeeDomain();
         $dp = new GeeDomainPrice();
-        $this->assign('plist', $plist);
+        // $this->assign('plist', $plist);
         return $this->fetch('Domain/recharge');
     }
     /**
@@ -303,7 +303,7 @@ class Domain extends Common
         ];
         // dump($putData);
         $info = $plug->domain($putData);
-        $info = json_decode($dinfo, true);
+        $info = json_decode($info, true);
         // dump($info);
         $d->where('domainname = "' . $p['domain'] . '"')->update(['newstas' => $p['newstas']]);
         return json_encode($ret);
@@ -394,7 +394,7 @@ class Domain extends Common
         ];
         // dump($putData);
         $info = $plug->domain($putData);
-        $info = json_decode($dinfo, true);
+        $info = json_decode($info, true);
 
         return json_encode($ret);
     }
@@ -902,7 +902,7 @@ class Domain extends Common
      */
     public function vali_name($key, $val, $len, $func)
     {
-        if (!is_int($val) && !is_bool($va)) {
+        if (!is_int($val) && !is_bool($val)) {
             $w = '"' . $val . '"';
         }
         return $val;

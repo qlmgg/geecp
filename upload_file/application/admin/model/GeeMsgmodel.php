@@ -7,6 +7,7 @@ use think\Model;
  */
 class GeeMsgmodel extends Model
 {
+  protected $name = "Msgmodel";
 	// 模板状态
     public function getTempTypeAttr($var,$data)
     {

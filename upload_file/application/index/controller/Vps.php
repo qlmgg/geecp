@@ -16,19 +16,22 @@ class Vps extends Common
       $vps = new GeeVps();
       $addons = new GeeAddons();
       $plug= new \addons\vps\vps();
-      $way = $addons->where('`range` = "vps" and `status` = 2')->find();
-      //引入已启用的vps插件表
-      $putData = [
-        'function'=>'updateList',
-        'data'=>[
-          'user_id'=> session('_userInfo')['id'],
-          'action'=>'',
+      $way = $addons->where('`range` = "vps" and `status` = 2')->select();
+      foreach($way as $k=>$w){
+        //引入已启用的vps插件表
+        $putData = [
+          'function'=>'updateList',
+          'addons_id'=> $w['id'],
           'data'=>[
+            'user_id'=> session('_userInfo')['id'],
+            'action'=>'',
+            'data'=>[
+            ]
           ]
-        ]
-      ];
-      $plug->vps($putData);
-      $list = $vps->where('plug_name = "'.$way['name'].'" and user_id = '.session('_userInfo')['id'])->order('id desc')->paginate(10);
+        ];
+        $plug->vps($putData);
+      }
+      $list = $vps->where('user_id = '.session('_userInfo')['id'])->order('id desc')->paginate(10);
       foreach($list as $k=>$v){
           $item = Db::name($v['plug_type'])->where('id = '.$v['pro_id'])->find();
           if($item){
@@ -173,12 +176,15 @@ class Vps extends Common
       ];
       $_SESSION['_pro_info'] = $pinfo;
       // dump($_SESSION);
+      // dump($putData);
+      // dump($pinfo);
+      // return;
       $price = 0;
       foreach($_SESSION['_pro_info'] as $k=>$v){
         $str = $v['price'];
         //中文标点
         $char = ",。、！？：；﹑•＂…‘’“”〝〞∕¦‖—　〈〉﹞﹝「」‹›〖〗】【»«』『〕〔》《﹐﹕︰﹔！¡？¿﹖﹌﹏﹋＇´ˊˋ―﹫︳︴¯＿￣﹢﹦﹤‐­˜﹟﹩﹠﹪﹡﹨﹍﹉﹎﹊ˇ︵︶︷︸︹︿﹀︺︽︾ˉ﹁﹂﹃﹄︻︼（）";
-        
+
         $pattern = array(
             '/['.$char.']/u', //中文标点符号
             '/[ ]{2,}/'
@@ -188,7 +194,7 @@ class Vps extends Common
       }
       $number = $this->vali_name('number',rand_name(8),8,'rand_name');
       $order_number = date('Ymdhis', time()) . rand(10000, 99999);
-      
+
       $pcConfig['order_number'] = $order_number;
       $pcConfig['config'] = json_encode([
         '_create_putData' => $putData,
@@ -218,10 +224,10 @@ class Vps extends Common
      * 验证随机名称
      */
     public function vali_name($key,$val,$len,$func){
-      if(!is_int($val) && !is_bool($va)){
+      if(!is_int($val) && !is_bool($val)){
         $w = '"'.$val.'"';
       }
-      $has = db('gee_billing')->where('`'.$key.'` = '.$w)->find();
+      $has = db('billing')->where('`'.$key.'` = '.$w)->find();
       if($has){
         $vali = $this->vali_name($key,$func($len),$len,$func);
         return $vali;
@@ -340,7 +346,7 @@ class Vps extends Common
         $items = explode(',',$item['update_list']);
         $num = 0;
         foreach($items as $k=>$v){
-          $proitem = $pro->where('id = '.$v.' and group_id = '.$_POST['id'])->find();
+          $proitem = $pro->field('plug_config,update_list',true)->where('id = '.$v.' and group_id = '.$_POST['id'])->find();
           if($proitem){
             $proList[$num] = $proitem;
           } else {
@@ -351,7 +357,7 @@ class Vps extends Common
         // $proList=array_filter($proList);
         // $proList = $pro->where('group_id = '.$id)->select();
       } else {
-        $proList = $pro->where('group_id = '.$id)->select();
+        $proList = $pro->field('plug_config,update_list',true)->where('group_id = '.$id)->select();
       }
       return json_encode($proList);
     }
@@ -367,7 +373,7 @@ class Vps extends Common
     		'data'=> ''
       ];
       if($data['type'] != 'renew'){
-        
+
       }
       $item = $pro->where('id = '.$data['pro_id'])->find();
       $pro_id = json_decode($item['plug_config'],true)['product_id'];
@@ -425,7 +431,7 @@ class Vps extends Common
       } else {
         $lengthPrice = $item['month'] * 1;
       }
-      
+
       $ret['data'] = ['price'=>number_format($lengthPrice,2)];
       return json_encode($ret);
     }

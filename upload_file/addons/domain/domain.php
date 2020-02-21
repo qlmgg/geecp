@@ -43,8 +43,8 @@ class domain extends Addons
         //查询哪一个分类插件的状态为启用,并调用方法
         // $where['range']='domain';
         // $where['status']='2';
-        // $res=Db::name('gee_addons')->where($where)->find();
-        
+        // $res=Db::name('addons')->where($where)->find();
+
         if($data['way']){
             $way=$data['way'];
             $path = $way.'/controller/'.$way.'.php';

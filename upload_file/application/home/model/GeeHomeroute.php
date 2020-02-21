@@ -7,5 +7,6 @@ use Think\Db;
  */
 class GeeHomeroute extends Model
 {
+	protected $name = "Homeroute";
 
 }

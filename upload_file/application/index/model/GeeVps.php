@@ -8,7 +8,8 @@ use app\admin\model\GeeProduct; // 用户组表
  */
 class GeeVps extends Model
 {
-	
+    protected $name = 'Vps';
+
 	//用户类型
     public function getProductTypeAttr($var,$data)
     {

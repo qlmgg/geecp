@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeVhostConfig extends Model
 {
-	
+  protected $name = "VhostConfig";
+
 }

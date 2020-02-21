@@ -8,10 +8,11 @@ use app\admin\model\GeeStaffgroup; // 用户组表
  */
 class GeeAdminuser extends Model
 {
+  protected $name = "Adminuser";
 	//员工组
     public function getStaffGroupAttr($var,$data)
     {
-        return db('gee_staffgroup')->where('id = '.$data['group_id'])->find()['name']?db('gee_staffgroup')->where('id = '.$data['group_id'])->find()['name']:'暂无分组';
+        return db('staffgroup')->where('id = '.$data['group_id'])->find()['name']?db('staffgroup')->where('id = '.$data['group_id'])->find()['name']:'暂无分组';
     }
 	//员工状态
     public function getStaffStatusAttr($var,$data)

@@ -7,6 +7,7 @@ use app\index\model\GeeProductClass; //产品分类表
  */
 class GeeProduct extends Model
 {
+  protected $name = "Product";
 	//用户状态
   public function getTypeClassAttr($var,$data)
   {

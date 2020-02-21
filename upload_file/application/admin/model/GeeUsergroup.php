@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeUsergroup extends Model
 {
-	
+  protected $name = "Usergroup";
+
 }

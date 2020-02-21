@@ -34,6 +34,15 @@ class Server extends Common
         $defualtOs = $ostype->where('group_id = ' . $oslist[0]['id'])->select();
         $this->assign('ostypelist', $defualtOs);
 
+
+        // $data['timeStamp'] = time();
+        // $data['randomStr'] = 'Ab1Anv';
+        // $data['token'] = 'lcmQ3wiK03mdoBhK2rKwtUbd';    //token 自行配置的令牌，不清楚可看概述章节。
+        // sort($data,SORT_STRING);
+        // $str = implode($data);
+        // $signature = md5($str);
+        // $signature = strtoupper($signature);    //最终得到加密后全大写的签名
+        // $this->assign('test', 'http://182.61.165.199/api/virtual?time='. time().'&random=Ab1Anv&signature='.$signature);
         return $this->fetch('Server/index');
     }
     /**
@@ -127,9 +136,9 @@ class Server extends Common
             $this->assign('group', $groupList);
 
             if ($_GET['id']) {
-                foreach ($items as $k => $v) {
-                    $defualtPro[$k] = $pro->where('id = ' . $v . ' and group_id = ' . $groupList[0]['id'])->find();
-                }
+                // foreach ($items as $k => $v) {
+                //     $defualtPro[$k] = $pro->where('id = ' . $v . ' and group_id = ' . $groupList[0]['id'])->find();
+                // }
                 // $defualtPro = $pro->where('group_id = '.$groupList[0]['id'])->select();
             } else {
                 $defualtPro = $pro->where('group_id = ' . $groupList[0]['id'])->select();
@@ -267,7 +276,7 @@ class Server extends Common
             $items = explode(',', $item['update_list']);
             $num = 0;
             foreach ($items as $k => $v) {
-                $proitem = $pro->where('id = ' . $v . ' and group_id = ' . $_POST['id'])->find();
+                $proitem = $pro->field('plug_config,update_list',true)->where('id = ' . $v . ' and group_id = ' . $_POST['id'])->find();
                 if ($proitem) {
                     $proList[$num] = $proitem;
                 } else {
@@ -276,7 +285,7 @@ class Server extends Common
                 $num++;
             }
         } else {
-            $proList = $pro->where('group_id = ' . $id)->select();
+            $proList = $pro->field('plug_config,update_list',true)->where('group_id = ' . $id)->select();
         }
         return json_encode($proList);
     }
@@ -376,10 +385,10 @@ class Server extends Common
      */
     public function vali_name($key, $val, $len, $func)
     {
-        if (!is_int($val) && !is_bool($va)) {
+        if (!is_int($val) && !is_bool($val)) {
             $w = '"' . $val . '"';
         }
-        $has = db('gee_billing')->where('`' . $key . '` = ' . $w)->find();
+        $has = db('billing')->where('`' . $key . '` = ' . $w)->find();
         if ($has) {
             $vali = $this->vali_name($key, $func($len), $len, $func);
             return $vali;

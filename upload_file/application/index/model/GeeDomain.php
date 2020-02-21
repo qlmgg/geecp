@@ -11,7 +11,8 @@ use think\Db;
  */
 class GeeDomain extends Model
 {
-    //状态
+  protected $name = "Domain";
+  //状态
     public function getRStateAttr($var, $data)
     {
       $type = $data['runstate']?$data['runstate']:$data['r_state'];
@@ -87,7 +88,7 @@ class GeeDomain extends Model
     }
     public function getUserAttr($var, $data)
     {
-        $info = Db::name('gee_user')->where('id = '.$data['user_id'])->find();
+        $info = Db::name('user')->where('id = '.$data['user_id'])->find();
         return $info['name'];
     }
 }

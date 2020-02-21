@@ -62,8 +62,22 @@
                   <td>预付费</td>
                   <td>{$v.class}</td>
                   <td>
-                    <?php $describe = explode("|", $v['config']); ?> {foreach name="describe" item="var"} {$var}<br>
-                    {/foreach}
+                    <?php $describe = explode("|", $v['config']); ?> 
+                    {if $_SESSION['_create_putData']['class'] == 'cloudserver'}
+                      实例规格：{$describe['0']}<br>
+                      CPU：{$describe['1']} 核<br>
+                      内存：{$describe['2']} GB<br>
+                      处理器型号：{$describe['3']}<br>
+                      处理器主频：{$describe['4']} GHz<br>
+                      内网带宽：{$describe['5']} Gbps<br>
+                      网络收发包：{$describe['6']} PPS<br>
+                      CDS云磁盘：{$_SESSION['_create_putData']['data']['data']['data_disk_size']} GB<br>
+                      带宽峰值：{$_SESSION['_create_putData']['data']['data']['net_out']} Mbps<br>
+                    {else /}
+                      {foreach name="describe" item="var"} 
+                      {$var}<br>
+                      {/foreach}
+                    {/if}
                     <?php 
                       if($v['added']){
                         $addeds = json_decode($v['added'],true);

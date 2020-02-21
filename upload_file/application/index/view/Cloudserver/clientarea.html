@@ -1,0 +1,683 @@
+{extend name='index@Common/index' /} {block name='content'} <div class="p-3 row">
+    <div class="col-3 mtable">
+        <div class="card bg-primary">
+            <div class="card-body fs-12  px-0 pl-1 py-2">
+                <div class="cont-box operating d-flex text-center">
+                    <a href="javascript:;" class="text-white flex-fill" data-toggle="modal" data-target="#start">
+                        <i class="iconfont icon-open"></i><span> 开机</span>
+                    </a>
+                    <a href="javascript:;" class="text-white flex-fill" data-toggle="modal" data-target="#restart">
+                        <i class="iconfont icon-zhongzhi"></i><span> 重启</span>
+                    </a>
+                    <a href="javascript:;" class="text-white flex-fill" data-toggle="modal" data-target="#mclose">
+                        <i class="iconfont icon-error"></i><span> 关机</span>
+                    </a>
+                    <a href="javascript:;" class="text-white flex-fill" data-toggle="modal" data-target="#changepass">
+                        <i class="iconfont icon-quanxianyuechi"></i><span> 修改密码</span>
+                    </a>
+                    <a href="{:url('index/Cloudserver/tovnc',['name'=>$csinfo['name']])}" target="_blank"
+                        class="text-white flex-fill">
+                        <i class="iconfont icon-diannao1"></i><span> VNC 控制台</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-body fs-12">
+                <div class="cont-box">
+                    <h4 class="title">基本属性</h4>
+                    <div>
+                        <table class="table table-borderless  border-0">
+                            <tbody>
+                                <tr>
+                                    <th class="px-0 text-left">主机名称</th>
+                                    <td>{$csinfo.title}/{$csinfo.name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">所属区域</th>
+                                    <td>{$csinfo.info.area_name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">所在节点</th>
+                                    <td>{$csinfo.info.node_name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">操作系统</th>
+                                    <td>{$csinfo.info.template_name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">主机状态</th>
+                                    <td class="{$csinfo['status'] == '1'?'text-success':'text-muted'}"> <i
+                                            class="iconfont icon-dian"></i> {$csinfo.statuss}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">系统密码</th>
+                                    <td><span class="passw mr-2">••••••••</span>
+                                        <i class="iconfont icon-browse getpassw" data-toggle="tooltip"
+                                            data-placement="bottom" title="查看密码"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-body fs-12">
+                <div class="cont-box">
+                    <h4 class="title">配置信息</h4>
+                    <div>
+                        <table class="table table-borderless border-0">
+                            <tbody>
+                                <tr>
+                                    <th class="px-0 text-left">核心数量</th>
+                                    <td>{$csinfo.info.core} 核心</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">实际内存</th>
+                                    <td>{$csinfo.info.memory} MB</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">数据磁盘</th>
+                                    <td>{$csinfo.info.data_disk_size} GB</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">安全策略</th>
+                                    <td>{$csinfo.info.bind_security_group.bind_security_group.name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">公网地址</th>
+                                    <td>{$csinfo.info.ip_list[0]['ip']}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">MAC地址</th>
+                                    <td>{$csinfo.info.mac}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-body fs-12">
+                <div class="cont-box">
+                    <h4 class="title">计费信息</h4>
+                    <div>
+                        <table class="table table-borderless border-0">
+                            <tbody>
+                                <tr>
+                                    <th class="px-0 text-left">注册日期</th>
+                                    <td>{$csinfo.create_time}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">下次付款</th>
+                                    <td>{$csinfo.end_time|date='Y-m-d H:i:s',###}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-0 text-left">账单周期</th>
+                                    <td>月付</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="card">
+            <ul class="nav nav-tabs p-3 " id="myTab1">
+                <li><a href="#cms" data-toggle="tab"><i class="iconfont icon-cms"></i> 监控</a></li>
+                <li><a href="#power" data-toggle="tab"><i class="iconfont icon-power"></i> 电源</a></li>
+                <li><a href="#zhongzhi" data-toggle="tab"><i class="iconfont icon-zhongzhi"></i> 重装</a></li>
+                <li><a href="#iconset" data-toggle="tab"><i class="iconfont icon-iconset0401"></i> 网络</a></li>
+                <li><a href="#zhuanji" data-toggle="tab"><i class="iconfont icon-zhuanjiguangpan"></i> 光驱</a></li>
+                <li><a href="#kuaizhao" data-toggle="tab"><i class="iconfont icon-kuaizhaobeifenico"></i> 快照</a></li>
+                <li><a href="#hss" data-toggle="tab"><i class="iconfont icon-hss"></i> 备份</a></li>
+                <!-- <li><a href="#liti" data-toggle="tab"><i class="iconfont icon-litihuaqiyejianquanfanghu"></i> 策略</a></li> -->
+            </ul>
+            <div class="card-body fs-14">
+                <div class="cont-box">
+                    <div class="tab-content">
+                        <!-- 监控 -->
+                        <div class="tab-pane fade" id="cms"> {include file='index@cloudserver/monitor' } </div>
+                        <div class="tab-pane fade" id="power"> {include file='index@cloudserver/power' } </div>
+                        <div class="tab-pane fade" id="zhongzhi"> {include file='index@cloudserver/restart' } </div>
+                        <div class="tab-pane fade" id="iconset"> {include file='index@cloudserver/network' } </div>
+                        <div class="tab-pane fade" id="zhuanji"> {include file='index@cloudserver/drive' } </div>
+                        <div class="tab-pane fade" id="kuaizhao"> {include file='index@cloudserver/kuaizhao' } </div>
+                        <div class="tab-pane fade" id="hss"> {include file='index@cloudserver/backups' } </div>
+                        <div class="tab-pane fade" id="liti"> {include file='index@cloudserver/security' } </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .list-group-item {
+        border: 0 !important;
+        padding: 0px;
+        float: left !important;
+    }
+
+    .list-group-item a {
+        font-weight: bold;
+    }
+
+    .operating a {
+        /* font-weight: bold; */
+        font-size: 12px;
+    }
+
+    .operating .iconfont {
+        font-size: 14px;
+    }
+
+    .mtable th,
+    .mtable td {
+        padding: .5rem 0 !important;
+    }
+
+    .mtable th {
+        width: 70px !important;
+    }
+
+    .bt-1 {
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
+    }
+
+    .passw {
+        padding: 2px 4px;
+        font-size: 16px;
+        color: #c7254e;
+        background-color: #f9f2f4;
+        border-radius: 4px;
+    }
+
+    #myTab1 a {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    #myTab1 .iconfont {
+        font-size: 18px;
+        /* vertical-align: middle; */
+        font-weight: 100;
+    }
+
+    #myTab1 .active {
+        color: #2ea1f8;
+    }
+
+    #cms {
+        width: 100%;
+    }
+
+    #cms .card-deck .card,
+    #power .card-deck .card {
+        background-color: #f8fbfd !important;
+        border: 0;
+    }
+
+    #cms .card-deck .lable {
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    #cms .card-deck .labletext {
+        font-size: 25px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    #power .card-deck .mtitle {
+        font-size: 18px;
+    }
+
+    #power .card-deck .iconfont {
+        font-size: 20px;
+    }
+
+    #power .card-deck .mdesc {
+        color: #888;
+        font-size: 0.875rem;
+    }
+
+    #power .card-deck .btn {
+        width: 80%;
+        color: #fff;
+    }
+</style> {/block} {block name='js'} <div class="modal fade start" id="start" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">开机</h5>
+            </div>
+            <div class="modal-body">
+                <p>确定对选中的云主机进行 开机？</p>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="runAction('boot', '开机')">确定</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade mclose" id="mclose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">关机</h5>
+            </div>
+            <div class="modal-body">
+                <p>确定对选中的云主机进行 关机？</p>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary btn-sm"
+                        onclick="runAction('shutdown', '关机')">确定</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade restart" id="restart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">重启</h5>
+            </div>
+            <div class="modal-body">
+                <p>确定对选中的云主机进行 重启？</p>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="runAction('reboot','重启')">确定</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade changepass" id="changepass" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">修改密码</h5>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label text-left" style="font-size: 12px;">系统密码</label>
+                        <div class="col-8">
+                          <input type="password" name="sys_pass" class="form-control form-control-sm" placeholder="">
+                        </div>
+                      </div>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary btn-sm"
+                        onclick="changepass()">确定</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        $('#myTab1 a:first').tab('show')
+    })
+    $('.getpassw').click(function () {
+        if ($('.passw').html() == '••••••••') {
+            $('.passw').html('{$csinfo.info.sys_pwd}')
+            $('.passw').css('font-size', '14px')
+        } else {
+            $('.passw').html('••••••••')
+        }
+    })
+    function changepass(){
+        let spass = $('#changepass [name="sys_pass"]').val();
+        ajax('{:url("index/Cloudserver/changepass",["name"=>$csinfo["name"]])}&sys_pass=' + spass).then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg)
+            }
+            $('.modal').modal('hide')
+        })
+    }
+</script>
+<script>
+    function runAction(action, title) {
+        console.log(action)
+        // return;
+        ajax('{:url("index/Cloudserver/virtual_power",["name"=>$csinfo["name"]])}&type=' + action).then(e => {
+            if (e.status == 200) {
+                // window.location.reload()
+            } else {
+                alert(e.msg)
+            }
+            $('.modal').modal('hide')
+        })
+    }
+</script>
+<script>
+    let _time = []
+    _cpu = [],
+        _net = {
+            in : [],
+            out: []
+        },
+        _disk = {
+            sread: [],
+            swrite: [],
+            dread: [],
+            dwrite: []
+        },
+        report = [];
+    $(function () {
+        getmonitor();
+
+        function getmonitor() {
+            ajax('{:url("index/Cloudserver/getmontoring",["name"=>$csinfo["name"]])}').then(e => {
+                if (e.status == 200) {
+                    let _d = e.data.data;
+                    _d.map(v => {
+                        if (_time.indexOf(changeDatetime(v.CreatedAt)) < 0) {
+                            _time.push(changeDatetime(v.CreatedAt))
+                            _cpu.push(JSON.parse(v.Cpu).value);
+                            _net.in.push(JSON.parse(v.Network).in);
+                            _net.out.push(JSON.parse(v.Network).out);
+                            _disk.sread.push(JSON.parse(v.Disk).vda[0]);
+                            _disk.swrite.push(JSON.parse(v.Disk).vda[1]);
+                            _disk.dread.push(JSON.parse(v.Disk).vdb[0]);
+                            _disk.dwrite.push(JSON.parse(v.Disk).vdb[1]);
+                        }
+                    })
+                    cpu_chart(_time, _cpu)
+                    grid_chart(_time, _net)
+                    disk_chart(_time, _disk)
+                    $('._netin').text(_net.in[_net.in.length - 1] + 'Kb')
+                    $('._netout').text(_net.in[_net.out.length - 1] + 'Kb')
+                } else {
+                    // alert(e.msg);
+                }
+            })
+        }
+        setInterval(function () {
+            getmonitor()
+        }, 60000);
+
+        function cpu_chart(date, data) {
+            report[0] = echarts.init(document.getElementById('cpu_chart'), ETheme.ligntBlue);
+            option = {
+                legend: {
+                    data: ['CPU']
+                },
+                grid: {
+                    top: 30,
+                    left: 20,
+                    right: 35,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter: (e, i) => {
+                        return `${e[0].axisValue} <br />  CPU负载：${e[0].value} %`;
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: date,
+                },
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    axisLabel: {
+                        show: true,
+                        interval: 'auto',
+                        formatter: '{value} %'
+                    },
+                    show: true
+                },
+                series: [{
+                    name: 'CPU',
+                    type: 'line',
+                    areaStyle: {},
+                    data: data
+                }]
+            };
+            report[0].setOption(option);
+        }
+
+        function grid_chart(date, data) {
+            report[1] = echarts.init(document.getElementById('grid_chart'), ETheme.ligntBlue);
+            option = {
+                legend: {
+                    data: ['上行', '下行']
+                },
+                grid: {
+                    top: 30,
+                    left: 20,
+                    right: 35,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter: (e, i) => {
+                        return `${e[0].axisValue} <br /> 上行：${e[0].value} kb <br />下行：${e[1].value} kb`;
+                    }
+                },
+                xAxis: [{
+                    type: 'category',
+                    boundaryGap: false,
+                    data: date,
+                }, {
+                    type: 'category',
+                }],
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '上行',
+                    type: 'line',
+                    stack: '带宽',
+                    data: data.in
+                }, {
+                    name: '下行',
+                    type: 'line',
+                    stack: '带宽',
+                    data: data.out
+                }]
+            };
+            report[1].setOption(option);
+        }
+
+        function disk_chart(date, data) {
+            report[2] = echarts.init(document.getElementById('disk_chart'), ETheme.ligntBlue);
+            option = {
+                legend: {
+                    data: ['系统盘 读', '系统盘 写', '数据盘 读', '数据盘 写']
+                },
+                grid: {
+                    top: 30,
+                    left: 20,
+                    right: 35,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter: (e, i) => {
+                        return `${e[0].axisValue} <br /> 系统盘 读：${e[0].value} kb<br />系统盘 写：${e[1].value} kb<br />数据盘 读：${e[2].value} kb<br />数据盘 写：${e[3].value} kb`;
+                    }
+                },
+                xAxis: [{
+                    type: 'category',
+                    boundaryGap: false,
+                    data: date,
+                }, {
+                    type: 'category',
+                }],
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '系统盘 读',
+                    type: 'line',
+                    stack: '磁盘',
+                    areaStyle: {},
+                    data: data.sread
+                }, {
+                    name: '系统盘 写',
+                    type: 'line',
+                    stack: '磁盘',
+                    smooth: true,
+                    data: data.swrite
+                }, {
+                    name: '数据盘 读',
+                    type: 'line',
+                    stack: '磁盘',
+                    smooth: true,
+                    data: data.dread
+                }, {
+                    name: '数据盘 写',
+                    type: 'line',
+                    smooth: true,
+                    stack: '磁盘',
+                    data: data.dwrite
+                }]
+            };
+            report[2].setOption(option);
+        }
+    })
+</script>
+<script>
+    $('.setstyem .card').click(function () {
+        $(this).addClass('active');
+        $(this).siblings().removeClass('active')
+        $('.nowos').text($('.setstyem .card.active .custom-select option:selected').text());
+    })
+    $('.custom-select').change(function () {
+        $('.nowos').text($('.setstyem .card.active .custom-select option:selected').text());
+    })
+
+    function toresetos() {
+        if (confirm('确认要对该系统进行重装吗？')) {
+            ajax('{:url("index/Cloudserver/toresetos",["name"=>$csinfo["name"]])}&osid=' + $(
+                '.setstyem .card.active .custom-select option:selected').val()).then(e => {
+                if (e.status == 200) {
+                    window.location.reload()
+                } else {
+                    alert(e.msg);
+                }
+            })
+        }
+    }
+</script>
+<script>
+    function create_snapshot() {
+        ajax('{:url("index/Cloudserver/createsnapshot",["name"=>$csinfo["name"]])}').then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg);
+            }
+            $('.model').model('hide');
+        })
+    }
+
+    function set_kuaizhao() {
+        let sid = $('#set_kuaizhao').data('id');
+        ajax('{:url("index/Cloudserver/setsnapshot",["name"=>$csinfo["name"]])}&snapshotid=' + sid).then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg);
+            }
+            $('.model').model('hide');
+        })
+    }
+
+    function delete_kuaizhao() {
+        let sid = $('#delete_kuaizhao').data('id');
+        ajax('{:url("index/Cloudserver/delsnapshot",["name"=>$csinfo["name"]])}&snapshotid=' + sid).then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg);
+            }
+            $('.model').model('hide');
+        })
+    }
+</script>
+<script>
+    function create_backups() {
+        ajax('{:url("index/Cloudserver/createbackups",["name"=>$csinfo["name"]])}').then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg);
+            }
+            $('.model').model('hide');
+        })
+    }
+
+    function set_backups() {
+        let sid = $('#set_backups').data('id');
+        ajax('{:url("index/Cloudserver/setbackups",["name"=>$csinfo["name"]])}&backupsid=' + sid).then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg);
+            }
+            $('.model').model('hide');
+        })
+    }
+
+    function delete_backups() {
+        let sid = $('#delete_backups').data('id');
+        ajax('{:url("index/Cloudserver/delbackups",["name"=>$csinfo["name"]])}&backupsid=' + sid).then(e => {
+            if (e.status == 200) {
+                window.location.reload()
+            } else {
+                alert(e.msg);
+            }
+            $('.model').model('hide');
+        })
+    }
+</script>
+<script>
+    function copyText(obj) {
+        var rng = document.body.createTextRange();
+        rng.moveToElementText(obj);
+        rng.scrollIntoView();
+        rng.select();
+        rng.execCommand("Copy");
+        rng.collapse(false);
+        alert("复制成功!");
+    }
+</script> {/block}

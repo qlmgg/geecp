@@ -21,12 +21,12 @@ class vhost extends Addons
         //查询哪一个分类插件的状态为启用,并调用方法
         $where['range']='vhost';
         $where['status']='2';
-        $res=Db::name('gee_addons')->where($where)->find();
+        $res=Db::name('addons')->where($where)->find();
         if($res){
             $way=$res['name'];
             $path = $way.'/controller/'.$way.'.php';
             include_once $path;
-            
+
             $className = '\addons\vhost\\'.$way.'\controller\\'.$way;
             $result= new $className();
             $function=$data['function'];

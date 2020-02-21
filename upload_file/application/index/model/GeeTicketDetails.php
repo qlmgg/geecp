@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeTicketDetails extends Model
 {
-	
+  protected $name = 'TicketDetails';
+
 }

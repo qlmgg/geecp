@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeServerAddedItems extends Model
 {
-   
+  protected $name = 'ServerAddedItems';
+
 }

@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeDomain extends Model
 {
-	
+  protected $name = "Domain";
+
 }

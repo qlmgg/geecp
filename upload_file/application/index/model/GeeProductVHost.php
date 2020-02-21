@@ -10,9 +10,7 @@ class GeeProductVHost extends Model
 
     private $productType = 1;//虚拟主机默认为1,详情观看数据库注释
 
-    protected $name = 'GeeProductVHost';
-
-    protected $table = 'gee_product';
+    protected $name = 'ProductVHost';
 
     protected $autoWriteTimestamp = true;
 
@@ -45,14 +43,14 @@ class GeeProductVHost extends Model
         $group = new GeeProductGroup();
         $table = $group -> table;
         // DISTINCT(`gee_product_group`.`id`) AS 'id'
-        $data = $group 
+        $data = $group
                 -> field('DISTINCT(`' . $table . '`.`id`) AS \'id\'')
                 -> field('`' . $table . '`.`name`')
                 -> field('`' . $table . '`.`slogan`')
                 -> field('`' . $table . '`.`sort`')
                 -> order('sort', 'DESC')
                 -> join($this -> table, '`' . $this -> table . '`.`group_id` = `' . $table . '`.`id` AND `' . $this -> table . '`.`type` = ' . $this -> productType)
-                
+
                 -> select();
         return $data;
     }
@@ -74,20 +72,20 @@ class GeeProductVHost extends Model
         }
         $price = 0;
 
-        
+
 
         $threeYear = floor($len / 36);
-        
+
         $twoYears = floor($len % 36 / 24);
 
         $years = floor($len / 12) % 3 % 2;
-        
+
         $halfYear = floor($len / 6 % 2);
-        
+
         $quarter = floor($len / 3 % 2);
 
         $month = $len % 3;
-        
+
         $price = $data['triennium'] * $threeYear + $data['biennium'] * $twoYears + $data['years'] * $years + $data['semestrale'] * $halfYear + $data['quarter'] * $quarter + $data['month'] * $month;
 
         $month = $len % 12;
@@ -104,7 +102,7 @@ class GeeProductVHost extends Model
         }
 
 
-        
+
         return [
             'price' => $price,
             'name' => $data['name'],

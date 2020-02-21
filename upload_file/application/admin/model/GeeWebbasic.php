@@ -7,5 +7,6 @@ use think\Model;
  */
 class GeeWebbasic extends Model
 {
-	
+	protected $name = "Webbasic";
+
 }

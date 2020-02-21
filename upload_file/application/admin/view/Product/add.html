@@ -45,7 +45,7 @@
               placeholder="请输入产品描述">{$info?$info['describe']:''}</textarea>
           </div>
         </div>
-        <div class="form-group form-update_list {$info?($info['type']!='8' && $info['type']!='5')?'':'hidden':''}">
+        <div class="form-group form-update_list {$info?($info['type']!='8' && $info['type']!='5' && $info['type']!='9')?'':'hidden':''}">
           <label for="update_list" class="col-sm-2 control-label" multiple>可选升级套餐</label>
           <div class="col-sm-10">
             <select name="update_list" id="update_list" class="form-control" multiple style="height: 200px;">
@@ -59,7 +59,7 @@
             <span class="help-block">按住 Ctrl+Click 选择</span>
           </div>
         </div>
-        <div class="form-group form-email_model {$info?($info['type']!='8' && $info['type']!='5')?'':'hidden':''}">
+        <div class="form-group form-email_model {$info?($info['type']!='8' && $info['type']!='5' && $info['type']!='9')?'':'hidden':''}">
           <label for="email_model" class="col-sm-2 control-label">邮件模板ID</label>
           <div class="col-sm-10">
             <select name="email_model" id="email_model" class="form-control">
@@ -208,11 +208,16 @@
     });
   });
   $('[name="type"]').change(function () {
+    console.log($(this).val())
     if ($(this).val() == '8') {
       $('.form-group.form-update_list,.form-group.form-email_model,.form-group.form-plug').addClass('hidden');
       $('.form-group.form-added').removeClass('hidden');
     } else if($(this).val() == '5'){
       $('.form-group.form-update_list,.form-group.form-email_model,.form-group.form-added,.form-group.form-month,.form-group.form-quarter,.form-group.form-semestrale,.form-group.form-years,.form-group.form-biennium,.form-group.form-triennium').addClass('hidden');
+    } else if($(this).val() == '1'){
+      $('.form-group.form-update_list,.form-group.form-email_model,.form-group.form-added,.form-group.form-month,.form-group.form-quarter,.form-group.form-semestrale,.form-group.form-years,.form-group.form-biennium,.form-group.form-triennium').addClass('hidden');
+    } else if($(this).val() == '9'){
+      $('.form-group.form-update_list,.form-group.form-email_model,.form-group.form-added').addClass('hidden');
     } else {
       $('.form-group').removeClass('hidden');
       $('.form-group.form-added').addClass('hidden');
@@ -228,17 +233,17 @@
           switch (data[i].type) {
             case 'text':
               html += `<div class="form-group">
-                                  <label for="${i}" class="col-sm-2 control-label">${i}</label>
+                                  <label for="${i}" class="col-sm-2 control-label">${data[i].title || i}</label>
                                   <div class="col-sm-10">
-                                      <input type="${data[i].type}" class="form-control" id="${i}" name="${i}" placeholder="请输入${i}" value="${data[i].value}" autocomplete="off">
+                                      <input type="${data[i].type}" class="form-control" id="${i}" name="${i}" placeholder="${data[i].place || '请输入'+(data[i].title || i)}" value="${data[i].value}" autocomplete="off">
                                   </div>
                               </div>`;
               break;
             case 'password':
               html += `<div class="form-group">
-                                  <label for="${i}" class="col-sm-2 control-label">${i}</label>
+                                  <label for="${i}" class="col-sm-2 control-label">${data[i].title || i}</label>
                                   <div class="col-sm-10">
-                                      <input type="${data[i].type}" class="form-control" id="${i}" name="${i}" placeholder="请输入${i}" value="${data[i].value}" autocomplete="off">
+                                      <input type="${data[i].type}" class="form-control" id="${i}" name="${i}" placeholder="${data[i].place || '请输入'+(data[i].title || i)}" value="${data[i].value}" autocomplete="off">
                                   </div>
                               </div>`;
               break;
@@ -248,7 +253,7 @@
                 opt += `<option value="${e.value}" ${e.sel?'selected':''}>${e.name}</option>`;
               });
               html += `<div class="form-group">
-                                  <label for="${i}" class="col-sm-2 control-label">${i}</label>
+                                  <label for="${i}" class="col-sm-2 control-label">${data[i].title || i}</label>
                                   <div class="col-sm-10">
                                     <select name="${i}" id="${i}" class="form-control">
                                       ${opt}
@@ -258,9 +263,9 @@
               break;
             case 'textarea':
               html += `<div class="form-group">
-                                  <label for="${i}" class="col-sm-2 control-label">${i}</label>
+                                  <label for="${i}" class="col-sm-2 control-label">${data[i].title || i}</label>
                                   <div class="col-sm-10">
-                                    <textarea name="${i}" id="${i}" class="form-control" cols="30" rows="10" placeholder="请输入${i}">${data[i].value}</textarea>
+                                    <textarea name="${i}" id="${i}" class="form-control" cols="30" rows="10" placeholder="${data[i].place || '请输入'+(data[i].title || i)}">${data[i].value}</textarea>
                                   </div>
                               </div>`;
               break;

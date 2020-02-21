@@ -1,5 +1,6 @@
 <?php
 namespace app\index\model;
+
 use think\Model;
 
 /**
@@ -7,14 +8,16 @@ use think\Model;
  */
 class GeeServer extends Model
 {
-  public function getIspassAttr($var,$data){
-    if($data['password']){
-      return '<a href="javascript:;" data-pass="">查看</a>';
-    } else {
-      return '';
+    protected $name = 'Server';
+    public function getIspassAttr($var, $data)
+    {
+        if ($data['password']) {
+            return '<a href="javascript:;" data-pass="">查看</a>';
+        } else {
+            return '';
+        }
     }
-  }
-	public function getStatussAttr($var, $data)
+    public function getStatussAttr($var, $data)
     {
         switch ($data['status']) {
             case '0':

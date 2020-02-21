@@ -1,18 +1,20 @@
 <?php
 namespace app\index\controller;
-
-use app\admin\model\GeeAddons; // 前置操作
-use app\index\controller\Common; //插件表
-use app\index\model\GeeBilling; //订单表
-use app\index\model\GeeDomain; //工单表
-use app\index\model\GeeServer; //域名表
-use app\index\model\GeeTicket; //vps表
-use app\index\model\GeeVps;
+use app\index\controller\Common; //前置操作
+use app\admin\model\GeeAddons; // 插件表
+use app\index\model\GeeBilling; //财务表
+use app\index\model\GeeDomain; //域名表
+use app\index\model\GeeServer; //物理服务器表
+use app\index\model\GeeTicket; //工单表
+use app\index\model\GeeVps; //VPS表
 
 class Index extends Common
 {
     public function index()
     {
+      if (!isset($_COOKIE['token']) && !empty($_COOKIE['token']) && jwt_decode($_COOKIE['token'])) {
+          return $this->redirect('index/Login/index');
+      }
         //数据统计
         $o = new GeeBilling();
         $t = new GeeTicket();
@@ -49,7 +51,6 @@ class Index extends Common
         $allblist = [];
         foreach ($blist as $k => $v) {
             $prolist = json_decode($v['pro_list'], true);
-            // dump($prolist);
             foreach ($prolist as $key => $val) {
                 array_push($allblist, [
                     'name' => $val['class'],
@@ -97,7 +98,6 @@ class Index extends Common
         $this->assign('endcount', $endcount);
         //VPS主机
         $vps = new GeeVps();
-        // $vlist = $vps->select();
         $vcount = $vps->where('user_id = '.session('_userInfo')['id'])->count();
         $vucount = $vps->where('user_id = '.session('_userInfo')['id'])->where('status = "正常"')->count();
         $vecount = $vps->where('user_id = '.session('_userInfo')['id'])->where('end_time <= ' . (time() - 60 * 60 * 24 * 30))->count();

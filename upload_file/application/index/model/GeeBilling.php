@@ -8,7 +8,8 @@ use think\Model;
  */
 class GeeBilling extends Model
 {
-    public function getProductTypeAttr($var, $data)
+  protected $name = "Billing";
+  public function getProductTypeAttr($var, $data)
     {
         if($data['pro_list'] == '0'){
           $proname = '账户充值';

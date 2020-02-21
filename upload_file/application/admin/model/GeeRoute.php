@@ -6,4 +6,6 @@ use think\Model;
  */
 class GeeRoute extends Model
 {
+  protected $name = "Route";
+
 }

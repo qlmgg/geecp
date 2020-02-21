@@ -73,7 +73,7 @@ class Login extends Controller
                     'phone' => $userinfo['phone'],
                     'ip' => $userinfo['ip'],
                     'status' => $userinfo['status'],
-                    'group' => db('gee_staffgroup')->where('id = ' . $userinfo['group_id'])->find()['name'],
+                    'group' => db('staffgroup')->where('id = ' . $userinfo['group_id'])->find()['name'],
                     'rend' => rand(0, 100),
                 ];
                 $sign = $this->sign($to_info);

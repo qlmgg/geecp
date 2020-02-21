@@ -8,7 +8,8 @@ use think\Model;
  */
 class GeeTicket extends Model
 {
-    //工单状态
+  protected $name = "Ticket";
+  //工单状态
     public function getTStatusAttr($var, $data)
     {
         switch ($data['status']) {

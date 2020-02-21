@@ -13,8 +13,8 @@ use app\index\model\GeeWebroute; // 系统SMTP邮件配置表
 use BaiduBce\Services\Bos\BosClient; // 基本信息表
 use phpmailer\phpmailer; // 消息模板表
 use tegic\qiniu\Qiniu; // 附件设置表
-use think\Controller; // 用户表
-use think\Request; // 前台路由表
+use think\Controller; 
+use think\Request; 
 // 产品类型表
 
 /**
@@ -28,6 +28,11 @@ class Common extends Controller
      */
     public function _initialize()
     {
+        //判定是否安装
+        if (!sys_is_installed() && $this->request->module() != 'install') {
+            return $this->redirect('/install/step1');
+        }
+        
         $basic = new GeeWebbasic();
         //网站基本数据
         $basicInfo = $basic->where('id = 1')->find();

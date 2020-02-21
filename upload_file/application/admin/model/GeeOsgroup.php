@@ -7,5 +7,5 @@ use think\Model;
  */
 class GeeOsgroup extends Model
 {
-   
+  protected $name = "Osgroup";
 }

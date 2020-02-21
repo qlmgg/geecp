@@ -7,7 +7,5 @@ use think\Model;
  */
 class GeeProductGroup extends Model
 {
-	protected $name = "GeeProductGroup";
-
-    public $table = "gee_product_group";
+	protected $name = "ProductGroup";
 }

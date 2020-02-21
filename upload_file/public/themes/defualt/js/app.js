@@ -1,5 +1,5 @@
 window.apiuri = '/';
-//全局axios配置 
+//全局axios配置
 const instance = axios.create();
 instance.defaults.baseURL = apiuri;
 instance.defaults.headers.common['Authorization'] = Cookies.get('token') || '';
@@ -80,7 +80,9 @@ instance.interceptors.response.use(
 )
 
 function ajax(url, params, type = 'get', files) {
-    let config = { method: type || 'get' };
+    let config = {
+        method: type || 'get'
+    };
     if (typeof url == 'object') {
         instance.defaults.baseURL = url[0];
     } else {
@@ -88,7 +90,9 @@ function ajax(url, params, type = 'get', files) {
     }
     if (type !== 'post') {
         config.data = type ? {} : params;
-        config.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+        config.headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
         config.transformRequest = [
             () => {
                 let ret = new URLSearchParams();
@@ -101,7 +105,9 @@ function ajax(url, params, type = 'get', files) {
     } else {
         config.data = type ? {} : params;
         if (files) {
-            config.headers = { 'Content-Type': 'multipart/form-data' };
+            config.headers = {
+                'Content-Type': 'multipart/form-data'
+            };
             config.transformRequest = [
                 () => {
                     if (!_.isPlainObject(params)) {
@@ -121,7 +127,9 @@ function ajax(url, params, type = 'get', files) {
                 }
             ]
         } else {
-            config.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+            config.headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            };
             config.transformRequest = [
                 () => {
                     let ret = new URLSearchParams();
@@ -146,21 +154,24 @@ const loginOut = () => {
 //查询对象子级 例:_comp.compName
 const selectFn = (from, selector) => selector.split('.').reduce((prev, cur) => prev && prev[cur], from);
 //form元素返回值
-const getFormVal = (e) => Array.from(document.querySelectorAll(e)).reduce((a, b) => { a[b.name] = b.value; return a }, {});
+const getFormVal = (e) => Array.from(document.querySelectorAll(e)).reduce((a, b) => {
+    a[b.name] = b.value;
+    return a
+}, {});
 //数组去重
 const setArr = (ARR) => [...new Set([...ARR])];
 
 //编辑器粘贴图片
 const callEditor = () => {
         if (!!document.querySelector('[contenteditable="true"]')) {
-            document.querySelector('[contenteditable="true"]').addEventListener('paste', function(e) {
+            document.querySelector('[contenteditable="true"]').addEventListener('paste', function (e) {
                 let cbd = e.clipboardData,
                     ua = window.navigator.userAgent,
                     t = $(this);
-                // 如果是 Safari 直接 return	    
+                // 如果是 Safari 直接 return
                 if (!(e.clipboardData && e.clipboardData.items)) {
                     return;
-                } // Mac平台下Chrome49版本以下 复制Finder中的文件的Bug Hack掉	    
+                } // Mac平台下Chrome49版本以下 复制Finder中的文件的Bug Hack掉
                 if (cbd.items && cbd.items.length === 2 && cbd.items[0].kind === "string" && cbd.items[1].kind === "file" && cbd.types && cbd.types.length === 2 && cbd.types[0] === "text/plain" && cbd.types[1] === "Files" && ua.match(/Macintosh/i) && Number(ua.match(/Chrome\/(\d{2})/i)[1]) < 49) {
                     return;
                 }
@@ -204,7 +215,9 @@ const callEditor = () => {
     Array2Object = (ARR, keyName) => {
         return ARR.reduce((a, b) => {
             const keys = b[keyName];
-            if (a[keys] === undefined) { a[keys] = [] };
+            if (a[keys] === undefined) {
+                a[keys] = []
+            };
             a[keys].push(b);
             return a
         }, {})
@@ -236,10 +249,10 @@ const callEditor = () => {
     },
     /**
      * @name 字母升序
-     * 
-     * @param {String}      chars         字母 
+     *
+     * @param {String}      chars         字母
      * @param {Number}      num           进几位
-     * 
+     *
      */
     nextChars = (chars, num, type = 'lower') => {
         const char = chars.toLowerCase();
@@ -248,7 +261,7 @@ const callEditor = () => {
         const CHARS = (!!isChar && cx + num < 123) ? String.fromCharCode(char.charCodeAt(0) + num) : false;
         return !!CHARS ? type === 'upper' ? CHARS.toUpperCase() : CHARS : 'Params Error'
     },
-    /** 
+    /**
      * @name 百度转二进制函数
      */
     convertCidrToBinary = (cidr) => {
