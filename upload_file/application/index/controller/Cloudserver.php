@@ -214,7 +214,7 @@ class Cloudserver extends Common
             return $ret;
         }
         $plug = new \addons\cloudserver\cloudserver();
-        //创建快照
+        //修改密码
         $putData = [
             'way' => $csinfo['plug_name'],
             'pro_id' => $csinfo['pro_id'],
@@ -229,6 +229,21 @@ class Cloudserver extends Common
         ];
         $csres = $plug->cloudserver($putData);
         $csres = json_decode($csres, true);
+
+        $vputData = [
+            'way' => $csinfo['plug_name'],
+            'pro_id' => $csinfo['pro_id'],
+            'plug_id' => $csinfo['pro_id'],
+            'function' => 'control',
+            'action' => 'virtual_reset_password',
+            'virtualid' => $csinfo['virtual_id'],
+            'data' => [
+                'type' => 'vnc',
+                'password' => $g['sys_pass'],
+            ],
+        ];
+        $vcsres = $plug->cloudserver($vputData);
+        $vcsres = json_decode($vcsres, true);
         $ret['data'] = $csres['data'];
         return json_encode($ret);
     }
@@ -536,8 +551,10 @@ class Cloudserver extends Common
         // dump($g);
         $csres = $plug->cloudserver($putData);
         $csres = json_decode($csres, true);
+        // header('Access-Control-Allow-Origin: *');
         // dump($csres);
-        echo $csres['data'];
+        header("Location:" . $csres['data']);
+        // echo $csres['data'];
     }
     public function create()
     {
