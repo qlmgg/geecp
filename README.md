@@ -1,7 +1,7 @@
 
 ![Image](https://images.gitee.com/uploads/images/2020/0223/181407_3d7ec98d_1332225.png)
 
-## GEECP 开源公有云管理系统
+## GEECP 开源公有云管理系统（已暂停下载）
 
 
 #### 基础功能支持计划：
