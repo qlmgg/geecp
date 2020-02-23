@@ -1,0 +1,8 @@
+.idea
+composer.lock
+runtime
+*.log
+vendor
+*.DS_Store
+.env
+thinkphp
