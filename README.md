@@ -1,40 +1,53 @@
-Gee Control Panel 企业版公测（2020/02/20）
-===============
 
-## 主要新特性
+![Image](https://images.gitee.com/uploads/images/2020/0223/181407_3d7ec98d_1332225.png)
 
-* 支持插件机制
-* 支持模板标签
-* 支持后台手动更新（云端下载更新包）
-* v2版本管理控制台（管理端）
-* 弹性云主机功能支持
-* 域名功能支持
-* 对nokvm/jincloud/solusvm/zstack开放支持
-* 前台产品页面更新
-* 实名认证服务API
-* EasyPanel支持
+## GEECP 开源公有云管理系统
 
 
+#### 基础功能支持计划：
 
-## 支持的功能
-
-* 域名注册
-* 虚拟主机
-* 弹性云主机
-* Hyper-v VPS主机
-* 物理机租用
-* SSL证书功能（即将支持）
-* CDN模块
-
-
-## 下载安装包
-
-~~~
-https://gitee.com/qiduocloud/geecp/repository/archive/v1.0.1?format=zip
-~~~
+支持的功能|状态|插件或第三方
+-|-|-
+域名注册|已完成|美橙互联/西部数码/ResellerClub
+虚拟主机|进行中|EasyPanel/DirectAdmin/Plesk
+VPS|已完成|星外Hyper-v/SolusVM
+云主机|已完成|Nokvm/Jincloud
+SSL证书|进行中|GlobalSign/Comodo/Certum/Symantec/DigiCert/CFCA
+智能建站|进行中|美橙建站之星
+云解析|进行中|官方永久免费的云API
+CDN|进行中|Fikker/CDNBest
+云WAF|进行中| * 
+高防IP|进行中| *
+租用托管|进行中|二次修改，第一版已出。目前改进方向纳入自动化机房管理
 
 
-## 配置服务器环境
+#### MSP多云管理服务
+
+厂商 |模块
+-|-
+百度云|云服务器、云硬盘、弹性公网IP
+腾讯云|云服务器、云磁盘、弹性公网IP
+华为云|云服务器、云磁盘、弹性公网IP
+阿里云|云服务器、云磁盘、弹性公网IP
+
+
+#### 云分销模块
+
+功能 | 概述
+-|-
+基于OPENSTACK®受控| 自主接入
+基于云联盟资源中心| API接入
+
+
+## 如何安装GEECP?
+
+
+```
+下载安装包：https://gitee.com/qiduocloud/geecp/repository/archive/v1.0.6.Enterprise.beta?format=zip
+```
+
+
+## 配置服务器环境（推荐）
 
 ~~~
 推荐LNMP环境
@@ -45,16 +58,17 @@ Mysql 5.7 +
 更多运行问题参考ThinkPHP5.0运行环境
 ~~~
 
-## 前台地址
+
+## 安装GEECP系统
 
 ~~~
-http://yourdomain.com/
+http://www.yourdomain.com/ （访问域名会自动跳转到install进行安装）
 ~~~
 
 ## 管理地址
 
 ~~~
-https://yourdomain.com/manager 账号 admin 密码 123456
+https://yourdomain.com/manager（账号密码是你安装的时候填写的）
 ~~~
 
 ## 使用交流
