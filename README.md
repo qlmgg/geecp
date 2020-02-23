@@ -43,7 +43,7 @@ CDN|进行中|Fikker/CDNBest
 
 
 ```
-下载安装包：https://gitee.com/qiduocloud/geecp/repository/archive/v1.0.6.Enterprise.beta?format=zip
+下载安装包：暂停下载
 ```
 
 
