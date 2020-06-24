@@ -1,0 +1,471 @@
+{extend name='Common/index' /}
+{block name='content'}
+<div class="d-flex pt-3">
+  <div class="ml-3 w-100">
+    <div class="card bg-white mb-3">
+      <div class="card-header" style="border: 0;">
+        <h5 class="title mb-0" style="font-size: 14px;">数据总览</h5>
+      </div>
+      <div class="card-body text-center" style="border: 0;padding: 15px;">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="description-block">
+                  <h5 class="description-percentage">注册用户</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$reg}</h4>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="description-block">
+                  <h5 class="description-percentage">个人用户</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$puser}</h4>
+                </div>
+              </div>
+              <div class="col-md-4 border-right">
+                <div class="description-block">
+                  <h5 class="description-percentage">企业用户</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$euser}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-2" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">总订单</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$all}</h4>
+                </div>
+              </div>
+              <div class="col-md-2" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">今日订单</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$now}</h4>
+                </div>
+              </div>
+              <div class="col-md-2" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">已付款订单</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$pay}</h4>
+                </div>
+              </div>
+              <div class="col-md-2" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">总交易流水</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$pmoney|to_double}</h4>
+                </div>
+              </div>
+              <div class="col-md-2" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">退款金额</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">0.00</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-white mb-3">
+      <div class="card-header" style="border: 0;">
+        <h5 class="title mb-0" style="font-size: 14px;">运营概览</h5>
+      </div>
+      <div class="card-body text-center" style="border: 0;padding: 15px;">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="description-block">
+                  <h5 class="description-percentage">待处理工单</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$ft}</h4>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="description-block">
+                  <h5 class="description-percentage">待反馈工单</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$wt}</h4>
+                </div>
+              </div>
+              <div class="col-md-4 border-right">
+                <div class="description-block">
+                  <h5 class="description-percentage">总工单</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$allt}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">已注册域名</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$dcount}</h4>
+                </div>
+              </div>
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">VPS主机</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$vcount}</h4>
+                </div>
+              </div>
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">物理机</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$scount}</h4>
+                </div>
+              </div>
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">云主机</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$cscount}</h4>
+                </div>
+              </div>
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">虚拟主机</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$htcount}</h4>
+                </div>
+              </div>
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">高防CDN</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$cdncount}</h4>
+                </div>
+              </div>
+              <div class="col" style="width: 20%;">
+                <div class="description-block">
+                  <h5 class="description-percentage">智能站点</h5>
+                  <h4 class="description-text" style="font-size: 28px;margin: 0;">{$sscount}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="card card-widget">
+          <div class="card-header">
+            <div class="row px-2">
+              <h5 class="title mb-0 mr-auto" style="font-size: 14px;">新增用户</h5>
+              <div class="d-flex fs-12 ">
+                <div class="mr-2 pr-2 border-right cp" onclick="gethistory('user','today',$(this))">24小时</div>
+                <div class="mr-2 pr-2 border-right cp" onclick="gethistory('user','week',$(this))">7天</div>
+                <div class="mr-2 pr-2 border-right cp text-info" onclick="gethistory('user','month',$(this))">30天</div>
+                <div class="cp" onclick="gethistory('user','years',$(this))">近一年</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div style="width:100%;">
+              <div id="report_user" style="position: relative;width:550px;height: 230px;overflow: hidden;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card card-widget">
+          <div class="card-header">
+            <div class="row px-2">
+              <h5 class="title mb-0 mr-auto" style="font-size: 14px;">交易趋势</h5>
+              <div class="d-flex fs-12 ">
+                <div class="mr-2 pr-2 border-right cp" onclick="gethistory('trading','today',$(this))">24小时</div>
+                <div class="mr-2 pr-2 border-right cp" onclick="gethistory('trading','week',$(this))">7天</div>
+                <div class="mr-2 pr-2 border-right cp text-info" onclick="gethistory('trading','month',$(this))">30天</div>
+                <div class="cp" onclick="gethistory('trading','years',$(this))">近一年</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div style="width:100%;">
+              <div id="report_consume" style="position: relative;width:550px;height: 230px;overflow: hidden;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card card-widget">
+          <div class="card-header">
+            <div class="row px-2">
+              <h5 class="title mb-0 mr-auto" style="font-size: 14px;">订单数据</h5>
+              <div class="d-flex fs-12 ">
+                <div class="mr-2 pr-2 border-right cp" onclick="gethistory('order','today',$(this))">24小时</div>
+                <div class="mr-2 pr-2 border-right cp" onclick="gethistory('order','week',$(this))">7天</div>
+                <div class="mr-2 pr-2 border-right cp text-info" onclick="gethistory('order','month',$(this))">30天</div>
+                <div class="cp" onclick="gethistory('order','years',$(this))">近一年</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div style="width:100%;">
+              <div id="report_order" style="position: relative;width:550px;height: 230px;overflow: hidden;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right_side_box mx-3">
+    <div class="card right_side">
+      <div class="card-header">
+        <span>常用入口</span>
+      </div>
+      <div class="card-body">
+        <div class="row border-bottom pb-3">
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/User/add')}" target="_blank">
+              <i class="iconfont iconyonghu"></i>
+              <div>新增用户</div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/User/list')}" target="_blank">
+              <i class="iconfont iconidentification"></i>
+              <div>查找用户</div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="#" target="_blank">
+              <i class="iconfont iconcaiwurenminbizhifu-copy"></i>
+              <div>快速充值 </div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/Finance/index')}" target="_blank">
+              <i class="iconfont iconcaiwu"></i>
+              <div>财务概览</div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/Finance/details')}" target="_blank">
+              <i class="iconfont iconshouzhiliushui"></i>
+              <div>流水记录</div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/Ticket/list')}" target="_blank">
+              <i class="iconfont iconsuoyougongdan"></i>
+              <div>工单查看</div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/Addons/list')}" target="_blank">
+              <i class="iconfont iconManagementDeploymen8"></i>
+              <div>安装扩展</div>
+            </a>
+          </div>
+          <div class="col-6 px-0">
+            <a class="text-black" href="{:url('manager/Cloudservice/update')}" target="_blank">
+              <i class="iconfont iconyiliaoyingxianglixianguidang"></i>
+              <div>更新系统</div>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div><a href="{:url('home/Index/index')}" target="_blank" class="w-100 btn btn-sm btn-outline-secondary my-3">访问首页</a></div>
+          <div><a href="#" class="w-100 btn btn-sm btn-outline-secondary">获取帮助</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+
+{block name='js'}
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- <script src="__STATIC__/dist/js/pages/dashboard.js"></script> -->
+<script>
+  // let val = new Number();
+  setTimeout(function () {
+    let date = JSON.parse('{$uhdate|json_encode}'),
+      data = JSON.parse('{$uhval|json_encode}');
+    uHistory(date, data)
+  }, 500);
+  setTimeout(function () {
+    let date = JSON.parse('{$odate|json_encode}'),
+      data = JSON.parse('{$oval|json_encode}');
+    oHistory(date, data)
+  }, 500);
+  setTimeout(function () {
+    let date = JSON.parse('{$hdate|json_encode}'),
+      data = JSON.parse('{$hval|json_encode}');
+    cHistory(date, data)
+  }, 500);
+  window.cbdate = () => {
+    gethistory();
+  }
+
+  function gethistory(type,time = 'today',t) {
+    let val;
+    t.siblings().removeClass('text-info');
+    t.addClass('text-info');
+    val = {
+      time: time,
+      type: type,
+    }
+
+    ajax('{:url("manager/Index/gethistory")}', {
+      ...val
+    }, 'post').then(e => {
+      if (e.status == 200) {
+        if (type == 'user') {
+          uHistory(e.data.date, e.data.data)
+        } else if(type == 'order'){
+          oHistory(e.data.date,e.data.data)
+        } else {
+          cHistory(e.data.date, e.data.data)
+        }
+      }
+    })
+  }
+  function uHistory(date, data) {
+    report = [];
+    report = echarts.init(document.getElementById('report_user'), ETheme.ligntBlue);
+    option = {
+      // title: {
+      //   text: '30天内注册用户数',
+      //   textStyle:{
+      //     fontWeight: 'normal',
+      //     fontSize: 16
+      //   }
+      // },
+      grid: {
+        top: 20,
+        left: 20,
+        right: 35,
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+        formatter: (e, i) => {
+          return `${e[0].axisValue} <br /> ${e[0].value} 人`;
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+      },
+      yAxis: {
+        type: 'value',
+        // minInterval: 5
+      },
+      dataZoom: [{
+        id: 'dataZoomX',
+        type: 'slider',
+        xAxisIndex: [0],
+        start: 0,
+        end: 100
+      }],
+      series: [{
+        type: 'line',
+        data: data,
+        areaStyle: {}
+      }]
+    };
+    report.setOption(option);
+  }
+
+  function oHistory(date, data) {
+    report = [];
+    report = echarts.init(document.getElementById('report_order'), ETheme.ligntBlue);
+    option = {
+      grid: {
+        top: 20,
+        left: 20,
+        right: 35,
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+        formatter: (e, i) => {
+          return `${e[0].axisValue} <br /> 当日订单数：${e[0].value}`;
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+      },
+      yAxis: {
+        type: 'value'
+      },
+      dataZoom: [{
+        id: 'dataZoomX',
+        type: 'slider',
+        xAxisIndex: [0],
+        start: 0,
+        end: 100
+      }],
+      series: [{
+        type: 'line',
+        data: data,
+        areaStyle: {}
+      }]
+    };
+    report.setOption(option);
+  }
+  function cHistory(date, data) {
+    report = [];
+    report = echarts.init(document.getElementById('report_consume'), ETheme.ligntBlue);
+    option = {
+      grid: {
+        top: 20,
+        left: 20,
+        right: 35,
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+        formatter: (e, i) => {
+          return `${e[0].axisValue} <br /> ${e[0].value} 元`;
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+      },
+      yAxis: {
+        type: 'value'
+      },
+      dataZoom: [{
+        id: 'dataZoomX',
+        type: 'slider',
+        xAxisIndex: [0],
+        start: 0,
+        end: 100
+      }],
+      series: [{
+        type: 'line',
+        data: data,
+        areaStyle: {}
+      }]
+    };
+    report.setOption(option);
+  }
+</script>
+{/block}

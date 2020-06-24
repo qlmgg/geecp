@@ -1,0 +1,63 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    基本信息
+  </div>
+  <div class="card-body border-0 py-0">
+    <div class="table-box px-3 pb-3">
+      <form class="needs-validation pt-3" novalidate>
+        <div class="form-group border-bottom pb-3">
+          <label for="ak">AK:</label>
+          <div class="col form-inline px-0">
+            <input type="text" id="ak" name="ak" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ak']:''}" autocomplete="off">
+            <input type="hidden" name="id" value="{$info?$info['id']:''}">
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+          <div class="invalid-feedback">
+            请输入AK
+          </div>
+        </div>
+        <div class="form-group border-bottom pb-3">
+          <label for="signid">签名ID:</label>
+          <div class="col form-inline px-0">
+            <input type="text" id="signid" name="signid" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['signid']:''}" autocomplete="off">
+
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+          <div class="invalid-feedback">
+            请输入签名ID
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary btn-sm px-5 sub"> 提交</button>
+          <a href="javascript:history.go(-1);" class="btn btn-outline-secondary btn-sm px-5">返回</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+  $('.sub').click(function () {
+    let names = document.querySelectorAll('.form-group [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => {
+      vals[e.name] = e.value;
+    });
+    ajax('{:url("manager/System/smsapiAuth")}', vals, 'post').then(e => {
+      if (e.status === 200) {
+        alert(e.msg);
+        location.href = "{:url('manager/System/smsapi')}";
+      } else {
+        alert(e.msg);
+      }
+    });
+  });
+</script>
+{/block}

@@ -1,0 +1,201 @@
+{extend name='Common/index' /}
+{block name='content'}
+<div class="card">
+  <div class="card-header  border-t pb-0" style="background-color: #fff">
+    <!-- <p><small>查询财务状况或管理优惠券和发票。</small></p> -->
+    <div class="tool-list d-flex">
+      <ul class="list-inline mr-auto  m-0">
+        <li class="list-inline-item p2">
+          <a href="javascript:history.back(-1)" class="btn btn-outline-secondary btn-sm">&lt; 返回</a>
+        </li>
+        <li class="list-inline-item p-2">
+          <h4>解析域名：<span>{$dnsinfo.domain}</span></h4>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body fs-12">
+    <div class="cont-box">
+      <div class="dnsanalysis-server-add">
+
+        <ul class="list-unstyled">
+          <li class="row form-inline">
+            <div class="col-md-1 text-left">主机记录：</div>
+            <div class="col-md-5  pl-0">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <input type="text" class="form-control form-control-sm" name="sub_domain" placeholder="例：www"
+                    style="width: 225px">
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text" style="min-width: 150px">.{$dnsinfo.domain}</span>
+                </div>
+                <button class="btn btn-link btn-sm p-0 pl-2" data-container="body" data-toggle="popover"
+                  data-placement="right" data-trigger="hover" data-boundaries="200px" data-boundary="scrollParent"
+                  data-html="true" data-content="七朵云提醒您:<br/>
+                                                        主机记录即域名前缀，常用如下：<br/>
+                                                        1. www：解析后域名为 www.baidubceyun.cn<br/>
+                                                        2. @：直接解析主域名 baidubceyun.cn<br/>
+                                                        3. *：泛解析，匹配其他所有域名 *.baidubceyun.cn" data-original-title=""
+                  title="">
+                  <i class="iconfont iconquestion zfs-18"></i>
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="row form-inline mt-3">
+            <div class="col-md-1 text-left"><span class="text-danger pr-1">*</span>记录类型：</div>
+            <div class="col-md-5  pl-0">
+              <select class="form-control form-control-sm" style="width: 374px" name="record_type" id="record-type">
+                {foreach name="type" item="v"}
+                <option value="{$v}">{$v}记录</option>
+
+                {/foreach}
+              </select>
+              <button class="btn btn-link btn-sm p-0 pl-1" data-container="body" data-toggle="popover"
+                data-placement="right" data-trigger="hover" data-boundaries="200px" data-boundary="scrollParent"
+                data-html="true" data-content="A：地址记录，用来指定域名的IPv4地址（如：8.8.8.8），如果需要将域名指向一个IP地址，就需要添加A记录。<br/>
+                                                        AAAA：用来指定主机名（或域名）对应的IPv6地址（例如：aa51::c3）记录。解析到 IPv6 的地址。<br/>
+                                                        CNAME：如果需要将域名指向另一个域名，再由另一个域名提供ip地址，就需要添加CNAME记录。<br/>
+                                                        MX：如果需要设置邮箱，让邮箱能收到邮件，就需要添加MX记录。<br/>
+                                                        NS：域名服务器记录，如果需要把子域名交给其他DNS服务商解析，就需要添加NS记录。<br/>
+                                                        TXT：在这里可以填写任何东西，长度限制255。绝大多数的TXT记录是用来做SPF记录（反垃圾邮件）。
+                                                        " data-original-title="" title="">
+                <i class="iconfont iconquestion zfs-18"></i>
+              </button>
+            </div>
+          </li>
+          <li class="row form-inline mt-3">
+            <div class="col-md-1 text-left"><span class="text-danger pr-1">*</span>解析线路：</div>
+            <div class="col-md-5  pl-0">
+              <select class="form-control form-control-sm" name="record_line" style="width: 374px">
+                <option value="0">默认</option>
+                <option value="1">电信</option>
+                <option value="2">移动</option>
+                <option value="3">联通</option>
+                <option value="4">教育网</option>
+                <option value="5">搜索引擎(百度)</option>
+              </select>
+            </div>
+          </li>
+          <li class="row form-inline mt-3 d-none" id="mxPriority">
+            <div class="col-md-1 text-left"><span class="text-danger pr-1">*</span>MX优先级</div>
+            <div class="col-md-5 pl-0">
+              <div class="input-group" style="width: 374px">
+                <div class="input-group-prepend">
+                  <button type="button" class="btn btn-primary btn-sm">-</button>
+                </div>
+                <input type="text" class="form-control form-control-sm text-center" name="mx" value="0"
+                  id="mx-priority" />
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary btn-sm">+</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="row form-inline mt-3">
+            <div class="col-md-1 text-left"><span class="text-danger pr-1">*</span>记录值：</div>
+            <div class="col-md-5  pl-0">
+              <input type="text" class="form-control form-control-sm zfs-12" name="value"
+                placeholder="ipv4格式，例：192.168.2.56" style="width: 273px" id="isitIP">
+              <span class="text-danger" id="isornotIP"></span>
+            </div>
+            <div class="col-md-5  pl-0 d-none">
+              <input type="text" class="form-control form-control-sm zfs-12" placeholder="标准域名,例：www.test.com"
+                style="width: 273px" id="isitIP2">
+              <span class="text-danger" id="isornotIP2"></span>
+            </div>
+          </li>
+          <li class="row form-inline mt-3">
+            <div class="col-md-1 text-left"><span class="text-danger pr-1">*</span>TTL：</div>
+            <div class="col-md-5  pl-0">
+              <select class="form-control form-control-sm" name="ttl" style="width: 374px">
+                <option value="300">5分钟</option>
+                <option value="600">10分钟</option>
+                <option value="3600">1小时</option>
+              </select>
+              <button class="btn btn-link btn-sm p-0 pl-1" data-container="body" data-toggle="popover"
+                data-placement="right" data-trigger="hover" data-boundaries="200px" data-boundary="scrollParent"
+                data-html="true" data-content="即 Time To Live，缓存的生存时间。指地方dns缓存您域名记录信息
+                                                        的时间，缓存失效后会再次到权威DNS获取记录值，建议正常情况下使用10分钟。" data-original-title=""
+                title="">
+                <i class="iconfont iconquestion zfs-18"></i>
+              </button>
+            </div>
+          </li>
+          <li class="row form-inline mt-3">
+            <div class="col-md-1"></div>
+            <div class="col-md-5  pl-0">
+              <button onclick="addrecord()" class="btn btn-primary btn-sm mr-4">确定</button>
+              <a href="javascript:history.back(-1)" class="btn btn-light btn-sm border">取消</a>
+            </div>
+          </li>
+          <input type="hidden" name="domain_id" value="{$dnsinfo.domain_id}">
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name='modal'}
+
+{/block}
+
+{block name='js'}
+<script>
+  isitIP.oninput = function () {
+    function isNull(param) {
+      return !param && param !== 0 && typeof param !== "boolean" ? true : false;
+    }
+
+    function isIP(strIP) {
+      if (isNull(strIP)) {
+        return false;
+      }
+      var re = /^(\d+).(\d+).(\d+).(\d+)$/g;
+      if (re.test(strIP)) {
+        if (RegExp.$1 < 256 && RegExp.$2 < 256 && RegExp.$3 < 256 && RegExp.$4 < 256) return true;
+      }
+      return false;
+    }
+    var e = this.value;
+    var result = isIP(e);
+    if (result) {
+      document.getElementById("isornotIP").innerText = "";
+    } else {
+      document.getElementById("isornotIP").innerText = "ipv4格式不符合要求";
+    }
+    if (e == "") {
+      document.getElementById("isornotIP").innerText = "请输入对应记录值";
+    }
+  }
+  isitIP2.oninput = function () {
+    if (this.value == "") {
+      document.getElementById("isornotIP2").innerText = "请输入对应域名";
+    }
+  }
+
+  function addrecord() {
+
+    ajax("{:url('console/Dns/record_add')}", {
+        sub_domain: $('[name="sub_domain"]').val(),
+        record_type: $('[name="record_type"]').val(),
+        record_line: $('[name="record_line"]').val(),
+        domain_id: $('[name="domain_id"]').val(),
+        mx: $('[name="mx"]').val(),
+        value: $('[name="value"]').val(),
+        ttl: $('[name="ttl"]').val()
+      }, 'post').then(e => {
+
+      if (e.status == 200) {
+        alert(e.msg);
+        window.location.reload();
+
+      } else {
+        alert(e.msg);
+      }
+    });
+  }
+</script>
+{/block}

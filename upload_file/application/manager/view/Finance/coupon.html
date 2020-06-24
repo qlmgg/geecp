@@ -1,0 +1,368 @@
+{extend name='Common/index' /} {block name='content'}
+<style>
+  .tper::after{
+    content: '%'
+  }
+</style>
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <div class="mr-auto col-8 px-0">
+      <div class="input-group input-group-sm mr-3">
+        <input type="text" class="form-control form-control-sm" placeholder="关键字">
+        <div class="input-group-append">
+          <button class="btn btn-xs tablesearch"><i class="iconfont iconicon_sousuo-xian text-height-2"></i></button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm" style="width:230px;">
+        <input type="text" class="form-control input-sm pull-right datetime-range col7_filter datetime_filter"
+          placeholder="时间范围" data-column="11">
+        <div class="input-group-append">
+          <button class="btn btn-xs serchBtn"><i class="iconfont iconicon_sousuo-xian text-height-2"></i></button>
+        </div>
+      </div>
+      <button class="btn btn-link btn-sm tableclear">清空</button>
+    </div>
+    <div>
+      <button class="btn btn-primary btn-sm" onclick="callcreate()">生成代金券</button>
+    </div>
+  </div>
+  <div class="card-body text-center">
+    <div class="table-box">
+      <table class="table table-striped table-hover tableData">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left pl-2">ID</th>
+            <th scope="col">代金券码</th>
+            <th scope="col">代金券类型</th>
+            <th scope="col">可用范围</th>
+            <th scope="col">满减金额</th>
+            <th scope="col">最低可用</th>
+            <th scope="col">复用次数</th>
+            <th scope="col">已用次数</th>
+            <th scope="col">所属会员</th>
+            <th scope="col">状态</th>
+            <th scope="col">创建时间</th>
+            <th scope="col">到期时间</th>
+            <th scope="col" class=" text-right pr-4">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {if !empty($list)} {foreach name="list" item="v"}
+          <tr data-id="{$v.id}" data-config='{$v|json_encode}'>
+            <td class="text-left pl-2">{$v.id}</td>
+            <td>{$v.code}</td>
+            <td>{$v.type==1?'满减':'折扣'}</td>
+            <td>{:str_replace('0','通用',$v['range'])}</td>
+            <td class="{$v['type']==1?'money':'tper'}">{$v['type']==1?to_double($v['value']):$v['value']}</td>
+            <td class="money">{$v.minvalue|to_double}</td>
+            <td>{$v.reuse}</td>
+            <td>{$v.use_number}</td>
+            <td>{$v.user}</td>
+            <td>{$v.statuss}</td>
+            <td>{$v.create_time}</td>
+            <td>{$v.end_time|date='Y-m-d H:i:s',###}</td>
+            <td class="text-right pr-4">
+              <div class="set_btn">
+                <i class="iconfont iconicon_huifu-xian"></i>
+                <div class="py-1 px-2">
+                  <div>
+                    <div>
+                      <a href="javascript:;" onclick='callcreate($(this))'><i
+                          class="iconfont iconicon_xie1"></i><br />编辑</a>
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="touser($(this))"><i
+                          class="iconfont iconyonghuguanli"></i><br />赋予</a>
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="del($(this))"><i
+                          class="iconfont iconicon_shanchu-xian"></i><br />删除</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {/foreach} {/if}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between p-0 fs-10">
+      <div class="page-info">
+        <span class="mr-3">总共<span class="page-total">-</span>条</span>
+      </div>
+      <div class="d-inline-block mt-1">
+        <ul class="pagination pagination-sm float-left">
+          <li class="page-item">
+            <a class="page-link fs-10 page-prev" href="JavaScript:;">&lt;</a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link page-text">1/2</span>
+          </li>
+          <li class="page-item">
+            <a class="page-link fs-10 page-next" href="JavaScript:;">&gt;</a>
+          </li>
+        </ul>
+        <input type="text" class="page-txt float-left form-control form-control-sm fs-10" style="height: 29px;"
+          value="1" maxlength="10">
+        <button class="page-btn btn btn-light btn-sm float-left fs-10">跳转</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">生成代金券</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <div class="form-horizontal">
+          <input type="hidden" name="id">
+          <div class="form-group">
+            <label class="col-sm-12 control-label">代金券类型：</label>
+            <div class="col-sm-12">
+              <select name="type" class="form-control form-control-sm">
+                <option value="1" selected>满减券</option>
+                <option value="2">折扣券</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-added">
+            <label class="col-sm-12 control-label">可用范围：</label>
+            <div class="col-sm-12">
+              <div class="row">
+                <label class="show col-6">
+                  <input type="checkbox" name="range" class="minimal" data-v="0" value="0" checked>
+                  通用
+                </label>
+                {if !empty($pclist)}
+                {foreach name="pclist" item="v"}
+                <label class="show col-6">
+                  <input type="checkbox" name="range" class="minimal" data-v="{$v.name}" value="{$v.name}">
+                  {$v.title} - {$v.name}
+                </label>
+                {/foreach}
+                {/if}
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">复用次数：</label>
+            <div class="col-sm-12">
+              <input type="number" name="reuse" class="form-control form-control-sm" placeholder="请输入" />
+              <span class="text-muted fs-12">代金券可使用次数,填0为不限次数</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">优惠金额/比例：</label>
+            <div class="col-sm-12">
+              <input type="number" name="value" class="form-control form-control-sm" placeholder="请输入" />
+              <span class="text-muted fs-12">代金券类型为满减时填金额,折扣券时填折扣比率如:80(8折)</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">最低可用金额：</label>
+            <div class="col-sm-12">
+              <input type="number" name="minvalue" class="form-control form-control-sm" placeholder="请输入" />
+              <span class="text-muted fs-12">代金券使用金额限制,填0为不限制</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">生成数量：</label>
+            <div class="col-sm-12">
+              <input type="number" name="number" class="form-control form-control-sm" placeholder="请输入" />
+              <span class="text-muted fs-12">所有用户数: {$aunum} ;当前状态正常用户数: {$unum} ;</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">到期时间：</label>
+            <div class="col-sm-12">
+              <input type="number" name="day" class="form-control form-control-sm" placeholder="请输入天数" />
+              <span class="text-muted fs-12">用户获得代金券后根据天数设置到期时间</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">给予方式：</label>
+            <div class="col-sm-12">
+              <select name="totype" class="form-control form-control-sm">
+                <option value="1" selected>用户自领或手动赋予</option>
+                <option value="2">每个用户随机领取一个(根据生成数量赋予状态正常用户)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">代金券状态：</label>
+            <div class="col-sm-12">
+              <select name="status" class="form-control form-control-sm">
+                <option value="0" selected>未使用</option>
+                <option value="1">使用中</option>
+                <option value="2">已使用</option>
+                <option value="3">已到期</option>
+                <option value="4">已作废</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-primary btn-sm subcreate">确认</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="touser" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">代金券赋予</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <div class="form-horizontal">
+          <input type="hidden" name="id">
+          <div class="form-group">
+            <label class="col-sm-12 control-label">赋予用户：</label>
+            <div class="col-sm-12">
+              <select name="user_id" class="form-control form-control-sm">
+                {if(!empty($userlist))}
+                {foreach name="userlist" item="v"}
+                <option value="{$v.id}">{$v.name}</option>
+                {/foreach}
+                {/if}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-primary btn-sm subtouser">确认</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('.tableData').DataTable({
+    'paging': true,
+    'fixedHeader': true,
+    'lengthChange': false,
+    'searching': true,
+    'ordering': true,
+    'info': false,
+    'autoWidth': false,
+    'deferRender': false,
+    'processing': false,
+    "order": [
+      [0, "desc"]
+    ],
+    "pageLength": 20,
+  });
+
+  $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass: 'iradio_minimal-blue'
+  })
+
+  function callcreate(t) {
+    $('#create').modal('show')
+    $('#create [name]:not([type="checkbox"])').val('');
+    $('#create [name="type"]').val('1')
+    $('#create [name="range"]').prop('checked', false)
+    $('#create .icheckbox_minimal-blue').removeClass('checked');
+    $('#create [name="totype"]').val('1')
+    $('#create [name="number"]').parents('.form-group').removeClass('d-none')
+    $('#create [name="totype"]').parents('.form-group').removeClass('d-none')
+    if (t) {
+      let c = t.parents('tr').data('config')
+      // c = JSON.parse(c);
+      $('#create [name="id"]').val(c.id)
+      for (v in c) {
+        if (v === 'range') {
+          let r = c[v].split(',')
+          r.map(e => {
+            console.log($(`#create .minimal[value="${e}"]`))
+            $(`#create .minimal[data-v="${e}"]`).prop('checked', true).parent().addClass('checked')
+          });
+        } else {
+          $(`#create [name="${v}"]`).val(c[v]);
+        }
+        // console.log(c[v])
+      }
+      $('#create [name="number"]').parents('.form-group').addClass('d-none')
+      $('#create [name="totype"]').parents('.form-group').addClass('d-none')
+    }
+  }
+
+  function touser(t) {
+    let id = t.parents('tr').data('id')
+    $('#touser [name="id"]').val(id)
+    $('#touser').modal('show')
+  }
+
+  function del(t) {
+    let id = t.parents('tr').data('id')
+    if (confirm("确定要删除这张代金券吗？")) {
+      ajax('{:url("manager/Finance/coupondel")}', {
+        id: id,
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          window.location.reload()
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  }
+
+  $('.subcreate').click(function () {
+    if (confirm("生成代金券可能需要些时间,生成时请勿进行其他操作\n确定要开始生成代金券吗？")) {
+      let names = document.querySelectorAll('#create [name]'),
+        vals = {};
+      names = [].slice.call(names);
+      names.map((e) => {
+        if ($(e).attr('type') == 'checkbox') {
+          if ($(e).prop('checked')) {
+            if (vals[e.name]) {
+              vals[e.name] += ',' + $(e).val();
+            } else {
+              vals[e.name] = $(e).val();
+            }
+          }
+        } else {
+          vals[e.name] = $(e).val()
+        }
+      });
+      ajax('{:url("manager/Finance/couponadd")}', vals, 'post').then(e => {
+        if (e.status == 200) {
+          window.location.reload()
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  })
+  $('.subtouser').click(function () {
+    let names = document.querySelectorAll('#touser [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => vals[e.name] = $(e).val());
+    ajax('{:url("manager/Finance/coupontouser")}', vals, 'post').then(e => {
+      if (e.status == 200) {
+        window.location.reload()
+      } else {
+        alert(e.msg)
+      }
+    })
+  })
+</script>
+{/block}

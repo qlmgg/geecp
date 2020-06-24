@@ -1,0 +1,103 @@
+<div style="width: 100% !important;" class="kuaizhao">
+    <div class="p-1">
+        <span>快照：</span>
+        <button type="button" class="btn btn-sm btn-primary ml-5" data-toggle="modal"
+            data-target=".add_kuaizhao">创建快照</button>
+    </div>
+    <div class="mb-4 pb-4">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>创建日期</th>
+                        <th class="text-right">操作</th>
+                    </tr>
+                </thead>
+                <tbody> {if (!empty($snapshot['data']['data']))} {foreach $snapshot['data']['data'] as $k=>$v} <tr>
+                        <td>{$v.name}</td>
+                        <td>{:str_replace(array('T','Z'),' ',$v['created_at'])}</td>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-sm btn-primary" onclick="$('#set_kuaizhao').attr('data-id',{$v['id']})" data-toggle="modal" data-target="#set_kuaizhao">恢复</button>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="$('#delete_kuaizhao').attr('data-id',{$v['id']})" data-toggle="modal" data-target="#delete_kuaizhao">删除</button>
+                        </td>
+                    </tr> {/foreach} {else /} <tr>
+                        <td colspan="3" class="text-center">暂无快照</td>
+                    </tr> {/if} </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade add_kuaizhao" id="add_kuaizhao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">创建快照</h5>
+                </div>
+                <div class="modal-body">
+                    <p>确定对选中的云主机进行创建快照吗？</p>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="create_snapshot()">确定</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade set_kuaizhao" id="set_kuaizhao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">恢复快照</h5>
+                </div>
+                <div class="modal-body">
+                    <p>确定对选中的云主机进行恢复快照吗？</p>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="set_kuaizhao()">确定</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade delete_kuaizhao" id="delete_kuaizhao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">删除快照</h5>
+                </div>
+                <div class="modal-body">
+                    <p>确定对选中的云主机进行删除快照吗？</p>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="delete_kuaizhao()">确定</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .kuaizhao .table tr {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .kuaizhao .table th,
+    .kuaizhao .table td {
+        line-height: 46px;
+        padding: 0 !important;
+        font-size: 14px;
+    }
+
+    .kuaizhao .table th:nth-child(1) {
+        text-align: left !important;
+    }
+
+    .kuaizhao .btn {
+        font-size: 12px;
+    }
+</style>
+<script>
+</script>

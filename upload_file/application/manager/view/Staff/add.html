@@ -1,0 +1,91 @@
+{extend name='Common/index' /}
+{block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <h5 class="m-0">{$info?'修改':'新增'}员工</h5>
+  </div>
+  <div class="card-body pb-0">
+    <div class="table-box"><div class="form">
+      <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名</label>
+        <div class="col-2">
+          <input type="text" class="form-control form-control-sm" id="username" name="username" placeholder="请输入用户名" value="{$info?$info['username']:''}" autocomplete="off">
+          <input type="hidden"  name="id" value="{$info?$info['id']:''}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码</label>
+        <div class="col-2">
+          <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="{$info?'请输入新密码':'请输入与密码'}" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">名称</label>
+        <div class="col-2">
+          <input type="name" class="form-control form-control-sm" id="name" name="name" placeholder="请输入名称" value="{$info?$info['name']:''}" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">邮箱</label>
+        <div class="col-2">
+          <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="请输入邮箱" value="{$info?$info['email']:''}" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone" class="col-sm-2 control-label">手机号</label>
+        <div class="col-2">
+          <input type="text" class="form-control form-control-sm" id="phone" name="phone" placeholder="请输入手机号" maxlength="11" value="{$info?$info['phone']:''}" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="group_id" class="col-sm-2 control-label">员工组</label>
+        <div class="col-2">
+          <select name="group_id" id="group_id" class="form-control form-control-sm">
+            {foreach name="groupList" item="v"}
+            <option value="{$v.id}" {$info?$info['group_id'] == $v['id'] ?'selected':'':''}>{$v.name}</option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="status" class="col-sm-2 control-label">员工状态</label>
+        <div class="col-2">
+          <select name="status" id="status" class="form-control form-control-sm">
+            <option value="0" {$info?$info['status'] == '0'?'selected':'':''}>正常</option>
+            <option value="1" {$info?$info['status'] == '1'?'selected':'':''}>锁定</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-2">
+          <button type="button" class="btn btn-primary btn-sm sub">提交</button>
+          <a href="javascript:history.go(-1);" class="btn btn-default btn-sm">返回</a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+$('.sub').click(function(){
+  let names = document.querySelectorAll('.form-group > div > [name]'),
+      vals = {};
+  names = [].slice.call(names);
+  names.map((e)=>{
+    vals[e.name] = e.value;
+  });
+  ajax('{:url("manager/Staff/addAuth")}',vals,'post').then(e=>{
+    if(e.status === 200){
+      alert(e.msg);
+      location.href="{:url('manager/Staff/list')}";
+    } else {
+      alert(e.msg);
+    }
+  });
+});
+</script>
+{/block}
+ 

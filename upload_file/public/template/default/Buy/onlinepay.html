@@ -1,0 +1,250 @@
+{extend name='Common/index' /} {block name='content'}
+
+<div class="card">
+  <div class="card-body fs-12">
+    <div class="cont-box">
+      <div class="col-12 px-0 fs-16">
+        <div class="form-inline">
+          <div class="col-3 p-0">
+            <span><i class="iconfont icon-icon_duihao-xian color-green fs-20 pr-2"></i>您的订单已提交，请支付。</span>
+          </div>
+          <div class="col-9 text-right px-5">
+            <span>待支付总金额</span><span class="fs-20 fc-red money ml-3">{:number_format($money,2)}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 p-0">
+        <div class="py-3">
+          <div class=" bg-f5 p-3">
+            <div class="form-row">
+              <div>
+                <label class="col-form-label">订单编号：</label>
+                <span>{$_GET['order']} <a href="{:url('index/Billing/order')}">查看&nbsp;&gt;&gt;</a></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="col-form-label p-0">产品信息：</label>
+              <div class="col">
+                <ul class="p-0 mb-0 list-inline" style="list-style-type: none">
+                  {if $prolist == '0'}
+                  账户充值
+                  {else /}
+                  {foreach name="prolist" item="v"}
+                  <?php 
+                    $v = object_toArray($v);
+                   ?>
+                  <li class="list-inline-item">{$v.class}</li>
+                  {/foreach}
+                  {/if}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 p-0 ">
+        <div class="form-group">
+          <label for="" class="col-form-label fs-16 border-left py-0 px-2"> 选择支付方式</label>
+        </div>
+      </div>
+      <div class="col-12 border border-b-0 form-inline">
+        <div class="form-group form-row p-2">
+          <div class="col pb-1">
+            {if $uginfo['is_agent']}
+            <div class="media">
+              <div class="media-left">
+                <div class="custom-control custom-radio {if $money > $totalBlance}disabled{/if}">
+                  <input type="radio" id="balance" name="channel_type" class="custom-control-input " value="0" {if $money > $totalBlance}disabled{else/}checked{/if}>
+                  <label class="custom-control-label justify-content-start" style="top:0px" for="balance">余额支付：</label>
+                </div>
+              </div>
+              <div class="media-body ml-3">
+                <div class="custom-control custom-checkbox {if $money > $totalBlance}disabled{/if}">
+                  <input type="checkbox" id="cash" name="cash" class="custom-control-input" value="1" {if $money > $totalBlance}disabled{else/}checked{/if}>
+                  <label class="custom-control-label justify-content-start" style="top:0px" for="cash">
+                    账户余额：
+                    （可用<span class="money ml-1">{:number_format($userinfo['balance'],2)}</span>）
+                    <span class="ml-3">需支付 <span class="money fs-md text-danger cashPay">{:number_format($cashPay,2)}</span></span>
+                  </label>
+                </div>
+                <div
+                  class="custom-control custom-checkbox mt-3 {if $money > $totalBlance}disabled{/if}">
+                  <input type="checkbox" id="rebates" name="rebates" class="custom-control-input" value="1" {if $money > $totalBlance}disabled{else/}checked{/if}>
+                  <label class="custom-control-label justify-content-start" style="top:0px" for="rebates">
+                    返点余额：
+                    （可用 <span class="money ml-1">{:number_format($userinfo['rebates_money'],2)}</span>）
+                    <span class="ml-3">本次使用<input type="number" name="use_rebates" class="form-control form-control-sm d-inline-block mx-2 w-50" value="{:number_format(($userinfo['rebates_money'] > $money ? $money : $userinfo['rebates_money']),2)}" />元</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            {else/}
+            <div
+              class="custom-control custom-radio custom-control {if $money> $totalBlance}disabled{/if}">
+              <input type="radio" id="allwarehouse" name="channel_type" class="custom-control-input" value="0" {if $money > $totalBlance}disabled{else/}checked{/if}>
+              <label class="custom-control-label justify-content-start" style="top:0px" for="allwarehouse">账户余额：（可用
+                <span class="money ml-1">{:number_format($userinfo['balance'],2)}</span>）</label>
+            </div>
+            {/if}
+          </div>
+        </div>
+      </div>
+      <div class="col-12 border border-top-0 ">
+        <div class="form-row p-2">
+          <div class="col-1 py-1">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="online" name="channel_type" class="custom-control-input" value="1" {if $money > $totalBlance}checked{/if}>
+              <label class="custom-control-label " style="top:0px" for="online">在线支付： </label>
+            </div>
+          </div>
+          <div class="col onlineshow {if $money > $totalBlance}{else/}d-none {/if}">
+            <span class="">需支付</span><span class="fc-red fs-20 money ml-3">{:number_format($money,2)}</span>
+          </div>
+        </div>
+        <div class="mb-2 form-row">
+          <div class="col px-2">
+            <div class="pay-list">
+              <div class="rc-group px-1">
+                <!-- <input type="radio" name="caType" value="1" autocomplete="off" id="caType1" disabled="true" {if $money > $totalBlance}checked {/if}>
+                                <label class="rc-group-item wh-120" for="caType1"><span class="iconfont icon-zhifupingtai-yinlian pr-2"></span>银联个人</label> -->
+                <input type="radio" name="caType" value="2" autocomplete="off" id="caType2">
+                <label class="rc-group-item wh-120" for="caType2"><span
+                    class="iconfont icon-zhifubao pr-2"></span>支付宝</label>
+                <!-- <input type="radio" name="caType" value="3" autocomplete="off" id="caType3" disabled="true">
+                                <label class="rc-group-item wh-120" for="caType3"><span class="iconfont icon-weixinzhifu pr-2"></span>微信支付</label> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {if $userinfo['manager_id']}
+      <div class="col-12 border border-top-0 ">
+        <div class="form-row p-2">
+          <div class="col py-1">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="agent" name="channel_type" class="custom-control-input" value="2" {if $money > $totalBlance}checked{/if}>
+              <label class="custom-control-label " style="top:0px" for="agent">代理商支付： (<span class="text-muted">代理商:{$agent['ename']?$agent['ename']:$agent['name']}</span>)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/if}
+      <div class="col-12 py-3 p-0">
+        <div class=" form-row">
+          <div class="col">
+            <button class="btn btn-danger fs-12 toBuy">确认支付</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<div class="modal fade" id="waitpay" tabindex="-1" role="dialog" aria-labelledby="waitpay" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="alert-info-box">
+          <div class="infoicon infoicon-info"><i class="iconfont icon-jinggao"></i></div>
+          <h4>正在支付及开通产品，请勿进行其他操作</h4>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .rc-group input[type='radio']:disabled+label,
+  .rc-group input[type='checkbox']:disabled+label {
+    background-color: transparent;
+    color: #666666;
+  }
+</style>
+<script>
+  //支付方式变更
+  $('[name="channel_type"]').change(function () {
+    if (Number($(this).val()) == 1) {
+      $('.onlineshow').removeClass('d-none');
+      $('[name="caType"]').eq(0).prop('checked', true);
+      $('[name="caType"]').prop('disabled', false);
+    } else {
+      $('.onlineshow').addClass('d-none');
+      $('[name="caType"]').prop('checked', false);
+      $('[name="caType"]').prop('disabled', true);
+    }
+  });
+  //计算账户余额使用
+  function countUseCash(){
+    const oMoney = Number('{$money}'),
+          balance = Number('{$userinfo["balance"]}'),
+          rebates = $('[name="use_rebates"]').val();
+    let totalPay = 0;
+    if($('[name="rebates"]').is(':checked')){
+      let useCash = (oMoney - $('[name="use_rebates"]').val()) < 0 ? 0 :oMoney - $('[name="use_rebates"]').val()
+      $('.cashPay').text(useCash.toFixed(2));
+    } else {
+      $('.cashPay').text(oMoney.toFixed(2));
+    }
+    
+    //余额支付时使用金额是否足以支付
+    if($('[name="cash"]').is(':checked')){
+      totalPay += balance;
+    }
+    if($('[name="rebates"]').is(':checked')){
+      totalPay += rebates;
+    }
+    if(oMoney > totalPay){
+      $('.toBuy').prop('disabled',true)
+      $('.toBuy').parent().append('<small class="text-danger">所用金额无法进行支付</small>')
+    } else {
+      $('.toBuy').prop('disabled',false)
+      $('.toBuy').next().remove();
+    }
+    console.log(totalPay)
+  }
+  $('[name="use_rebates"],[name="rebates"],[name="cash"]').change(function(){
+    const maxRebates = Number("{:number_format($userinfo['rebates_money'],2)}"),
+          oMoney = Number('{$money}'),
+          max = oMoney < maxRebates ? oMoney : maxRebates;
+    if($('[name="use_rebates"]').val() > max){
+      $('[name="use_rebates"]').val(max.toFixed(2))
+    }
+    if($('[name="use_rebates"]').val() < 0 || !(/^[\d\.]+$/.test($('[name="use_rebates"]').val()))){
+      $('[name="use_rebates"]').val(0)
+    }
+    countUseCash()
+  })
+  //支付
+  $('.toBuy').click(function () {
+    $('#waitpay').modal({
+      'show':true,
+      'backdrop': 'static',
+      'keyboard': false
+    })
+    // return;
+    ajax('{:url("index/Buy/pay")}', {
+      order: "{$_GET['order']}",
+      type: $('[name="channel_type"]:checked').val(),
+      use_rebates: $('[name="use_rebates"]').val() || 0
+    }, 'post').then(e => {
+      if (typeof e == 'string') {
+        var win = window.open('about:blank');
+        win.document.write(`<div class="d-none">${e}</div>`);
+      } else {
+        if (e.status == 200) {
+          if(e.data){
+            window.location.href = e.data;
+          } else {
+            window.location.href = '{:url("index/Buy/paystatus",["status"=>1])}';
+          }
+        } else {
+          alert(e.msg);
+        }
+      }
+      console.log(e);
+    });
+  });
+</script>
+{/block}

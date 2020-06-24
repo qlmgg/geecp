@@ -1,0 +1,258 @@
+{extend name='HomeCommon/index' /}
+{block name='content'}
+<div class="agent-page">
+    <div class="agent-1">
+        <div class="agent-step">
+            <div class="agent-step-1">
+                <span class="agent-step-ellipse">1</span>
+                <div>
+                    <span>知悉规则</span><br/>
+                    <span>了解渠道代理细则</span>
+                </div>
+            </div>
+            <div class="agent-step-2">
+                <span class="agent-step-ellipse">2</span>
+                <div>
+                    <span>签订合同</span><br/>
+                    <span>签订代理合作协议</span>
+                </div>
+            </div>
+            <div class="agent-step-3">
+                <span class="agent-step-ellipse">3</span>
+                <div>
+                    <span>平台开通</span><br/>
+                    <span>开通设置分销平台</span>
+                </div>
+            </div>
+            <div class="agent-step-4">
+                <span class="agent-step-ellipse">4</span> 
+                <div>
+                    <span>开始营业</span><br/>
+                    <span>正式开启产品运营</span>
+                </div>
+            </div>
+        </div>
+        <div class="agent-card">
+            <p class="text-center title">渠道代理优势</p>
+            <div class="">
+                <div>
+                    <img src="__TEMP__/defualt/img/about/about-icon-new-01.png" alt="">
+                    <div>
+                        <span>轻松搭建全面的销售产品线</span>
+                        <span>
+                            成为渠道代理，您将获得香港服务器、云服务器、云虚拟主机等所有资源的代理权，为您的终端客户提供客户提供一站式产品销售
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <img src="__TEMP__/defualt/img/about/about-icon-new-02.png" alt="">
+                    <div>
+                        <span>资源极具竞争力，持续畅销</span>
+                        <span>
+                           自营机房，拥有的机柜、IP、带宽资源，并采用全穿透BGP动态网络，接入CN2线路直连中国内地，接驳DDoS高防线路，在行业内极具竞争优势！
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <img src="__TEMP__/defualt/img/about/about-icon-new-03.png" alt="">
+                    <div>
+                        <span>客户续费率高，持续高额收益</span>
+                        <span>
+                            服务器访问快，性能稳定，支持自动化管理，支持远程重启/开关机，提供实时流量监控图，提供免费组建内网，一级最快10分钟交付服务。
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <img src="__TEMP__/defualt/img/about/about-icon-new-04.png" alt="">
+                    <div>
+                        <span>全权负责技术支持，无后顾之忧</span>
+                        <span>
+                            为代理商提供一对一渠道客服7x24小时专业技术支持，我们提供API接口和WHMCS模块，以便代理商对接系统。
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="agent-percentage">
+            <p class="text-center title">渠道代理级别</p>
+            <div>
+                <div >
+                    <span>初级代理</span>
+                    <span>85%</span>
+                    <span>预存金8,000元</span>
+                    <button type="button" class="btn btn-outline-primary btn-sm">立刻申请</button>
+                </div>
+                <div>
+                    <span>中级代理</span>
+                    <span>75%</span>
+                    <span>预存金15,000元</span>
+                    <button type="button" class="btn btn-outline-primary btn-sm">立刻申请</button>
+                </div>
+                <div>
+                    <span>高级代理</span>
+                    <span>65%</span>
+                    <span>预存金30,000元</span>
+                    <button type="button" class="btn btn-outline-primary btn-sm">立刻申请</button>
+                    <span>最畅销</span>
+                </div>
+                <div>
+                    <span>初级代理</span>
+                    <span>50%</span>
+                    <span>预存金50,000元</span>
+                    <button type="button" class="btn btn-outline-primary btn-sm">立刻申请</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .text-center{
+        text-align: center;
+    }
+    .agent-1{
+        padding-top:70px;
+        padding-bottom:10px;
+        width: 1200px;
+        margin: auto;
+    }
+    .agent-page{
+      
+        background-color: #fff;
+    }
+    .agent-step{
+        width: 100%;
+        background-color: #008000ba;
+        border-radius: 5px;
+        padding: 40px;
+    }
+    .agent-step > div {
+        display: inline-block;
+        width: 24.5%;
+    }
+    .agent-step > div> div{
+        display: inline-block;
+        color: ivory;
+        padding: 0 20px;
+    }
+    .agent-step > div> div>span:nth-child(1){
+        font-size: 15px;
+    }
+    .agent-step > div> div>span:nth-child(3){
+        font-size: 10px;
+    }
+    .agent-step .agent-step-ellipse{
+        display: inline-block;
+        border-radius: 50%;
+        font-size: 35px;
+        text-align: center;
+        width: 53px;
+        background: #fff;
+    }
+    .agent-step-1 .agent-step-ellipse{
+        color: #008000ba;
+        background-color: #fff;
+    }
+    .agent-step-2 .agent-step-ellipse{
+        color: #fff;
+        background-color: #fd9999;
+    }
+    .agent-step-3 .agent-step-ellipse{
+        color: #fff;
+        background-color: #1e1e35;
+    }
+    .agent-step-4 .agent-step-ellipse{
+        color: #fff;
+        background-color: #0d00d4;
+    }
+    .agent-card{
+        padding: 30px 0;
+        text-align: center;
+    }
+    .agent-card .title{
+        font-size: 30px;
+    }
+    .agent-card > div > div{
+        display: inline-block;
+        border-radius: 5px;
+        border:1px solid #ddd;
+        width: 48%;
+        margin-bottom: 30px;
+        padding: 20px;
+        text-align: left;
+        height: 130px;
+    }    
+    .agent-card > div > div img{
+        width: 15%;
+        vertical-align: middle;
+    }
+    .agent-card > div > div > div{
+        vertical-align: middle;
+        display: inline-block;
+        width: 75%;
+    }
+    .agent-card > div > div > div> span:nth-child(1){
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+    }
+    .agent-card > div > div > div> span:nth-child(2){
+        color:#979797;
+
+    }
+    .agent-card > div > div:nth-child(2n-0){
+        margin-left: 3.5%;
+    }
+    .agent-percentage{
+        padding: 30px 0;
+    }
+    .agent-percentage .title{
+        font-size: 30px;
+    }
+    .agent-percentage >div >div{
+        display: inline-block;
+        width: 23.5%;
+        padding: 20px;
+        margin-left: 15px;
+        border:1px solid #ddd;
+        box-shadow: 5px 5px 6px 1px #ddd;
+        border-radius: 3px;
+        text-align: center;
+        position: relative;
+    }
+    .agent-percentage >div >div > span:nth-child(1){
+        font-size: 20px;
+        font-weight: bold;
+        display: block;
+    }
+    .agent-percentage >div >div > span:nth-child(2){
+        font-size: 30px;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .agent-percentage >div >div > span:nth-child(3){
+        font-size: 12px;
+        color: #979797;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .agent-percentage >div >div > span:nth-child(5){
+        display: block;
+        background-color: black;
+        color: #fff;
+        position:absolute;
+        top: -15px;
+        padding: 5px;
+        border-radius: 3px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        width: 65px;
+    }
+</style>
+{/block}
+
+{block name='js'}
+<script>
+
+</script>
+{/block}

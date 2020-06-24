@@ -1,0 +1,148 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <div class="mr-auto col-8 px-0">
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control form-control-sm" placeholder="关键字">
+        <div class="input-group-append">
+          <button class="btn btn-xs tablesearch"><i class="iconfont iconicon_sousuo-xian text-height-2"></i></button>
+        </div>
+      </div>
+      <button class="btn btn-link btn-sm tableclear">清空</button>
+    </div>
+    <div class="">
+      <a href="{:url('manager/Product/addgroup')}" class="btn btn-info btn-sm mr-3">新增产品组</a>
+      <a href="{:url('manager/Product/add')}" class="btn btn-info btn-sm">新增产品</a>
+    </div>
+  </div>
+  <div class="card-body text-center">
+    <div class="table-box">
+      <table class="table table-hover tableData">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left pl-2">产品名称</th>
+            <th scope="col">分类</th>
+            <th scope="col">产品排序</th>
+            <th scope="col" class=" text-right pr-4">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {if !empty($grouplist)} {foreach name="grouplist" item="var"}
+          <tr class="group bg-light" data-id="{$var.id}">
+            <td class="text-left pl-2">{$var.name}</td>
+            <td></td>
+            <td>{$var.sort}</td>
+            <td class=" text-right pr-4">
+              <div class="set_btn">
+                <i class="iconfont iconicon_huifu-xian"></i>
+                <div class="py-1 px-2">
+                  <div>
+                    <div>
+                      <a href="{:url('manager/Product/addgroup',['id'=>$var['id']])}"><i
+                          class="iconfont iconicon_xie1"></i><br />编辑</a>
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="delgroup($(this))"><i class="iconfont iconicon_shanchu-xian"></i><br />删除</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {if !empty($var['child'])} {foreach name="var['child']" item="v"}
+          <tr class="item" data-id="{$v.id}">
+            <td class="text-left pl-2">{$v.name}</td>
+            <td>{$v.type_class}</td>
+            <td>{$v.sort}</td>
+            <td class=" text-right pr-4">
+              <div class="set_btn">
+                <i class="iconfont iconicon_huifu-xian"></i>
+                <div class="py-1 px-2">
+                  <div>
+                    <div>
+                      <a href="{:url('manager/Product/add',['id'=>$v['id']])}"><i
+                          class="iconfont iconicon_xie1"></i><br />编辑</a>
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="del($(this))"><i class="iconfont iconicon_shanchu-xian"></i><br />删除</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {/foreach} {/if}
+          {/foreach} {/if}
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between p-0 fs-10">
+      <div class="page-info">
+        <span class="mr-3">总共<span class="page-total">-</span>条</span>
+      </div>
+      <div class="d-inline-block mt-1">
+        <ul class="pagination pagination-sm float-left">
+          <li class="page-item">
+            <a class="page-link fs-10 page-prev" href="JavaScript:;">&lt;</a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link page-text">1/2</span>
+          </li>
+          <li class="page-item">
+            <a class="page-link fs-10 page-next" href="JavaScript:;">&gt;</a>
+          </li>
+        </ul>
+        <input type="text" class="page-txt float-left form-control form-control-sm fs-10" style="height: 29px;"
+          value="1" maxlength="10">
+        <button class="page-btn btn btn-light btn-sm float-left fs-10">跳转</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/block} {block name='js'}
+<script>
+    function del(t) {
+        if (confirm('确认要删除这个产品吗？')) {
+            ajax("{:url('manager/Product/del')}", {
+                id: t.parents('tr').data('id')
+            }, 'delete').then((e) => {
+                if (e.status == 200) {
+                    t.parents('tr').remove();
+                } else {
+                    alert(e.smg);
+                }
+            })
+        }
+    }
+
+    function delgroup(t) {
+        if (confirm('确认要删除这个产品组吗？')) {
+            ajax("{:url('manager/Product/delgroup')}", {
+                id: t.parents('tr').data('id')
+            }, 'delete').then((e) => {
+                if (e.status == 200) {
+                    t.parents('tr').remove();
+                } else {
+                    alert(e.msg);
+                }
+            })
+        }
+    }
+  $('.tableData').DataTable({
+    'paging': true,
+    'fixedHeader': true,
+    'lengthChange': false,
+    'searching': true,
+    'ordering': false,
+    'info': false,
+    'autoWidth': false,
+    'deferRender': false,
+    'processing': false,
+    "pageLength": 999,
+  });
+</script>
+{/block}

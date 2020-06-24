@@ -1,0 +1,83 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card">
+  <div class="card-header  border-t pb-0" style="background-color: #fff">
+    <div class="tool-list d-flex">
+      <ul class="list-inline mr-auto  m-0">
+        <li class="list-inline-item p-2" style="border-bottom:3px solid #108cee;">
+          <h4 style="color: #108cee;">7天内过期资源</h4>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body fs-12">
+    <div class="cont-box">
+      <div class="pb-3">
+        <div class="form-row m-0">
+          <ul class="list-inline mr-auto m-0 form-inline">
+            <li class="list-inline-item form-inline">
+              <div class="input-group input-group-sm">
+                <input type="text" name="name" class="form-control form-control-sm" placeholder="请输入客户名称"
+                  value="{$_GET['name']}">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary subsc btn-sm">
+                    <span class="iconfont icon-icon_sousuo-xian mr-0"></span>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="ml-nge">
+        <div>
+          <table class="table table-border">
+            <thead class="bg-fB p-2">
+              <tr class="font-weight-light">
+                <th class="px-3">客户注册名称</th>
+                <th>备注名称</th>
+                <th>产品</th>
+                <th>资源ID</th>
+                <th>创建时间</th>
+                <th>支付方式</th>
+                <th>到期时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              {if !empty(list_toArray($list))}
+              {foreach $list as $k => $v}
+              <tr data-info='{$v|json_encode}'>
+                <td>{$v.name}<i></i></i><br/><small class="text-muted">{$v.id|md5}</small></td>
+                <td>{$v.manager_remark?$v.manager_remark:' - '}</td>
+                <td>{$v.pro_name}</td>
+                <td>{$v.pro_id} </td>
+                <td>{$v.create_time} </td>
+                <td>{$v.pay_type}</td>
+                <td class="{$v['end_time']=='已过期'?'text-danger':''}">{$v.end_time}</td>
+              </tr>
+              {/foreach}
+              {else /}
+              <tr>
+                <td colspan="8" class="text-center">暂无数据</td>
+              </tr>
+              {/if}
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-between pt-3 px-3">
+          <ul class="mr-auto"></ul>
+          <div class="pagination mb-0">
+            {$list->render()}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/block} {block name='modal'}{/block} {block name='js'}
+<script>
+  $('.subsc').click(function () {
+    window.location.href = window.location.origin + window.location.pathname + '?name=' + $('[name="name"]').val()
+  });
+</script>
+{/block}

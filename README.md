@@ -1,7 +1,7 @@
 
 ![Image](https://images.gitee.com/uploads/images/2020/0223/181407_3d7ec98d_1332225.png)
 
-## GEECP 开源公有云管理系统（已暂停下载）
+## GEECP 开源公有云管理系统（现已支持八大功能模块）
 
 
 #### 基础功能支持计划：
@@ -9,16 +9,17 @@
 支持的功能|状态|插件或第三方
 -|-|-
 域名注册|已完成|美橙互联/西部数码/ResellerClub
-虚拟主机|进行中|EasyPanel/DirectAdmin/Plesk
+智能解析|已完成|对接DNSPOD解析服务
+虚拟主机|已完成|EasyPanel/DirectAdmin/Plesk
 VPS|已完成|星外Hyper-v/SolusVM
 云主机|已完成|Nokvm/Jincloud
 SSL证书|进行中|GlobalSign/Comodo/Certum/Symantec/DigiCert/CFCA
-智能建站|进行中|美橙建站之星
+智能建站|已完成|耐斯尼克建站宝盒
 云解析|进行中|官方永久免费的云API
-CDN|进行中|Fikker/CDNBest
+CDN|已完成| 支持kanglecdn，自研cdn系统即将上线
 云WAF|进行中| * 
 高防IP|进行中| *
-租用托管|进行中|二次修改，第一版已出。目前改进方向纳入自动化机房管理
+租用托管|已完成|二次修改，第一版已出。目前改进方向纳入自动化机房管理
 
 
 #### MSP多云管理服务
@@ -35,15 +36,15 @@ CDN|进行中|Fikker/CDNBest
 
 功能 | 概述
 -|-
-基于OPENSTACK®受控| 自主接入
-基于云联盟资源中心| API接入
+基于OPENSTACK®受控| 自主接入，PoleStack云集群
+
 
 
 ## 如何安装GEECP?
 
 
 ```
-下载安装包：暂停下载
+下载安装包：请到论坛下载 bbs.geecp.com
 ```
 
 

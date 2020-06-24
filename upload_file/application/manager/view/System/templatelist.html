@@ -1,0 +1,281 @@
+{extend name='Common/index' /} {block name='content'}
+
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <div class="mr-auto col-8 px-0"></div>
+    <div>
+      <a href="{:url('manager/System/addtemplate')}" class="btn btn-info btn-sm">新增</a>
+      <button type="button" class="btn btn-info btn-sm ml-2" data-target="#testmessaging" data-toggle="modal">发送测试邮件</button>
+      <button type="button" class="btn btn-info btn-sm ml-2" data-target="#messaging" data-toggle="modal">消息群发</button>
+      <button type="button" class="btn btn-info btn-sm ml-2" data-target="#testmessaging2" data-toggle="modal">发送测试消息</button>
+    </div>
+  </div>
+  <div class="card-body text-center">
+    <div class="table-box">
+      <table class="table table-striped table-hover tableData">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left pl-3">ID</th>
+            <th scope="col">模板类型</th>
+            <th scope="col">模板标识</th>
+            <th scope="col">模板名称</th>
+            <th scope="col">模板内容</th>
+            <th scope="col" class="text-center">模板状态</th>
+            <th scope="col">创建时间</th>
+            <th scope="col" class=" text-right pr-4">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {if !empty($list)} {foreach name="list" item="v"}
+          <tr data-id="{$v.id}">
+            <td class="pl-3">{$v.id}</td>
+            <td>{$v.temp_type}</td>
+            <td>{$v.mark}</td>
+            <td>{$v.name}</td>
+            <td style="width: 340px;">{:nl2br($v["content"])}</td>
+            <!-- str_replace("\n","<br />") -->
+            <td class="text-center">{$v.temp_status}</td>
+            <td>{$v.create_time}</td>
+            <td class=" text-right pr-4">
+              <div class="set_btn">
+                <i class="iconfont iconicon_huifu-xian"></i>
+                <div class="py-1 px-2">
+                  <div>
+                    <div>
+                      {if $v['status'] == '0'}
+                      <a href="javascript:;" onclick="disabled($(this),'2')"><i
+                          class="iconfont icon28suoding"></i><br />禁用</a> {else/}
+                      <a href="javascript:;" onclick="disabled($(this),'0')"><i
+                          class="iconfont icon027caozuo_jiesuo"></i><br />解禁</a> {/if}
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="del($(this))"><i
+                          class="iconfont iconicon_shanchu-xian"></i><br />删除</a>
+                    </div>
+                    <div>
+                      <a href="{:url('manager/System/addtemplate',['id'=>$v['id']])}"><i
+                          class="iconfont iconicon_xie1"></i><br />编辑</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+          {/foreach} {/if}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between p-0 fs-10">
+      <div class="page-info">
+        <span class="mr-3">总共<span class="page-total">-</span>条</span>
+      </div>
+      <div class="d-inline-block mt-1">
+        <ul class="pagination pagination-sm float-left">
+          <li class="page-item">
+            <a class="page-link fs-10 page-prev" href="JavaScript:;">&lt;</a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link page-text">1/2</span>
+          </li>
+          <li class="page-item">
+            <a class="page-link fs-10 page-next" href="JavaScript:;">&gt;</a>
+          </li>
+        </ul>
+        <input type="text" class="page-txt float-left form-control form-control-sm fs-10" style="height: 29px;"
+          value="1" maxlength="10">
+        <button class="page-btn btn btn-light btn-sm float-left fs-10">跳转</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="messaging" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">消息群发</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <div class="form-horizontal">
+          <input type="hidden" name="id" value="42">
+          <div class="form-group">
+            <label class="col-sm-12 control-label">接收人：</label>
+            <div class="col-sm-12">
+              <input type="file" class="form-control-plaintext form-control-plaintext-sm" name="file">
+              <p class="text-muted">只接受.xlsx,.xlsx后缀文件,Excel表格中每列第一行为接收人信息(邮箱)</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">发送类型：</label>
+            <div class="col-sm-12">
+              <select class="form-control form-control-sm" name="sendtype">
+                <!-- <option value="0">短信验证码</option> -->
+                <!-- <option value="1">短信通知</option> -->
+                <!-- <option value="2">邮件验证码</option> -->
+                <option value="3">邮件通知</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-12 control-label">模板列表：</label>
+            <div class="col-sm-12">
+              <select class="form-control form-control-sm" name="sendmodel">
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-info btn-sm subMessaging">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="testmessaging" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">测试邮件</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-12 control-label">接收人：</label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control form-control-sm" name="testemailget">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-info btn-sm" onclick="temp()">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="testmessaging2" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">测试消息</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-12 control-label">接收人：</label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control form-control-sm" name="testemailget2">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-info btn-sm" onclick="smstemp()">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/block} {block name='js'}
+<script>
+  const modellist = JSON.parse('{$mlist}'.replace(/\n/g, "<br/>"));
+  $('[name="sendtype"]').change(function () {
+    let html = ``;
+    modellist.filter(e => {
+      return $(this).val() == e.type;
+    }).map(e => {
+      html += `<option value="${e.id}">${e.name}</option>`;
+    })
+    $('[name="sendmodel"]').html(html);
+  })
+  $('[name="sendtype"]').trigger('change')
+
+  $('.subMessaging').click(function(){
+    if (confirm('确认要进行消息群发吗？')) {
+      let fd = new FormData();
+      fd.append('file',$('[name="file"]')[0].files[0])
+      fd.append('type',$('[name="sendtype"]').val())
+      fd.append('model',$('[name="sendmodel"]').val())
+      ajax("{:url('manager/System/subMessaging')}", fd, 'post',true).then((e) => {
+        if(e.status === 200){
+          alert(e.msg)
+          $('[name="file"]').val('')
+          $('#messaging').modal('hide')
+        } else {
+          alert(e.msg);
+        }
+        console.log(e)
+      })
+    }
+  })
+
+  function del(t) {
+    if (confirm('确认要删除这个模板吗？')) {
+      ajax("{:url('manager/System/deltemplate')}", {
+        id: t.parents('tr').data('id')
+      }, 'delete').then((e) => {
+        t.parents('tr').remove();
+      })
+    }
+  }
+
+  function disabled(t, sta) {
+    if (confirm(`确认要${sta == '0'?'解禁':'禁用'}这个模板吗？`)) {
+      ajax("{:url('manager/System/disatemplate')}", {
+        id: t.parents('tr').data('id'),
+        status: sta
+      }, 'put').then((e) => {
+        if (e.status == 200) {
+          window.location.reload();
+        }
+      });
+    }
+  }
+
+  function temp() {
+    ajax("{:url('manager/Common/sendEmail')}?tempId=1&get="+$('[name="testemailget"]').val());
+  }
+
+  function smstemp() {
+    ajax("{:url('manager/Common/sendMessage')}", {
+      'mark': 'registerCode',
+      'to': $('[name="testemailget2"]').val(),
+      'params': JSON.stringify([
+        'basic_name',
+        '123456'
+      ])
+    }, 'post')
+  }
+
+  $('.tableData').DataTable({
+    'paging': true,
+    'fixedHeader': true,
+    'lengthChange': false,
+    'searching': true,
+    'ordering': true,
+    'info': false,
+    'autoWidth': false,
+    'deferRender': true,
+    'processing': false,
+    "order": [
+      [0, "desc"]
+    ],
+    "pageLength": 20,
+  });
+</script>
+{/block}

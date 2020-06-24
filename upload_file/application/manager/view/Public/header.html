@@ -1,0 +1,179 @@
+<div class="mheader">
+  <nav class="navbar px-3 navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+      aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="mr-auto"></div>
+    <div class="user_pic">
+      <i class="iconfont iconyonghushuju"></i>
+      <div class="childer_list">
+        <div class="childer_list_box">
+          <ul>
+            <li><a href="{:url('manager/System/basic')}">系统设置</a></li>
+            <li><a href="{:url('manager/Login/logout')}">退出登录</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="nav-child d-flex justify-content-between align-items-center px-1 bg-white">
+  <ul>
+    <li><a href="/manager/v2/index"><i class="iconfont iconAPPBuilder-WES"></i> 概览</a></li>
+    {foreach name="startRoute" item='var' key='key'}
+    <?php
+    $routeRes = routeAnalysis($var['id']);
+    //dump($var['code'].'/'.$routeRes[0]['code']);
+  ?>
+    <li class="{:empty($routeRes)?'':'list_hover'}">
+      <a href="<?php echo !empty($routeRes) ? '/manager/v2/'.$var['code'].'/'.$routeRes[0]['code']:'/manager/v2/'.$var['code'].'/index'; ?>">
+        <i class="iconfont {$var.icon}"></i>
+        {$var.title}
+        <!-- {:dump($var['code'].'/'.$routeRes[0]['code'])} -->
+        {if !empty($routeRes)}
+        <i class="iconfont iconicon_jiantou-xia"></i>
+        {/if}
+      </a>
+      {if !empty($routeRes)}
+      <div class="childer_list">
+        <div class="childer_list_box">
+          <ul>
+            {foreach name="routeRes" item='v'}
+            <li><a href="/manager/v2/{$var.code}/{$v.code}">{$v.title}</a> </li>
+            {/foreach}
+          </ul>
+        </div>
+      </div>
+      {/if}
+    </li>
+    {/foreach}
+  </ul>
+  <!-- <ul>
+    <li><a href="../index.html"><i class="iconfont iconAPPBuilder-WES"></i> 概览</a></li>
+    <li><a href="/user/user.html"><i class="iconfont iconyonghuguanli"></i> 用户</a></li>
+    <li class="list_hover">
+      <a href="#">
+        <i class="iconfont iconchanpinku"></i>
+        业务
+        <i class="iconfont iconicon_jiantou-xia"></i>
+      </a>
+      <div class="childer_list">
+        <div class="childer_list_box">
+          <ul>
+            <li><a href="#">搜索</a> </li>
+            <li><a href="#">新增</a></li>
+            <li><a href="#">业务列表</a></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li class="list_hover">
+      <a href="#">
+        <i class="iconfont iconcaidanguanli"></i>
+        产品
+        <i class="iconfont iconicon_jiantou-xia"></i>
+      </a>
+      <div class="childer_list">
+        <div class="childer_list_box">
+          <ul>
+            <li><a href="#">搜索</a> </li>
+            <li><a href="#">新增</a></li>
+            <li><a href="#">产品列表</a></li>
+            <li><a href="#">产品分组</a></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li class="list_hover">
+      <a href="#">
+        <i class="iconfont iconAPPBuilder-RBS"></i>
+        运营
+        <i class="iconfont iconicon_jiantou-xia"></i>
+      </a>
+      <div class="childer_list">
+        <div class="childer_list_box">
+          <ul>
+            <li><a href="#">搜索</a> </li>
+            <li><a href="#">新闻</a></li>
+            <li><a href="#">公告</a></li>
+            <li><a href="#">内容</a></li>
+            <li><a href="#">通知设置</a></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li class="list_hover">
+      <a href="#">
+        <i class="iconfont icongongdanliebiao"></i>
+        工单
+        <i class="iconfont iconicon_jiantou-xia"></i>
+      </a>
+      <div class="childer_list">
+        <div class="childer_list_box">
+          <ul>
+            <li><a href="#">搜索</a> </li>
+            <li><a href="#">创建新工单</a></li>
+            <li><a href="#">产品列表</a></li>
+            <li><a href="#">工单列表</a></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li><a href="#"><i class="iconfont iconcaiwu"></i> 财务</a></li>
+    <li><a href="#"><i class="iconfont iconManagementDeploymen8"></i> 扩展</a></li>
+    <li><a href="#"><i class="iconfont iconCloudCommunication-1"></i> 系统</a></li>
+    <li><a href="#"><i class="iconfont iconyiliaoyingxianglixianguidang"></i> 更新</a></li>
+  </ul> -->
+</div>
+<!-- <header class="main-header">
+    <a href="/manager" class="logo">
+      <span class="logo-mini"><b>GEE</b>CP</span>
+      <span class="logo-lg"><b>GEE</b>CP</span>
+    </a>
+    <nav class="navbar navbar-static-top">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only"></span>
+      </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="__STATIC__/dist/img/G-l.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">{$managerinfo['name']}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="user-header">
+                <img src="__STATIC__/dist/img/G-l.png" class="img-circle" alt="User Image">
+                <p>
+                  {$managerinfo['name']} - {$managerinfo['group']}
+                </p>
+              </li>
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="{:url('manager/Staff/list')}">员工管理</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="{:url('manager/Finance/details')}">财务管理</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="{:url('manager/User/list')}">用户管理</a>
+                  </div>
+                </div>
+              </li>
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="{:url('manager/System/basic')}" class="btn btn-default btn-flat">系统设置</a>
+                </div>
+                <div class="pull-right">
+                  <a href="{:url('manager/Login/logout')}" class="btn btn-default btn-flat">退出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header> -->

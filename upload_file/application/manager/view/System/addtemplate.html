@@ -1,0 +1,157 @@
+{extend name='Common/index' /}
+{block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    {$info?'修改':'新增'}模板
+  </div>
+  <div class="card-body border-0 py-0">
+    <div class="table-box px-3 pb-3">
+
+      <form class="needs-validation" novalidate>
+        <div class="form-group border-bottom pb-3">
+          <label for="setinput1">模板类型:</label>
+          <div class="col form-inline px-0">
+            <select class="custom-select custom-select-sm col-2" name="type" id="type">
+              <option value="0" {$info?$info['type']=='0' ?'selected':'':''}>短信验证码</option>
+              <option value="1" {$info?$info['type']=='1' ?'selected':'':''}>短信通知</option>
+              <option value="2" {$info?$info['type']=='2' ?'selected':'':''}>邮件验证码</option>
+              <option value="3" {$info?$info['type']=='3' ?'selected':'':''}>邮件通知</option>
+            </select>
+            <input type="hidden"  name="id" value="{$info?$info['id']:''}">
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div class="form-group border-bottom pb-3">
+          <label for="setinput2">模板标识:</label>
+          <div class="col form-inline px-0">
+            <input type="text" id="mark" name="mark" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['mark']:''}">
+            <small class="text-muted ">请输入模板标识 </small>
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div class="form-group border-bottom pb-3">
+          <label for="setinput3">模板名称:</label>
+          <div class="col form-inline px-0">
+            <input type="text" id="name" name="name" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['name']:''}">
+            <small class="text-muted ">请输入模板名称</small>
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div class="form-group border-bottom pb-3">
+          <label for="model_id">模板ID:</label>
+          <div class="col form-inline px-0">
+            <input type="text" id="model_id" name="model_id" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['model_id']:''}">
+            <!-- <small class="text-muted ">请输入模板名称</small> -->
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div class="form-group border-bottom pb-3">
+          <label for="setinput4">模板内容:</label>
+          <div class="col form-inline px-0">
+            <textarea name="content" id="content" class="form-control form-control-sm col-2 mr-3" cols="30" rows="10">{$info?$info['content']:''}</textarea>
+            <small class="text-muted ">
+              请输入模板内容
+            </small>
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div class="form-group border-bottom pb-3">
+          <label for="setinput4">模板状态:</label>
+          <div class="col form-inline px-0">
+            <div class="col-6 form-control-sm switch-box">
+              <input type="checkbox" name="status" id="status" data-mid="isAlarm" value="0" {$info?$info['status'] == '0'?'checked':'':''}>
+              <label for="status" class="switch"></label>
+            </div>
+          </div>
+        </div>
+
+
+        <div>
+          <button type="button" class="btn btn-primary btn-sm px-5 sub"> 提交</button>
+          <a href="javascript:history.go(-1);" class="btn btn-outline-secondary btn-sm px-5">返回</a>
+        </div>
+      </form>
+      <div class="card border my-3 bg-light">
+        <div class="card-body">
+          <h5 class="card-title">可使用的公共变量</h5>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_name} </div>
+            <div class="col-3">基本信息 - 网站名称</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_email} </div>
+            <div class="col-3">基本信息 - 联系邮箱</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_url} </div>
+            <div class="col-3"> 基本信息 - 网站首页域名</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_logo} </div>
+            <div class="col-3">基本信息 - logo图片路径</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_icp} </div>
+            <div class="col-3">基本信息 - ICP备案</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_beian}</div>
+            <div class="col-3">基本信息 - 网安备案</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_idc} </div>
+            <div class="col-3">基本信息 - IDC备案</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{basic_isp} </div>
+            <div class="col-3">基本信息 - ISP备案</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{email_code} </div>
+            <div class="col-3">邮件随机验证码</div>
+          </div>
+          <div class="row text-height-2">
+            <div class="col-2">{sms_code} </div>
+            <div class="col-3">短信随机验证码</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+  $('.sub').click(function () {
+    let names = document.querySelectorAll('.form-group [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => {
+      if(e.name == 'status'){
+        vals[e.name] = $(e).prop('checked')?'0':'1';
+      } else {
+        vals[e.name] = e.value;
+      }
+    });
+    ajax('{:url("manager/System/addtemplateAuth")}', vals, 'post').then(e => {
+      if (e.status === 200) {
+        alert(e.msg);
+        location.href = "{:url('manager/System/template')}";
+      } else {
+        alert(e.msg);
+      }
+    });
+  });
+</script>
+{/block}
