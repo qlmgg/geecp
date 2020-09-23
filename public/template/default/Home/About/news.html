@@ -1,0 +1,157 @@
+<div class="news-box">
+  <div class="py-4 row">
+    <div class="col-2 tabm">
+      <div class="btn-group btn-group-vertical mr-2 w-100" role="group" aria-label="First group">
+        <button type="button" class="btn btn-primary btn-lg w-100" data-cid="">全部</button>
+        {if !empty($nclist)}
+        {foreach name="nclist" item="v"}
+        <button type="button" class="btn btn-light btn-lg w-100" data-cid="{$v['id']}">{$v['name']}</button>
+        {/foreach}
+        {/if}
+        <!-- <button type="button" class="btn btn-light btn-lg w-100">最新活动</button>
+            <button type="button" class="btn btn-light btn-lg w-100">业界新闻</button> -->
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="news-list">
+        {if !empty($nlist)}
+        {foreach name="nlist" item="v"}
+        <div class="card mb-3 unbdr">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <img src="{$v['cover']}" alt="" width="100%">
+              </div>
+              <div class="col-9">
+                <h3 class="active">{$v['title']}<i></i></h3>
+                <p>{$v['intro']}</p>
+                <div>
+                  <span class="time">{$v['create_time']}</span>
+                  <a href="javascript:;" onclick='see($(this))' data-conf='{$v}' class="float-right">查看详情&gt;&gt;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/foreach}
+        {else /}
+        <div class="empty p-3">
+          暂无新闻
+        </div>
+        {/if}
+      </div>
+      <div class="news-cont d-none">
+        <div class="card unbdr">
+          <div class="card-body">
+            <div class="bdrb pb-3 mb-3">
+              <div class="page-header m-0">
+                <h3><a href="javascript:;" onclick="back()" class="iconfont icon-icon_jiantou-zuo cc mr-3"></a><span class="title"></span></h3>
+              </div>
+              <div class="intro mb-2"></div>
+              <div class="time"></div>
+            </div>
+            <div class="cont"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .news-box>div:nth-child(1) {
+    margin: 0 auto;
+    min-width: 1200px;
+    max-width: 1200px;
+  }
+
+  .tabm .btn {
+    border-bottom: 1px dashed #e6e6e6;
+  }
+
+  .unbdr {
+    border-radius: 0;
+  }
+
+  .bdrb{
+    border-bottom: 1px solid rgba(0,0,0,.125);
+  }
+
+  .intro{
+    color: #666;
+  }
+  .cc{
+    color: #333!important;
+  }
+  h3{
+    font-weight: normal;
+  }
+  h3 a{
+    font-size: 16px!important;
+  }
+  h3 .title{
+    font-weight: normal;
+  }
+</style>
+<script>
+  $('[data-cid]').click(function () {
+    console.log($(this).data('cid'))
+    var t = $(this)
+    $.ajax({
+      url: "/getnews",
+      type: 'get',
+      data: {
+        id: t.data('cid')
+      },
+      success: function (e) {
+        console.log(e)
+        var html = ''
+        if (e.length) {
+          e.map(v => {
+            html += `
+              <div class="card mb-3 unbdr">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-3">
+                      <img src="${v.cover}" alt="" width="100%">
+                    </div>
+                    <div class="col-9">
+                      <h3 class="active">${v.title}<i></i></h3>
+                      <p>${v.intro}</p>
+                      <div>
+                        <span class="time">${v.create_time}</span>
+                        <a href="javascript:;" onclick="see($(this))" data-conf='${JSON.stringify(v)}' class="float-right">查看详情&gt;&gt;</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          })
+        } else {
+          html = `
+            <div class="empty p-3">
+              暂无新闻
+            </div>
+            `
+        }
+        $('.news-list').html(html);
+        $('[data-cid]').prop('class', 'btn btn-light btn-lg w-100')
+        t.prop('class', 'btn btn-primary btn-lg w-100')
+      }
+    });
+  });
+
+  function see(t) {
+    var c = t.data('conf')
+    $('.news-list').addClass('d-none')
+    $('.news-cont').removeClass('d-none')
+    $('.title').html(c.title)
+    $('.intro').html(c.intro)
+    $('.time').html(c.create_time)
+    $('.cont').html(c.cont)
+  }
+  function back(){
+    $('.news-list').removeClass('d-none')
+    $('.news-cont').addClass('d-none')
+  }
+</script>

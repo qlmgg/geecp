@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {include file='Public/head'} {block name='style'}{/block}
+</head>
+
+<body class="">
+  <div class="v2admin v2admin_box">
+    {include file='Public/header'}
+    <div class="v2admin_content user_box d-flex flex-row {:empty($nowStart['child'])?'':'child'}">
+      <div class="v2admin_content_left">
+        <ul class="nav flex-column">
+          {if !empty($nowStart['child'])}
+          {foreach $nowStart['child'] as $k=>$v}
+          <li class="nav-item">
+            <a class="nav-link {$v['checked']?'active':''}"
+              href="/manager/v2/{$nowStart.code}/{$v.code}">{$v['title']}</a>
+          </li>
+          {/foreach}
+          {/if}
+        </ul>
+      </div>
+      <div class="v2admin_content_main flex-fill">
+        {block name='content'}{/block}
+      </div>
+    </div>
+
+    {include file='Public/footer'} {include file='Public/aside'}
+  </div>
+  {block name='modal'}{/block} {include file='Public/script'} {block name='js'}{/block}
+  <script>
+    //统一调用启用时间范围
+    $('.datetime-range').daterangepicker({
+      'opens': 'right',
+      'singleDatePicker': false,
+      'linkedCalendars': false,
+      'startDate': moment().subtract(30, 'years'),
+      'endDate': moment(new Date()),
+    });
+    $('.datetime-range.month').daterangepicker({
+      'opens': 'right',
+      'singleDatePicker': false,
+      'linkedCalendars': false,
+      'startDate': moment().subtract(30, 'days'),
+      'endDate': moment(new Date()),
+    });
+    //统一调用时间选择
+    $('.datepicker').daterangepicker({
+      autoclose: true,
+      singleDatePicker: true,
+    })
+
+    //自定义 dataTable 数据筛选
+    //全局搜索
+    function filterGlobal() {
+      $('.tableData').DataTable().search(
+        $('.global_filter').val()
+      ).draw();
+    }
+    //单列关键字搜索
+    function filterColumn(i) {
+      $('.tableData').DataTable().column(i).search(
+        $('.col' + i + '_filter').val()
+      ).draw();
+    }
+    //时间范围筛选
+    function filterDatetime(i) {
+      let datetimes = $('.col' + i + '_filter').val();
+      start = datetimes.split(' - ')[0],
+        end = datetimes.split(' - ')[1];
+      $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+          var min = start + ' 00:00:00';
+          var max = end + ' 23:59:59';
+          var date = data[i] || 0;
+          min = new Date(min.replace(/-/g, "\/"));
+          max = new Date(max.replace(/-/g, "\/"));
+          date = new Date(date.replace(/-/g, "\/"));
+          if ((isNaN(min) && isNaN(max)) || (isNaN(min) && date <= max) || (min <= date && isNaN(max)) || (min <=
+              date && date <= max)) {
+            return true;
+          }
+          return false;
+        }
+      );
+      $('.tableData').DataTable().draw();
+      settest()
+    }
+    //统一调用搜索
+    function searchInit() {
+      if ($('.global_filter').length >= 1) {
+        filterGlobal($('.global_filter'));
+      }
+      if ($('.column_filter').length >= 1) {
+        $('.column_filter').each(function (i, e) {
+          filterColumn($(e).data('column'));
+        })
+      }
+      if ($('.datetime_filter').length >= 1) {
+        filterDatetime($('.datetime_filter').data('column'));
+      }
+      settest()
+    }
+    //分页
+    function settest() {
+      $('.page-text').html(($('.tableData').DataTable().page.info().page + 1) + '/' + ($('.tableData').DataTable().page
+        .info().pages || '1'));
+      $('.page-total').html($('.tableData').DataTable().page.info().recordsTotal);
+    }
+
+    const _t = $('.tableData').DataTable();
+
+    $('.tablesearch').click(function () {
+      _t.search($(this).parent().prev().val()).draw();
+    })
+
+    function settest() {
+      if(_t.page.info()){
+        $('.page-text').html((_t.page.info().page + 1) + '/' + (_t.page.info().pages || '1'));
+        $('.page-total').html(_t.page.info().recordsTotal);
+      }
+    }
+    settest();
+    $('.page-prev').click(function () {
+      _t.page('previous').draw(false);
+      settest();
+    })
+    $('.page-next').click(function () {
+      _t.page('next').draw(false);
+      settest();
+    })
+    $('.page-btn').click(function () {
+      let _n = Number($(this).prev().val()),
+        _max = Number(_t.page.info().pages);
+      _t.page(_n >= _max ? _max - 1 : _n - 1).draw(false);
+      settest();
+      $(this).prev().val(_n >= _max ? _max : _n)
+    })
+    $(function () {
+      //进入执行默认搜索项
+      searchInit();
+      //执行搜索
+      $('.serchBtn').click(function () {
+        searchInit();
+      });
+      //执行清除
+      $('.tableclear').click(function () {
+        _t.search('').draw();
+        $('.tablesearch').parent().prev().val('');
+        $('.datetime-range').daterangepicker({
+          'opens': 'right',
+          'singleDatePicker': false,
+          'linkedCalendars': false,
+          'startDate': moment().subtract(30, 'years'),
+          'endDate': moment(new Date()),
+        });
+        $('.datetime-range.month').daterangepicker({
+          'opens': 'right',
+          'singleDatePicker': false,
+          'linkedCalendars': false,
+          'startDate': moment().subtract(30, 'days'),
+          'endDate': moment(new Date()),
+        });
+        filterDatetime($('.datetime_filter').data('column'));
+      })
+
+    })
+  </script>
+
+</body>
+
+</html>

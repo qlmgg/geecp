@@ -1,0 +1,325 @@
+body {
+    background-color: #ebeff0;
+}
+
+.navbar {
+    .nav {
+        >li {
+            a {
+                .pd(@mpb @mpb*2);
+            }
+        }
+        &-log {
+            >li {
+                a {
+                    .pd(@mpb @mpb/1.5);
+                }
+            }
+        }
+    }
+    &-brand {
+        .mgr(@mpb);
+    }
+}
+
+.vba-pagination .btn-group.pnmix.pull-left .btn+.btn,
+.vba-pagination .btn-group.pnmix.pull-left .btn+.btn:hover {
+    border-left: 0;
+}
+
+.header {
+    .fs(18px);
+    .blod;
+}
+
+.mgb {
+    .mgb(@mpb);
+}
+
+.row.vrow {
+    .mgx(0);
+    h3,
+    h4 {
+        .mgy(10px);
+    }
+    div[class*="col"] {
+        .pdx(0);
+        img {
+            max-width: 100%;
+        }
+    }
+}
+
+.row.col5 {
+    .col-md-2 {
+        width: 20%;
+        &:last-child {
+            .unbd;
+        }
+    }
+}
+
+.mgc {
+    .mg(0 auto);
+}
+
+.unpd {
+    .pd(0)!important;
+}
+
+.unpdy {
+    .pdy(0)!important;
+}
+
+.dpd {
+    .pd(@mpb)!important;
+}
+
+.icon-zhifubao {
+    color: @ces;
+}
+
+.icon-weixin {
+    color: @cgr;
+}
+
+.icon-weibiaoti3 {
+    color: @cye;
+}
+
+.icon-huobi {
+    color: @cor;
+}
+
+.icon-kefu {
+    color: @ces;
+}
+
+form .iconfont {
+    .mgr(@mpb/1.5);
+}
+
+.uh-l {
+    width: 120px;
+    height: 120px;
+}
+
+.uh-m {
+    width: 80px;
+    height: 80px;
+}
+
+.uh-x {
+    width: 60px;
+    height: 60px;
+}
+
+.pdt2 {
+    .pdt(@mpb*2);
+}
+
+.unmg {
+    .mg(0)!important;
+}
+
+.nav-vba {
+    background-color: @ces;
+    .mgb(@mpb);
+    >li {
+        a {
+            color: @cwh;
+            .unbd;
+            .unbdr!important;
+            &:hover {
+                .unbdr;
+                background-color: @ces*0.9;
+                color: @cwh;
+            }
+        }
+        &.active {
+            a {}
+        }
+    }
+}
+
+.nav-xs {
+    >li {
+        a {
+            .pd(@mpb/2 @mpb);
+        }
+    }
+}
+
+.uh-box {
+    cursor: pointer;
+    .dib;
+    .pr;
+    &:after {
+        content: '\e610';
+        font-family: "iconfont" !important;
+        .ps;
+        bottom: 0;
+        right: 0;
+        color: @ces;
+    }
+}
+
+.vtop {}
+
+.tab {
+    position: relative;
+    &-left,
+    &-body {
+        float: left;
+        .table {
+            width: 100%;
+            .mg(0);
+            tr>td,
+            tr>th {
+                .pd(0 10px);
+                line-height: 27px;
+                min-width: 120px;
+            }
+        }
+    }
+    &-left {
+        position: relative;
+        width: 260px;
+        z-index: 9;
+        .table {
+            tr>td,
+            tr>th {
+                background-color: @cgy;
+            }
+        }
+    }
+    &-body {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        padding-left: 260px;
+        .table {
+            tr>th {
+                background-color: @cgy;
+                font-weight: 100;
+            }
+        }
+    }
+    .table {
+        background-color: @cwh;
+    }
+}
+
+.vba-cont {
+    .pd(@mpb);
+    .ohd;
+    background-color: @cwh;
+}
+
+.footer {
+    &.vba {
+        .mgt(@mpb*2);
+        .pd(@mpb*2);
+        background-color: @bgc;
+        color: @cc2;
+        .tac;
+        p {
+            .mg(0);
+            line-height: 27px;
+        }
+    }
+}
+
+.nav-hmix .nav-tabs {
+    background: @cgy;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    vertical-align: middle!important;
+}
+
+.page-header {
+    &.vba {
+        .unbd;
+        .mg(0);
+        >h3,
+        >h4 {
+            .pdl(@mpb);
+            .bdrl(3px, solid, @ces);
+        }
+    }
+}
+
+.content-mix {
+    .page-header {
+        .pdb(@mpb*2);
+    }
+    p{
+        text-indent: 0;
+    }
+}
+
+.vtab {
+    &-cont {
+        .pdy(0);
+        .panel {
+            .mg(0);
+        }
+    }
+}
+
+.text {
+    &-indent {
+        text-indent: 2rem;
+    }
+}
+
+.charts {
+    .pr;
+}
+
+.loding {
+    .ps;
+    background-color: @cwh;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    img {
+        .ps;
+        .amid;
+    }
+}
+
+blockquote {
+    border-color: @ces*1.2;
+}
+
+.modal-alert {
+    .panel {
+        &-footer {
+            .pd(0);
+            .btn {
+                display: block;
+                width: 100%;
+                line-height: 37px;
+                &:hover,
+                &:focus {
+                    text-decoration: none;
+                    outline: none;
+                }
+                &.text-danger {
+                    &:hover,
+                    &:focus {
+                        color: @cre*0.8;
+                    }
+                }
+            }
+        }
+    }
+}

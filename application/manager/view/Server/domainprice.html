@@ -1,0 +1,277 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card bg-white">
+  <div class="child-nav">
+    <ul class="nav nav-pills  p-3">
+      <li class="nav-item">
+        <a class="nav-link text-height-1 py-2" href="{:url('manager/Service/domain')}">域名列表</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active text-white text-height-1 py-2" href="{:url('manager/Service/domainprice')}">域名价格</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-height-1 py-2" href="{:url('manager/Service/domaintempaudit')}">信息模板</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <div class="mr-auto col-8 px-0">
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control form-control-sm" placeholder="关键字">
+        <div class="input-group-append">
+          <button class="btn btn-xs tablesearch"><i class="iconfont iconicon_sousuo-xian text-height-2"></i></button>
+        </div>
+      </div>
+      <button class="btn btn-link btn-sm tableclear">清空</button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-info btn-sm" onclick="showPrice()">
+        新增域名价格
+      </button>
+    </div>
+  </div>
+  <div class="card-body text-center">
+    <div class="table-box">
+      <table class="table table-striped table-hover tableData">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left pl-2">域名名称</th>
+            <th scope="col">标签</th>
+            <th scope="col">描述</th>
+            <th scope="col">创建时间</th>
+            <th scope="col" class="text-right pr-3">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {if !empty($list)} {foreach name="list" item="v"}
+          <tr data-id="{$v.id}" data-config='{$v|json_encode}'>
+            <td class="text-left pl-2">{$v.domain}</td>
+            <td>{$v.tag}</td>
+            <td>{$v.description}</td>
+            <td>{$v.create_time}</td>
+            <td class="text-right pr-4">
+              <div class="set_btn">
+                <i class="iconfont iconicon_huifu-xian"></i>
+                <div class="py-1 px-2">
+                  <div>
+                    <div>
+                      <a href="javascript:;" onclick="delPrice($(this))"><i
+                          class="iconfont iconicon_shanchu-xian"></i><br />删除</a>
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="showPrice($(this))"><i
+                          class="iconfont iconicon_xie1"></i><br />编辑</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {/foreach} {/if}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between p-0 fs-10">
+      <div class="page-info">
+        <span class="mr-3">总共<span class="page-total">-</span>条</span>
+      </div>
+      <div class="d-inline-block mt-1">
+        <ul class="pagination pagination-sm float-left">
+          <li class="page-item">
+            <a class="page-link fs-10 page-prev" href="JavaScript:;">&lt;</a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link page-text">1/2</span>
+          </li>
+          <li class="page-item">
+            <a class="page-link fs-10 page-next" href="JavaScript:;">&gt;</a>
+          </li>
+        </ul>
+        <input type="text" class="page-txt float-left form-control form-control-sm fs-10" style="height: 29px;"
+          value="1" maxlength="10">
+        <button class="page-btn btn btn-light btn-sm float-left fs-10">跳转</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<div class="modal fade" id="setprice" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">域名价格配置</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <form class="needs-validation row" novalidate>
+          <input type="hidden" name="id">
+          <div class="form-group border-bottom pb-3 col-6">
+            <label>域名名称:</label>
+            <div class="col form-inline px-0">
+              <input type="text" class="form-control form-control-sm col" name="domain">
+              <small class="text-muted ">例: .com</small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-6">
+            <label for="">域名接口:</label>
+            <div class="col form-inline px-0">
+              <select class="custom-select custom-select-sm col" name="pro_id">
+                {if (!empty($prolist) && !empty($prolist[0]))}
+                {foreach name="prolist" item="v"}
+                <option value="{$v.id}">{$v.name}</option>
+                {/foreach}
+                {else/}
+                <option>请先在产品中配置域名产品</option>
+                {/if}
+              </select>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>原价(元/年):</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" class="form-control form-control-sm col" name="origin_price">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label for="setinput4">促销价(元/年):</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="price" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>续费价(元/年):</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="recharge" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>转入价(元/年):</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="transferin" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>一年价:</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="twelvemonth" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>两年价:</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="biennia" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>三年价:</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="triennium" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>四年价:</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="quadrennium" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3">
+            <label>五年价:</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="lustrum" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3 col-3 ">
+            <label>十年价:</label>
+            <div class="col form-inline px-0">
+              <input type="number" step="0.01" min="0.01" name="decade" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group col-6 border-bottom">
+            <label>标签:</label>
+            <div class="col form-inline px-0">
+              <input type="text" name="tag" class="form-control form-control-sm col">
+              <small class="text-muted"></small>
+            </div>
+          </div>
+          <div class="form-group col">
+            <label>描述:</label>
+            <div class="col form-inline px-0">
+              <textarea name="description" rows="1" class="form-control form-control-sm col"></textarea>
+              <small class="text-muted"></small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-info btn-sm subsetprice">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function showPrice(t) {
+    if (t) {
+      $('#setprice [name="id"]').val(t.parents('tr').data('id'))
+      let _c = t.parents('tr').data('config');
+      for (v in _c) {
+        $('#setprice [name="' + v + '"]').val(_c[v]);
+      }
+    } else {
+      $('#setprice [name]').val('');
+    }
+    $('#setprice').modal('show')
+  }
+  $('.subsetprice').click(function () {
+    if (confirm("确定要提交域名价格吗？")) {
+      let _i = $('#setprice [name]'),
+        _vals = {};
+      _i.map((i, e) => {
+        _vals[$(e).attr('name')] = $(e).val()
+      })
+      // console.log(_vals)
+      ajax('{:url("manager/Service/adddomainpriceauth")}', {
+        ..._vals
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          window.location.reload()
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  })
+  $('.tableData').DataTable({
+    'paging': true,
+    'fixedHeader': true,
+    'lengthChange': false,
+    'searching': true,
+    'ordering': true,
+    'info': false,
+    'autoWidth': false,
+    'deferRender': true,
+    'processing': false,
+    "order": [
+      [0, "desc"]
+    ],
+    "pageLength": 20,
+  });
+
+</script>
+{/block}

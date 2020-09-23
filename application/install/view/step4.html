@@ -1,0 +1,164 @@
+{include file="public:header"}
+
+<script type="text/html" id="exec-success-msg-tpl">
+  <li>
+    {message}<br>
+    <!--<pre>{sql}</pre>-->
+  </li>
+</script>
+<script type="text/html" id="exec-fail-msg-tpl">
+  <li style='color:red;'>
+    {message}<br>
+    <pre>{sql}</pre>
+    <!--<pre>{exception}</pre>-->
+  </li>
+</script>
+
+<body>
+  <div class="m-upload">
+    <div class="upload-box">
+      <div class="upload-header">
+        <div class="upload-header-left">
+          <img src="/static/install/images/geestack.png" alt="">
+          <span>安装向导</span>
+        </div>
+        <div class="upload-header-right">
+          <a class="ad_install_ready_img" href="#" target="_blank"><img src="" /></a>
+        </div>
+      </div>
+      <div class="upload-body1">
+        <div class="upload-body-box1">
+          <div class="title">
+            <div>4.</div>
+            <div class="">
+              <div>安装</div>
+              <span>正在执行数据库安装</span>
+            </div>
+            <div class="line">
+              <div class="line-d">
+                <span>协议查看并确认</span>
+                <span>运行环境检测</span>
+                <span>数据库和站点管理员信息</span>
+                <span>安装</span>
+              </div>
+              <div class="line-s">
+                <div class="active1"><span></span></div>
+                <div class="active1"><span></span></div>
+                <div class="active1"><span></span></div>
+                <div class="active1 active"><span></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="center-text3" id="install_log">
+            <ul id="install-msg-panel">
+
+            </ul>
+          </div>
+        </div>
+        <div class="upload-body-footer">
+          <button type="button">&nbsp;正在安装...</button>
+        </div>
+      </div>
+      <div class="upload-footer">
+        {include file="public:copyright"}
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(function () {
+      toinstall(0);
+    });
+
+    var installMsgPanel = $('#install-msg-panel');
+    var install_log = $("#install_log");
+    var execSuccessTpl = $('#exec-success-msg-tpl').html();
+    var execFailTpl = $('#exec-fail-msg-tpl').html();
+    var sqlExecResult_error;
+
+    function toinstall(sqlIndex) {
+      $.ajax({
+        url: "/install/action",
+        data: {
+          sql_index: sqlIndex
+        },
+        dataType: 'json',
+        type: 'post',
+        success: function (data) {
+          console.log(data);
+          var line = sqlIndex + 1;
+          if (data.staus == 2) {
+            install_log.scrollTop(1000000000);
+            sqlIndex++;
+            if (data.done == 1) {
+              var success_tpl = execSuccessTpl;
+              success_tpl = success_tpl.replace(/\{message\}/g, line + '.' + data.message);
+              // tpl     = tpl.replace(/\{sql\}/g, data.result.sql);
+              installMsgPanel.append(success_tpl);
+              toinstall(sqlIndex); //继续执行
+            } else if (data.done == 2) {
+              installMsgPanel.append('<li>数据库安装完成!</li>');
+              sqlExecResult_error = data.result.installError;
+              if (sqlExecResult_error) {
+                text = "安装过程,共" + sqlExecResult_error + "个SQL执行错误,可能您在此数据库下已经安装过 GEE,请查看问题后重新安装";
+              } else {
+                stepAction(0) //安装
+              }
+
+            }
+          } else if (data.staus == 1) {
+            install_log.scrollTop(1000000000);
+            var error_tpl = execFailTpl;
+            error_tpl = error_tpl.replace(/\{message\}/g, line + '.' + data.message);
+            installMsgPanel.append(error_tpl);
+          }
+        },
+        error: function () {
+
+        },
+        complete: function () {
+
+        }
+      });
+    }
+
+    var stepUrls = [
+      '/install/update_dbconfig',
+      '/install/create_admin',
+
+    ];
+
+    function stepAction(index) {
+      var urllength = stepUrls.length;
+      var bili = index + 1;
+      if (bili <= urllength) {
+        $.ajax({
+          url: stepUrls[index],
+          dataType: 'json',
+          data: {
+            _higee: 1
+          },
+          type: 'post',
+          success: function (data) {
+            if (data.staus == 2) {
+              installMsgPanel.append('<li>' + data.message + '</li>');
+              index++;
+              stepAction(index);
+            } else if (data.staus == 1) {
+              installMsgPanel.append('<li>' + data.message + '</li>');
+            }
+          },
+          error: function () {}
+        });
+      } else {
+        alert("安装成功！");
+        window.location = "/install/step5";
+      }
+    }
+  </script>
+
+
+
+</body>
+
+</html>

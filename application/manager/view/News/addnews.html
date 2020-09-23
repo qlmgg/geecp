@@ -1,0 +1,157 @@
+{extend name='Common/index' /}
+{block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <h5 class="m-0">{$info?'修改':'新增'}新闻</h5>
+  </div>
+  <div class="card-body pb-0">
+    <div class="table-box">
+      <div class="form">
+        <div class="form-group">
+          <label for="title" class="col-sm-2 control-label">新闻标题</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="title" name="title" placeholder="请输入新闻标题"
+              value="{$info?$info['title']:''}" autocomplete="off">
+            <input type="hidden" name="id" value="{$info?$info['id']:''}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cover" class="col-sm-2 control-label">封面:</label>
+          <div class="col form-inline pr-0">
+            <div class="mr-3">
+              <input type="file" id="file" name="file" class="upfile d-block" data-rule=".jpg,.png,.gif" data-size="2"
+                data-width="200px" data-height="50px" autocomplete="off"> {if $info}
+              <img src="{$info['cover']}" style="width:200px;height: 134px;margin-top: 15px;" /> {/if}
+              <input type="hidden" id="cover" name="cover" value="{$info?$info['cover']:''}" autocomplete="off">
+            </div>
+            <small class="text-muted ">
+              请上传 ".jpg"、".png"、".gif" 并且大小不超过2M 的图片文件
+            </small>
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="intro" class="col-sm-2 control-label">新闻简介</label>
+          <div class="col-2">
+            <textarea class="form-control form-control-sm" id="intro" name="intro"
+              rows="10">{$info?$info['intro']:''}</textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="class_id" class="col-sm-2 control-label">新闻分类</label>
+          <div class="col-2">
+            <select name="class_id" id="class_id" class="form-control form-control-sm">
+              {foreach name="class" item="v"}
+              <option value="{$v.id}" {$info?$info['class_id']==$v['id'] ?'selected':'':''}>{$v.name}</option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="tags" class="col-sm-2 control-label">新闻标签</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="tags" name="tags" placeholder="请输入新闻标签,以“|”隔开"" value="{$info?$info['tags']:''}" autocomplete="off">
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label for="cont" class="col-sm-2 control-label">新闻内容</label>
+          <div class="col-2">
+            <div style="width: 100%;">
+              <script id="cont" name="cont" type="text/plain"></script>
+            </div>
+            <!-- <textarea class="form-control form-control-sm" id="cont" name="cont" rows="10">{$info?$info['cont']:''}</textarea> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="view" class="col-sm-2 control-label">阅读数量</label>
+          <div class="col-2">
+            <input type="number" class="form-control form-control-sm" id="view" name="view" placeholder="请输入阅读数量"
+              maxlength="11" value="{$info?$info['view']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sort" class="col-sm-2 control-label">新闻排序</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="sort" name="sort" placeholder="数字 越大越靠前" value="{$info?$info['sort']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="status" class="col-sm-2 control-label">新闻状态</label>
+          <div class="col-2">
+            <select name="status" id="status" class="form-control form-control-sm">
+              <option value="0" {$info?$info['status']=='0' ?'selected':'':''}>隐藏</option>
+              <option value="1" {$info?$info['status']=='1' ?'selected':'':''}>显示</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-2">
+            <button type="button" class="btn btn-primary btn-sm sub">提交</button>
+            <a href="javascript:history.go(-1);" class="btn btn-default btn-sm">返回</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+  let ues = UE.getEditor('cont',{
+    zIndex: 999,
+  });
+  ues.ready(()=>{
+    ues.setContent(`{$info?$info['cont']:''}`);
+  })
+  $('.upfile').change(function () {
+    let tfile = $(this),
+      imgurl = '',
+      formdatas = new FormData(),
+      suffix = tfile[0].files[0].name.substr(tfile[0].files[0].name.lastIndexOf("."));
+    if (tfile.data('rule').indexOf(suffix) < 0) {
+      alert('文件类型不符合要求');
+      return false;
+    }
+    if ((tfile[0].files[0].size / 1024 / 1024) >= Number(tfile.data('size'))) {
+      alert('图片尺寸大于2M');
+      return false;
+    }
+    formdatas.append('file', tfile[0].files[0]);
+    ajax('/uploadImg', formdatas, 'post', true).then(e => {
+      if (e.status == 200) {
+        tfile.siblings('[name]').val(e.data);
+        if (tfile.next().prop('nodeName') == 'IMG') {
+          tfile.next().attr('src', e.data);
+          return;
+        }
+        tfile.after(
+          `<img src="${e.data}" style="width:${tfile.data('width')};height: ${tfile.data('height')};margin-top: 15px;"/>`
+        );
+        return;
+      }
+      alert(e.msg);
+    });
+  });
+
+  $('.sub').click(function () {
+    let names = document.querySelectorAll('.form-group [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => {
+      vals[e.name] = e.value;
+    });
+    vals['cont'] = UE.getEditor('cont').getContent();
+    ajax('{:url("manager/News/addnewsauth")}', vals, 'post').then(e => {
+      if (e.status === 200) {
+        alert(e.msg);
+        location.href = "{:url('manager/News/list')}";
+      } else {
+        alert(e.msg);
+      }
+    });
+  });
+</script>
+{/block}

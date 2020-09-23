@@ -1,0 +1,9 @@
+.idea
+composer.lock
+runtime
+*.log
+*.DS_Store
+.env
+alipaytext.txt
+.history
+.vscode

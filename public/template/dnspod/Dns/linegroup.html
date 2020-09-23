@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>GEECPS</title>
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css">
+    <link rel="stylesheet/less" href="../css/less/style.less">
+    <script src="https://cdn.bootcss.com/less.js/3.0.4/less.min.js"></script>
+    <link rel="stylesheet" href="../css/lib/datepicker.css">
+</head>
+
+<body>
+    <div class="main">
+        <div id="zmessage-wrap"> <!--消息滑入框部分-->
+            <div class="border position-absolute bg-white" id="message-frame">
+                <div>
+                    <div class="px-4 py-3 border-bottom d-flex list-inline">
+                        <span class="mr-3 list-inline-item">未读消息</span>
+                        <a href="../messageCenter/station-message.html" class="border px-2 text-secondary list-inline-item mr-auto" style="padding-bottom: 2px;"><span class="fs-12 linkblue">进入消息中心</span></a>
+                        <button type="button"  class="btn bg-white close list-inline-item" id="closemessage">
+                            <span class="iconfont iconicon_guanbi zfs-16"></span>
+                        </button>
+                    </div>
+
+                    <!--有消息时的样式-->
+
+                    <div class="px-4 pt-2 set-readed">
+                        <ul class="list-inline form-inline mb-0" style="height: 30px">
+                            <li class="list-inline-item mr-auto fs-12 text-secondary ml-1">[ 公告 ]</li>
+                            <li class="list-inline-item fs-12 set-readed-1" style="color: #999">2019-03-25 10:43:08</li>
+                            <li class="d-none set-readed-2">
+                                <button type="button" class="list-inline-item btn btn-light btn-sm fs-12 px-1 py-0" style="border-radius: 30px!important;">设为已读</button>
+                            </li>
+                        </ul>
+                        <div class="ml-1 border-bottom pb-3">
+                            <span class="iconfont iconwarning text-warning zfs-16"></span>
+                            <span class="fs-12">2019年3月25日，七朵云部分网络设备升级优化公告</span>
+                        </div>
+                    </div>
+                    <div class="px-4 pt-2 set-readed">
+                        <ul class="list-inline form-inline mb-0" style="height: 30px">
+                            <li class="list-inline-item mr-auto fs-12 text-secondary ml-1">[ 百度云动态 ]</li>
+                            <li class="list-inline-item fs-12 set-readed-1" style="color: #999">2019-03-25 10:43:08</li>
+                            <li class="d-none set-readed-2">
+                                <button type="button" class="list-inline-item btn btn-light btn-sm fs-12 px-1 py-0" style="border-radius: 30px!important;">设为已读</button>
+                            </li>
+                        </ul>
+                        <div class="ml-1 border-bottom pb-3">
+                            <span class="fs-12">2019年3月25日，七朵云产品技术更新，技术更新了，更新了</span>
+                        </div>
+                    </div>
+                    <div class="px-4 pt-2 set-readed">
+                        <ul class="list-inline form-inline mb-0" style="height: 30px">
+                            <li class="list-inline-item mr-auto fs-12 text-secondary ml-1">[ 产品服务 ]</li>
+                            <li class="list-inline-item fs-12 set-readed-1" style="color: #999">2019-03-25 10:43:08</li>
+                            <li class="d-none set-readed-2">
+                                <button type="button" class="list-inline-item btn btn-light btn-sm fs-12 px-1 py-0" style="border-radius: 30px!important;">设为已读</button>
+                            </li>
+                        </ul>
+                        <div class="ml-1 border-bottom pb-3">
+                            <span class="fs-12">2019年3月25日，七朵云产品上新公告</span>
+                        </div>
+                    </div>
+
+                    <!--无消息时的样式-->
+
+                    <!--<div class="position-absolute z-nomessage-position">
+                        <span class="fs-12">
+                            <a href="../messageCenter/station-message.html">进入消息中心<br>查看全部消息</a>
+                        </span>
+                    </div>-->
+
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-light fixed-top">
+            <!-- <a class="navbar-brand" href="#"><img src="img/geestack.png" alt="GEESTACK"></a> -->
+            <a class="navbar-brand" href="#" style="background-color: rgba(18, 26, 44, 0.891);"><img src="../img/geestack.png" alt="GEESTACK" style="max-height:35px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hideNav" aria-controls="hideNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse pl-3" id="hideNav">
+                <ul class="navbar-nav mr-auto">
+                    <!-- <li class="nav-item active">
+                        <a class="nav-link" href="javascript:;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:;">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:;">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:;">About</a>
+                    </li> -->
+                </ul>
+
+                <!--导航菜单部分-->
+                <ul class="navbar-nav nav_bar"></ul>
+            </div>
+        </nav>
+        <div class="main-sidebar">
+            <div class="sidebar scroll">
+                <ul class="nav flex-column pt-3">
+
+                </ul>
+            </div>
+            <div class="setting">
+                <button type="button" class="btn btn-sm btn-dark btn-block py-2" data-toggle="modal" data-target="#checkSideItem"><span class="iconfont icon-nav-system-set"></span> 自定义导航</button>
+            </div>
+        </div>
+        <div class="main-sidebar-t">
+            <div class="sidebar sidebarchild" style="background: #fff !important">
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <div class="main-content">
+            <div id="warp" class="content m-f140">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 unbg pt-0 pl-0">
+                        <li class="breadcrumb-item active" aria-current="page">DNS智能云解析</li>
+                        <li class="breadcrumb-item active" aria-current="page">线路组</li>
+                    </ol>
+                </nav>
+                <div class="card">
+                    <div class="card-header  border-t pb-0" style="background-color: #fff">
+                        <!-- <p><small>查询财务状况或管理优惠券和发票。</small></p> -->
+                        <div class="tool-list d-flex">
+                            <ul class="list-inline mr-auto  m-0">
+                                <li class="list-inline-item p-2">
+                                    <h4 >线路组</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body fs-12">
+                        <div class="cont-box">
+                            <div class="discounts-pack-list">
+                                        <div>
+                                            <a href="#" class="btn btn-primary btn-sm">
+                                                <span class="iconfont iconicon_tianjia font-weight-bold"></span>
+                                                <span class="zfs-12" data-toggle="modal" data-target="#linegroup-add">添加线路组</span>
+                                            </a>
+                                        </div>
+                                        <div class="py-2 ml-nge">
+                                            <div>
+                                                <table class="table table mytb">
+                                                    <thead class="bg-fB p-2">
+                                                        <tr class="font-weight-light">
+                                                            <th>线路组名称</th>
+                                                            <th>线路</th>
+                                                            <th>关联解析</th>
+                                                            <th style="width: 180px">操作</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="4" class="text-center" style="height:225px">
+                                                                <ul class="list-unstyled">
+                                                                    <li class="zfs-16 text-secondary ml-5 pl-5">您还没添加任何线路组！</li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="d-flex justify-content-end pt-3 pl-3">
+                                                <ul class="list-inline form-inline px-2">
+                                                    <li class="list-inline-item">每页显示</li>
+                                                    <li>
+                                                        <select name="" id="" class="form-control form-control-sm">
+                                                            <option value="">10</option>
+                                                            <option value="">20</option>
+                                                            <option value="">30</option>
+                                                            <option value="">40</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>
+                                                <ul class="pagination mb-0 mr-3">
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link" href="#">&lt;</a>
+                                                    </li>
+                                                    <li class="page-item active">
+                                                        <a class="page-link" href="#">1</a>
+                                                    </li> 
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#">&gt;</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="linegroup-add" class="modal fade" tabindex="-1" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header py-0">
+                    <span>添加线路组</span>
+                    <a data-dismiss="modal">
+                        <span class="iconfont iconicon_guanbi zfs-14 font-weight-bold text-secondary"></span>
+                    </a>
+                </div>
+                <div class="modal-body px-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-left">
+                            <span class="text-danger pr-1">*</span>
+                            <span>名称：</span>
+                        </div>
+                        <div class="col-md-5 pl-0">
+                            <input type="text" class="form-control form-control-sm zfs-12" placeholder="请输入名称" />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-2 text-left">
+                            <span class="text-danger pr-1">*</span>
+                            <span>线路选择：</span>
+                        </div>
+                        <div class="col-md-10 d-flex pl-0 pr-4">
+                            <div class="border" style="width: 500px;height: 280px">
+                                <div class="pl-2 pt-2 d-flex align-items-center">
+                                    <div class="zfs-12 text-secondary mr-1 pt-2">国内/外：</div>
+                                    <div class="zfs-12 d-flex">
+                                        <div class="custom-radio custom-control mr-3">
+                                            <input type="radio" class="custom-control-input" name="radio1" id="area-mainland">
+                                            <label class="custom-control-label" for="area-mainland">大陆</label>
+                                        </div>
+                                        <div class="custom-radio custom-control mr-3">
+                                            <input type="radio" class="custom-control-input" name="radio1" id="area-gangaotai">
+                                            <label class="custom-control-label" for="area-gangaotai">港澳台</label>
+                                        </div>
+                                        <div class="custom-radio custom-control">
+                                            <input type="radio" class="custom-control-input" name="radio1" id="area-foreign">
+                                            <label class="custom-control-label" for="area-foreign">国外</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="operator" class="d-none">
+                                    <div class="pl-2 pt-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">运营商：</div>
+                                                <div class="zfs-12 d-flex ml-1">
+                                                    <div class="custom-radio custom-control mr-3">
+                                                        <input type="radio" class="custom-control-input" name="radio2" id="dianxin">
+                                                        <label class="custom-control-label" for="dianxin">电信</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-control mr-3">
+                                                        <input type="radio" class="custom-control-input" name="radio2" id="yidong">
+                                                        <label class="custom-control-label" for="yidong">移动</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-control mr-3">
+                                                        <input type="radio" class="custom-control-input" name="radio2" id="liantong">
+                                                        <label class="custom-control-label" for="liantong">联通</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-control mr-3">
+                                                        <input type="radio" class="custom-control-input" name="radio2" id="pengboshi">
+                                                        <label class="custom-control-label" for="pengboshi">鹏博士</label>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                    <div class="pl-2 d-flex align-items-center">
+                                                    <div class="zfs-12 text-secondary mr-5 pr-1 pt-2"></div>
+                                                    <div class="zfs-12 d-flex ml-1">
+                                                        <div class="custom-radio custom-control mr-3">
+                                                            <input type="radio" class="custom-control-input" name="radio2" id="guangdian">
+                                                            <label class="custom-control-label" for="guangdian">华北广电</label>
+                                                        </div>
+                                                        <div class="custom-radio custom-control">
+                                                            <input type="radio" class="custom-control-input" name="radio2" id="huashu">
+                                                            <label class="custom-control-label" for="huashu">上海华数</label>
+                                                        </div>
+                                                    </div>
+                                    </div>
+                                        <div id="operator-dianxin" class="d-none">
+                                            <div class="pl-2 pt-1 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="yunnan">
+                                                        <label class="custom-control-label" for="yunnan">云南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="henan">
+                                                        <label class="custom-control-label" for="henan">河南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="zhejiang">
+                                                        <label class="custom-control-label" for="zhejiang">浙江</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="shanghai">
+                                                        <label class="custom-control-label" for="shanghai">上海</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pl-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                <div class="zfs-12 d-flex ml-3 pl-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="shanxi">
+                                                        <label class="custom-control-label" for="shanxi">山西</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="hubei">
+                                                        <label class="custom-control-label" for="hubei">湖北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="beijing">
+                                                        <label class="custom-control-label" for="beijing">北京</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="jiangxi">
+                                                        <label class="custom-control-label" for="jiangxi">江西</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pl-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                <div class="zfs-12 d-flex ml-3 pl-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="hebei">
+                                                        <label class="custom-control-label" for="hebei">河北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="hainan">
+                                                        <label class="custom-control-label" for="hainan">海南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="gansu">
+                                                        <label class="custom-control-label" for="gansu">甘肃</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="jilin">
+                                                        <label class="custom-control-label" for="jilin">吉林</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="operator-yidong" class="d-none">
+                                            <div class="pl-2 pt-1 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="yunnan">
+                                                        <label class="custom-control-label" for="riben">云南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="henan">
+                                                        <label class="custom-control-label" for="yindu">河南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="zhejiang">
+                                                        <label class="custom-control-label" for="deguo">浙江</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="huanan">
+                                                        <label class="custom-control-label" for="eluosi">华南</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pl-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                <div class="zfs-12 d-flex ml-3 pl-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="shanghai">
+                                                        <label class="custom-control-label" for="riben">上海</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="xibei">
+                                                        <label class="custom-control-label" for="yindu">西北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="dongbei">
+                                                        <label class="custom-control-label" for="deguo">东北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="shanxi">
+                                                        <label class="custom-control-label" for="eluosi">山西</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pl-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                <div class="zfs-12 d-flex ml-3 pl-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="hubei">
+                                                        <label class="custom-control-label" for="hubei">湖北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="beijing">
+                                                        <label class="custom-control-label" for="beijing">北京</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="jiangxi">
+                                                        <label class="custom-control-label" for="jaingxi">江西</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="huazhong">
+                                                        <label class="custom-control-label" for="huazhong">华中</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="operator-liantong" class="d-none">
+                                                <div class="pl-2 pt-1 d-flex align-items-center">
+                                                    <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                    <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="yunnan">
+                                                        <label class="custom-control-label" for="yunnan">云南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="henan">
+                                                        <label class="custom-control-label" for="henan">河南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="zhejiang">
+                                                        <label class="custom-control-label" for="zhejiang">浙江</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="shanghai">
+                                                        <label class="custom-control-label" for="shanghai">上海</label>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="pl-2 d-flex align-items-center">
+                                                    <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                    <div class="zfs-12 d-flex ml-3 pl-3">
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input"  id="shanxi">
+                                                            <label class="custom-control-label" for="shanxi">山西</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input"  id="hubei">
+                                                            <label class="custom-control-label" for="hubei">湖北</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input" id="beijing">
+                                                            <label class="custom-control-label" for="beijing">北京</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input" id="jiangxi">
+                                                            <label class="custom-control-label" for="jiangxi">江西</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pl-2 d-flex align-items-center">
+                                                    <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                    <div class="zfs-12 d-flex ml-3 pl-3">
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input"  id="hebei">
+                                                            <label class="custom-control-label" for="hebei">河北</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input"  id="hainan">
+                                                            <label class="custom-control-label" for="hainan">海南</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input" id="gansu">
+                                                            <label class="custom-control-label" for="gansu">甘肃</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control mr-3">
+                                                            <input type="checkbox" class="custom-control-input" id="jilin">
+                                                            <label class="custom-control-label" for="jilin">吉林</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div id="operator-tietong" class="d-none">
+                                            <div class="pl-2 pt-1 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="huanan">
+                                                        <label class="custom-control-label" for="huanan">华南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="xibei">
+                                                        <label class="custom-control-label" for="xibei">西北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="dongbei">
+                                                        <label class="custom-control-label" for="dongbei">东北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="huazhong">
+                                                        <label class="custom-control-label" for="huazhong">华中</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pl-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                <div class="zfs-12 d-flex ml-3 pl-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="huadong">
+                                                        <label class="custom-control-label" for="huadong">华东</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="huabei">
+                                                        <label class="custom-control-label" for="huabei">华北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="xinan">
+                                                        <label class="custom-control-label" for="xinan">西南</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="operator-pengboshi" class="d-none">
+                                            <div class="pl-2 pt-1 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="huanan">
+                                                        <label class="custom-control-label" for="huanan">华南</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="xibei">
+                                                        <label class="custom-control-label" for="xibei">西北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="dongbei">
+                                                        <label class="custom-control-label" for="dongbei">东北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="huazhong">
+                                                        <label class="custom-control-label" for="huazhong">华中</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pl-2 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                                <div class="zfs-12 d-flex ml-3 pl-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="huadong">
+                                                        <label class="custom-control-label" for="huadong">华东</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input"  id="huabei">
+                                                        <label class="custom-control-label" for="huabei">华北</label>
+                                                    </div>
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="xinan">
+                                                        <label class="custom-control-label" for="xinan">西南</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="operator-guangdian" class="d-none">
+                                            <div class="pl-2 pt-1 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="shanghai">
+                                                        <label class="custom-control-label" for="shanghai">上海</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="operator-huashu" class="d-none">
+                                            <div class="pl-2 pt-1 d-flex align-items-center">
+                                                <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                                <div class="zfs-12 d-flex ml-3">
+                                                    <div class="custom-checkbox custom-control mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="hangzhou">
+                                                        <label class="custom-control-label" for="hangzhou">杭州</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+                                </div>
+                                <div id="chinese-city" class="d-none">
+                                    <div class="pl-2 pt-2 d-flex align-items-center">
+                                        <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                        <div class="zfs-12 d-flex ml-3">
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input"  id="xianggang">
+                                                <label class="custom-control-label" for="xianggang">香港</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input"  id="aomen">
+                                                <label class="custom-control-label" for="aomen">澳门</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="taiwan">
+                                                <label class="custom-control-label" for="taiwan">台湾</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="foreign-city" class="d-none">
+                                    <div class="pl-2 pt-2 d-flex align-items-center">
+                                        <div class="zfs-12 text-secondary mr-1 pt-2">省市：</div>
+                                        <div class="zfs-12 d-flex ml-3">
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input"  id="riben">
+                                                <label class="custom-control-label" for="riben">日本</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input"  id="yindu">
+                                                <label class="custom-control-label" for="yindu">印度</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="deguo">
+                                                <label class="custom-control-label" for="deguo">德国</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="eluosi">
+                                                <label class="custom-control-label" for="eluosi">俄罗斯</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pl-2 d-flex align-items-center">
+                                        <div class="zfs-12 text-secondary mr-4 pt-2"></div>
+                                        <div class="zfs-12 d-flex ml-3 pl-3">
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input"  id="jianada">
+                                                <label class="custom-control-label" for="jianada">加拿大</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input"  id="hanguo">
+                                                <label class="custom-control-label" for="hanguo">韩国</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="feilvbin">
+                                                <label class="custom-control-label" for="feilvbin">菲律宾</label>
+                                            </div>
+                                            <div class="custom-checkbox custom-control mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="malaixiya">
+                                                <label class="custom-control-label" for="malaixiya">马来西亚</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mx-3 mt-5 pt-5">
+                                <button type="button" class="btn btn-sm btn-light border" id="add-lines">添加</button>
+                            </div>
+                            <div>
+                                <div class="border" style="width: 150px;height: 240px;overflow-x: scroll;overflow-y: scroll" id="selected-area"></div>
+                                <div class="mt-2 ml-5">
+                                     <button type="button" class="btn btn-sm btn-light border" id="clear-lines">清空</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light border btn-sm" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">更改密码</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="registerform" class="px-3 py-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-sm" placeholder="请输入手机号" name="compPhone" autocomplete="off" maxlength="11">
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="请输入验证码" name="code" maxlength="6" autocomplete="off">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-primary" type="button" onclick="fetchMsg(120, this)" disabled="">获取验证码</button>
+                                    <span class="btn btn-secondary disabled" style="display: none;"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control form-control-sm" placeholder="请输入密码" name="compPassword" autocomplete="off">
+                        </div>
+                        <div class="form-group mb-0">
+                            <input type="password" class="form-control form-control-sm" placeholder="请输入密码" name="recompPassword" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary">确定</button>
+                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.1.0/echarts.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.5.2/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/decimal.js/10.0.1/decimal.min.js"></script>
+    <script src="../js/lib/jQuery.Pinyin-min.js"></script>
+    <script src="../js/lib/datepicker.all.js"></script>
+    <script src="../js/app.js"></script>
+    <!-- <script src="js/router.js "></script> -->
+    <script src="../js/rule.js"></script>
+    <script src="../js/temp.js"></script>
+    <script src="../js/region.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/server_bcd.js"></script>
+    <script src="../js/comp.js"></script>
+    <script>
+        
+    </script>
+</body>
+
+</html>

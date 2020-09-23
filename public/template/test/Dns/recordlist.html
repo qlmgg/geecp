@@ -1,0 +1,345 @@
+{extend name='index@Common/index' /}
+{block name='content'}
+<div class="card">
+  <div class="card-header  border-t pb-0" style="background-color: #fff">
+    <!-- <p><small>查询财务状况或管理优惠券和发票。</small></p> -->
+    <div class="tool-list d-flex">
+      <ul class="list-inline mr-auto  m-0">
+        <li class="list-inline-item p-2">
+          <h4>解析域名<!--：<span>huihui123.top</span>--></h4>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body fs-12">
+    <div class="cont-box">
+      <div class="dnsanalysis-server-recordlist">
+        <ul class="list-inline d-flex mb-1">
+          <li class="list-inline-item mr-auto">
+            <a href="{:url('console/Dns/record',['domain_id'=>$domain_id,'dns_id'=>$dns_id])}"
+              class="btn btn-primary btn-sm">
+              <span class="iconfont iconicon_tianjia font-weight-bold"></span>
+              <span class="zfs-12">添加解析</span>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <input type="text" class="form-control form-control-sm zfs-12" placeholder="请输入关键字"
+                  style="width: 200px">
+              </div>
+              <div class="input-group-append">
+                <button type="button" class="btn btn-primary btn-sm"><span
+                    class="iconfont icon-icon_sousuo-xian font-weight-bold"></span></button>
+              </div>
+            </div>
+          </li>
+          <!-- <li class="list-inline-item">
+            <button type="button" class="btn btn-light btn-sm">
+              <span class="iconfont iconicon_shuaxin font-weight-bold"></span>
+            </button>
+          </li>
+          <li class="list-inline-item">
+            <button type="button" class="btn btn-light btn-sm">
+              <span class="iconfont iconicon_shangchuan1-copy font-weight-bold"></span>
+            </button>
+          </li> -->
+        </ul>
+        <div class="py-2 ml-nge">
+          <div>
+            <table class="table table mytb">
+              <thead class="bg-fB p-2">
+                <tr class="font-weight-light">
+                  <th class="toggledemo" style="width:300px">
+                    主机记录<span class="iconfont iconweb__die zfs-12"></span><span
+                      class="iconfont iconweb__zhang zfs-12"></span>
+                  </th>
+                  <th>解析状态</th>
+                  <th class="toggledemo" style="width:300px">
+                    类型<span class="iconfont iconweb__die zfs-12"></span><span
+                      class="iconfont iconweb__zhang zfs-12"></span>
+                  </th>
+                  <th>线路</th>
+                  <th>记录值</th>
+                  <th>TTL</th>
+                  <th style="width: 180px">操作</th>
+                </tr>
+              </thead>
+              <tbody id="demo-tbody">
+                {foreach name="list" item="v"}
+                <tr data-id="{$v.id}">
+                  <td data-sub-domain="{$v.sub_domain}">{$v.sub_domain}</td>
+                  <td class="text-success" data-status="{$v.status}">
+                    <span class="iconfont icondian"></span>
+                    <span>{$v.status}</span>
+                  </td>
+                  <td data-record-type="{$v.record_type}">{$v.record_type}</td>
+                  <td data-record-line="{$v->getData('record_line')}">{$v.record_line}</td>
+                  <td data-value="{$v.value}">{$v.value}</td>
+                  <td data-ttl="{$v->getData('ttl')}" value="{$v->getData('ttl')}">{$v.ttl}</td>
+                  <td>
+                    <span class="start-stop">
+                      <a href="#">暂停</a>
+                      <a href="#" class="d-none">启用</a>
+                    </span>
+                    <span><a data-toggle="modal" href="#alter-analysis">修改</a></span>
+                    <span class="deleteelement"><a data-toggle="modal" data-target="#sure-cancel" href="javascript:;"
+                        onclick="Value({$v.id})" class="">删除</a></span>
+                  </td>
+                </tr>
+                {/foreach}
+
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-end pt-3 pl-3">
+            <ul class="list-inline form-inline px-2">
+              <li class="list-inline-item">每页显示</li>
+              <li>
+                <select name="" id="" class="form-control form-control-sm">
+                  <option value="">10</option>
+                  <option value="">20</option>
+                  <option value="">30</option>
+                  <option value="">40</option>
+                </select>
+              </li>
+            </ul>
+            <ul class="pagination mb-0 mr-3">
+              <li class="page-item disabled">
+                <a class="page-link" href="#">&lt;</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">&gt;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+{/block}
+
+{block name='modal'}
+<div id="alter-analysis" class="modal fade" tabindex="-1" style="display: none">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 540px">
+    <div class="modal-content">
+      <div class="modal-header py-0">
+        <span class="text-secondary zfs-14">修改解析</span>
+        <a data-dismiss="modal">
+          <span class="iconfont iconicon_guanbi zfs-14 font-weight-bold text-secondary"></span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div>
+          <ul class="list-unstyled">
+            <li class="row">
+              <div class="col-md-3 ml-3 mt-1 text-left pl-4"><span class="text-secondary">域名：</span></div>
+              <div class="col-md-8 d-flex pt-0 justify-content-start pl-0">
+                <p class="pt-1" id="domain"></p>
+              </div>
+            </li>
+            <li class="row">
+              <div class="col-md-3 ml-3 mt-1 text-left pl-4"><span class="text-secondary">主机记录：</span></div>
+              <div class="col-md-8 d-flex pt-0 justify-content-start pl-0">
+                <p class="pt-1" id="sub_domain"></p>
+              </div>
+            </li>
+            <li class="row mt-2 position-relative">
+              <div class="col-md-3 ml-3 mt-1 text-left">
+                <span class="text-danger mr-1">*</span><span class="text-secondary">记录类型：</span>
+              </div>
+              <div class="col-md-7 d-flex pt-0 justify-content-start pl-0" id="domain-owner1">
+                <select class="form-control form-control-sm" id="record-type">
+                  {foreach name="type" item="v"}
+                  <option value="{$v}">{$v}</option>
+                  {/foreach}
+                </select>
+              </div>
+            </li>
+            <li class="row mt-4 position-relative">
+              <div class="col-md-3 ml-3 mt-1 text-left">
+                <span class="text-danger mr-1">*</span><span class="text-secondary">解析线路：</span>
+              </div>
+              <div class="col-md-7 d-flex pt-0 justify-content-start pl-0">
+                <select class="form-control form-control-sm" disabled id="record_line">
+                  {foreach name="recordline" item="v" key="k"}
+                  <option value="{$k}">{$v}</option>
+                  {/foreach}
+                </select>
+              </div>
+            </li>
+            <li class="row mt-4 position-relative d-none" id="mxPriority">
+              <div class="col-md-3 ml-3 mt-1 text-left">
+                <span class="text-danger mr-1">*</span><span class="text-secondary">MX优先级：</span>
+              </div>
+              <div class="col-md-7 d-flex pt-0 justify-content-start pl-0" id="domain-owner3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary btn-sm">-</button>
+                  </div>
+                  <input type="text" class="form-control form-control-sm text-center" value="0" id="mx-priority" />
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-primary btn-sm">+</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="row mt-4 position-relative">
+              <div class="col-md-3 ml-3 mt-1 text-left">
+                <span class="text-danger mr-1">*</span><span class="text-secondary">主机记录：</span>
+              </div>
+              <div class="col-md-7 pt-0 justify-content-start pl-0" id="domain-owner4">
+                <input type="text" class="form-control form-control-sm" value="8.8.8.8" id="isitIP">
+                <span class="text-danger position-absolute zfs-12" style="top: 30px" id="isornotIP"></span>
+              </div>
+              <div class="col-md-7 pt-0 justify-content-start pl-0 d-none" id="domain-owner5">
+                <input type="text" class="form-control form-control-sm" value="8.8.8.8" id="isitIP2">
+                <span class="text-danger position-absolute zfs-12" style="top: 30px" id="isornotIP2"></span>
+              </div>
+            </li>
+            <li class="row mt-4 position-relative">
+              <div class="col-md-3 ml-3 mt-1 text-left">
+                <span class="text-danger mr-1">*</span><span class="text-secondary">TTL：</span>
+              </div>
+              <div class="col-md-7 d-flex pt-0 justify-content-start pl-0" id="domain-ttl">
+                <select class="form-control form-control-sm">
+
+                  {foreach name="ttl_type" item="v" key="k"}
+                  <option value="{$k}">{$v}</option>
+                  {/foreach}
+                </select>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-light btn-sm border" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="sure-cancel" class="modal fade" tabindex="-1" style="display: none">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header py-1">
+        <span class="text-secondary zfs-14">删除解析</span>
+        <a data-dismiss="modal">
+          <span class="iconfont iconicon_guanbi zfs-14 font-weight-bold text-secondary"></span>
+        </a>
+      </div>
+      <div class="modal-body text-center">
+        <div class="py-5"><span class="zfs-16">您确定要删除吗?</span></div>
+      </div>
+      <input name="record_id" type="hidden" value="">
+      <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-light btn-sm border" data-dismiss="modal" id="delete-cancel">取消</button>
+        <button type="submit" class="btn btn-primary btn-sm" data-dismiss="modal" id="delete-sure">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/block}
+{block name='js'}
+<script>
+  isitIP.oninput = function () {
+    function isNull(param) {
+      return !param && param !== 0 && typeof param !== "boolean" ? true : false;
+    }
+
+    function isIP(strIP) {
+      if (isNull(strIP)) {
+        return false;
+      }
+      var re = /^(\d+).(\d+).(\d+).(\d+)$/g;
+      if (re.test(strIP)) {
+        if (RegExp.$1 < 256 && RegExp.$2 < 256 && RegExp.$3 < 256 && RegExp.$4 < 256) return true;
+      }
+      return false;
+    }
+    var e = this.value;
+    var result = isIP(e);
+    if (result) {
+      document.getElementById("isornotIP").innerText = "";
+    } else {
+      document.getElementById("isornotIP").innerText = "ipv4格式不符合要求";
+    }
+    if (e == "") {
+      document.getElementById("isornotIP").innerText = "请输入对应记录值";
+    }
+  }
+  isitIP2.oninput = function () {
+    if (this.value == "") {
+      document.getElementById("isornotIP2").innerText = "请输入对应域名";
+    }
+  };
+
+  function del(item) {
+    //  if (confirm("您确定要删除该资源吗？")) {
+    ajax('{:url("console/Dns/record_del")}', {
+      id: item.parents('tr').data('id')
+    }, 'delete').then(e => {
+      alert(e.msg);
+      item.parents('tr').remove();
+    });
+    //  }
+  }
+
+  $('#delete-sure').click(function () {
+
+    ajax('{:url("console/Dns/record_del")}', {
+      id: $("input[name='record_id']").val()
+    }, 'delete').then(e => {
+      if (e.status == 200) {
+        $("tr[data-id=" + id + "]").remove();
+      } else {
+        alert(e.msg);
+      }
+
+    });
+  });
+
+  function Value(record_id) {
+    $("input[name='record_id']").val(record_id);
+
+
+  }
+
+  $('#record-type').change(function () {
+
+    if ($(this).val() == 'MX') {
+      $('#mxPriority').removeClass('d-none');
+    } else {
+      $('#mxPriority').addClass('d-none');
+    }
+
+  });
+
+  $('a[href=#alter-analysis]').click(function () {
+    let record_type = _.trim($(this).parents('tr').find("td[data-record-type]").data('record-type'));
+    let status = _.trim($(this).parents('tr').find("td[data-status]").data('status'));
+    let sub_domain = _.trim($(this).parents('tr').find("td[data-sub-domain]").data('sub-domain'));
+    let ttl = _.trim($(this).parents('tr').find("td[data-ttl]").data('ttl'));
+    let value = _.trim($(this).parents('tr').find("td[data-value]").data('value'));
+    let record_line = _.trim($(this).parents('tr').find("td[data-record-line]").data('record-line'));
+    let domain = "{$recordlist->domain}";
+    $('#domain').text(domain);
+    $('#sub_domain').text(sub_domain);
+    $('#isitIP').val(value);
+    $('#record-type').val(record_type);
+    $("#domain-ttl").find("option[value=" + ttl + "]").attr("selected", true);
+    $('#record_line').find("option[value=" + record_line + "]").attr("selected", true);
+
+    console.log(record_type, status, sub_domain, ttl, value, record_line);
+  })
+</script>
+{/block}

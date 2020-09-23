@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>GEECPS</title>
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css">
+    <link rel="stylesheet/less" href="../css/less/style.less">
+    <script src="https://cdn.bootcss.com/less.js/3.0.4/less.min.js"></script>
+    <link rel="stylesheet" href="../css/lib/datepicker.css">
+</head>
+
+<body>
+<div class="main">
+    <div id="zmessage-wrap"> <!--消息滑入框部分-->
+        <div class="border position-absolute bg-white" id="message-frame">
+            <div>
+                <div class="px-4 py-3 border-bottom d-flex list-inline">
+                    <span class="mr-3 list-inline-item">未读消息</span>
+                    <a href="../messageCenter/station-message.html" class="border px-2 text-secondary list-inline-item mr-auto" style="padding-bottom: 2px;"><span class="fs-12 linkblue">进入消息中心</span></a>
+                    <button type="button"  class="btn bg-white close list-inline-item" id="closemessage">
+                        <span class="iconfont iconicon_guanbi zfs-16"></span>
+                    </button>
+                </div>
+
+                <!--有消息时的样式-->
+
+                <div class="px-4 pt-2 set-readed">
+                    <ul class="list-inline form-inline mb-0" style="height: 30px">
+                        <li class="list-inline-item mr-auto fs-12 text-secondary ml-1">[ 公告 ]</li>
+                        <li class="list-inline-item fs-12 set-readed-1" style="color: #999">2019-03-25 10:43:08</li>
+                        <li class="d-none set-readed-2">
+                            <button type="button" class="list-inline-item btn btn-light btn-sm fs-12 px-1 py-0" style="border-radius: 30px!important;">设为已读</button>
+                        </li>
+                    </ul>
+                    <div class="ml-1 border-bottom pb-3">
+                        <span class="iconfont iconwarning text-warning zfs-16"></span>
+                        <span class="fs-12">2019年3月25日，七朵云部分网络设备升级优化公告</span>
+                    </div>
+                </div>
+                <div class="px-4 pt-2 set-readed">
+                    <ul class="list-inline form-inline mb-0" style="height: 30px">
+                        <li class="list-inline-item mr-auto fs-12 text-secondary ml-1">[ 百度云动态 ]</li>
+                        <li class="list-inline-item fs-12 set-readed-1" style="color: #999">2019-03-25 10:43:08</li>
+                        <li class="d-none set-readed-2">
+                            <button type="button" class="list-inline-item btn btn-light btn-sm fs-12 px-1 py-0" style="border-radius: 30px!important;">设为已读</button>
+                        </li>
+                    </ul>
+                    <div class="ml-1 border-bottom pb-3">
+                        <span class="fs-12">2019年3月25日，七朵云产品技术更新，技术更新了，更新了</span>
+                    </div>
+                </div>
+                <div class="px-4 pt-2 set-readed">
+                    <ul class="list-inline form-inline mb-0" style="height: 30px">
+                        <li class="list-inline-item mr-auto fs-12 text-secondary ml-1">[ 产品服务 ]</li>
+                        <li class="list-inline-item fs-12 set-readed-1" style="color: #999">2019-03-25 10:43:08</li>
+                        <li class="d-none set-readed-2">
+                            <button type="button" class="list-inline-item btn btn-light btn-sm fs-12 px-1 py-0" style="border-radius: 30px!important;">设为已读</button>
+                        </li>
+                    </ul>
+                    <div class="ml-1 border-bottom pb-3">
+                        <span class="fs-12">2019年3月25日，七朵云产品上新公告</span>
+                    </div>
+                </div>
+
+                <!--无消息时的样式-->
+
+                <!--<div class="position-absolute z-nomessage-position">
+                    <span class="fs-12">
+                        <a href="../messageCenter/station-message.html">进入消息中心<br>查看全部消息</a>
+                    </span>
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
+        <!-- <a class="navbar-brand" href="#"><img src="img/geestack.png" alt="GEESTACK"></a> -->
+        <a class="navbar-brand" href="#" style="background-color: rgba(18, 26, 44, 0.891);"><img src="../img/geestack.png"
+                                                                                                 alt="GEESTACK" style="max-height:35px;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hideNav" aria-controls="hideNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse pl-3" id="hideNav">
+            <ul class="navbar-nav mr-auto">
+                <!-- <li class="nav-item active">
+                              <a class="nav-link" href="javascript:;">Home</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="javascript:;">Features</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="javascript:;">Pricing</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="javascript:;">About</a>
+                          </li> -->
+            </ul>
+
+            <!--导航菜单部分-->
+            <ul class="navbar-nav nav_bar"></ul>
+        </div>
+    </nav>
+    <div class="main-sidebar">
+
+
+        <div class="sidebar scroll">
+            <ul class="nav flex-column pt-3">
+                <li class="nav-item defualt">
+                    <a class="nav-link py-2" href="#"><span class="iconfont icon-Database-RDS"></span> 总览</a>
+                </li>
+                <li class="nav-item defualt allSee">
+                    <a class="nav-link py-2" href="javascript:;"><span class="pl-2"></span>产品服务 <span class="iconfont icon-icon_jiantou-you float-right"></span></a>
+                    <div class="c-menu" style="z-index: 9999">
+                        <div class="close"></div>
+                        <div class="c-menu-list">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <span class="tit">计算</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="ECS" data-icon="icon-ecs">
+                                            <a href="#/product/ecs/index">云服务器</a>
+                                        </li>
+                                        <li data-proid="DCC" data-icon="icon-dcc">
+                                            <a href="#/product/dcc/index">专属服务器</a>
+                                        </li>
+                                        <li data-proid="CCE" data-icon="icon-dcc">
+                                            <a href="#/product/cce/index">容器引擎</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">网络</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="EIP" data-icon="icon-eip">
+                                            <a href="#/product/eip/index">弹性公网IP</a>
+                                        </li>
+                                        <li data-proid="SLB" data-icon="icon-slb">
+                                            <a href="#/product/slb/index">负载均衡</a>
+                                        </li>
+                                        <li data-proid="VPC" data-icon="icon-vpc">
+                                            <a href="#/product/vpc/index">私有网络</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">储存与CDN</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="OSS" data-icon="icon-oss">
+                                            <a href="#/product/oss/index">对象存储</a>
+                                        </li>
+                                        <li data-proid="CDS" data-icon="icon-cds">
+                                            <a href="#/product/cds/index">云硬盘</a>
+                                        </li>
+                                        <li data-proid="CDN" data-icon="icon-cdn">
+                                            <a href="#/product/cdn/index">内容分发网络</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">安全与管理</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="DDOS" data-icon="icon-ddos">
+                                            <a href="#/product/ddos/index">DDOS高防IP</a>
+                                        </li>
+                                        <li data-proid="WAF" data-icon="icon-waf">
+                                            <a href="#/product/waf/index">应用防火墙WAF</a>
+                                        </li>
+                                        <li data-proid="SSL" data-icon="icon-ssl">
+                                            <a href="#/product/ssl/index">SSL证书</a>
+                                        </li>
+                                        <li data-proid="CCM" data-icon="icon-ccm">
+                                            <a href="#/product/ccm/index">云监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">应用服务</span>
+                                    <ul class="list-unstyled mb-0"></ul>
+                                </li>
+                                <li>
+                                    <span class="tit">网站服务</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="ECD" data-icon="icon-domain">
+                                            <a href="#/product/domain/index">域名</a>
+                                        </li>
+                                        <li data-proid="DNS" data-icon="icon-dns">
+                                            <a href="#/product/dns/index">云解析</a>
+                                        </li>
+                                        <li data-proid="CVH" data-icon="icon-cvh">
+                                            <a href="#/product/cvh/index">云虚拟主机</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">智能多媒体</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="LSS" data-icon="icon-lss">
+                                            <a href="#/product/lss/index">音视频直播</a>
+                                        </li>
+                                        <li data-proid="VOD" data-icon="icon-vod">
+                                            <a href="#/product/vod/index">音视频点播</a>
+                                        </li>
+                                        <li data-proid="MCT" data-icon="icon-mct">
+                                            <a href="#/product/mct/index">音视频转码</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">云通信</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="SMS" data-icon="icon-sms">
+                                            <a href="#/product/sms/index">短信验证码 </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">智能客服</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="CSS" data-icon="icon-kefu">
+                                            <a href="#/product/css/index">云客服</a>
+                                        </li>
+                                        <li data-proid="C3" data-icon="icon-c3">
+                                            <a href="#/product/c3/index">云呼叫中心</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item defualt allSee">
+                    <a class="nav-link py-2" href="javascript:;"><span class="pl-2"></span>产品服务 <span class="iconfont icon-icon_jiantou-you float-right"></span></a>
+                    <div class="c-menu">
+                        <div class="close"></div>
+                        <div class="c-menu-list">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <span class="tit">计算</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="ECS" data-icon="icon-ecs">
+                                            <a href="#/product/ecs/index">云服务器</a>
+                                        </li>
+                                        <li data-proid="DCC" data-icon="icon-dcc">
+                                            <a href="#/product/dcc/index">专属服务器</a>
+                                        </li>
+                                        <li data-proid="CCE" data-icon="icon-dcc">
+                                            <a href="#/product/cce/index">容器引擎</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">网络</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="EIP" data-icon="icon-eip">
+                                            <a href="#/product/eip/index">弹性公网IP</a>
+                                        </li>
+                                        <li data-proid="SLB" data-icon="icon-slb">
+                                            <a href="#/product/slb/index">负载均衡</a>
+                                        </li>
+                                        <li data-proid="VPC" data-icon="icon-vpc">
+                                            <a href="#/product/vpc/index">私有网络</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">储存与CDN</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="OSS" data-icon="icon-oss">
+                                            <a href="#/product/oss/index">对象存储</a>
+                                        </li>
+                                        <li data-proid="CDS" data-icon="icon-cds">
+                                            <a href="#/product/cds/index">云硬盘</a>
+                                        </li>
+                                        <li data-proid="CDN" data-icon="icon-cdn">
+                                            <a href="#/product/cdn/index">内容分发网络</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">安全与管理</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="DDOS" data-icon="icon-ddos">
+                                            <a href="#/product/ddos/index">DDOS高防IP</a>
+                                        </li>
+                                        <li data-proid="WAF" data-icon="icon-waf">
+                                            <a href="#/product/waf/index">应用防火墙WAF</a>
+                                        </li>
+                                        <li data-proid="SSL" data-icon="icon-ssl">
+                                            <a href="#/product/ssl/index">SSL证书</a>
+                                        </li>
+                                        <li data-proid="CCM" data-icon="icon-ccm">
+                                            <a href="#/product/ccm/index">云监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">应用服务</span>
+                                    <ul class="list-unstyled mb-0"></ul>
+                                </li>
+                                <li>
+                                    <span class="tit">网站服务</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="ECD" data-icon="icon-domain">
+                                            <a href="#/product/domain/index">域名</a>
+                                        </li>
+                                        <li data-proid="DNS" data-icon="icon-dns">
+                                            <a href="#/product/dns/index">云解析</a>
+                                        </li>
+                                        <li data-proid="CVH" data-icon="icon-cvh">
+                                            <a href="#/product/cvh/index">云虚拟主机</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">智能多媒体</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="LSS" data-icon="icon-lss">
+                                            <a href="#/product/lss/index">音视频直播</a>
+                                        </li>
+                                        <li data-proid="VOD" data-icon="icon-vod">
+                                            <a href="#/product/vod/index">音视频点播</a>
+                                        </li>
+                                        <li data-proid="MCT" data-icon="icon-mct">
+                                            <a href="#/product/mct/index">音视频转码</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">云通信</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="SMS" data-icon="icon-sms">
+                                            <a href="#/product/sms/index">短信验证码 </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="tit">智能客服</span>
+                                    <ul class="list-unstyled mb-0">
+                                        <li data-proid="CSS" data-icon="icon-kefu">
+                                            <a href="#/product/css/index">云客服</a>
+                                        </li>
+                                        <li data-proid="C3" data-icon="icon-c3">
+                                            <a href="#/product/c3/index">云呼叫中心</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="setting">
+            <button type="button" class="btn btn-sm btn-dark btn-block py-2" data-toggle="modal"
+                    data-target="#checkSideItem"><span class="iconfont icon-nav-system-set"></span> 自定义导航</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div id="warp" class="content">
+            <div class="card">
+                    <div class="card-header  border-t pb-0" style="background-color: #fff">
+                        <!-- <p><small>查询财务状况或管理优惠券和发票。</small></p> -->
+                        <div class="tool-list d-flex">
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item py-2">
+                                    <div>
+                                        <span class="iconfont iconicon_jiantou-zuo zfs-12 font-weight-bold"></span>
+                                        <a href="dnsanalysis-server.html" class="text-secondary">返回解析服务列表</a>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item py-2 position-absolute" style="left:50%;margin-left:-65px">
+                                    <h4>购买DNS解析服务</h4>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class=" form-inline py-1" style="position: absolute;top:15px;right:15px">
+                                        <div class="fs-12 text-primary ">
+                                          <span class="steps steps-active pl-2">1</span>
+                                          <span class="px-1">选择产品</span>
+                                          <span class="iconfont iconicon_jiantou-you fs-12"></span>
+                                        </div>
+                                        <div class="fs-12 text-primary px-2">
+                                          <span class="steps steps-active pl-2">2</span>
+                                          <span class="px-1">确认订单</span>
+                                          <span class="iconfont iconicon_jiantou-you fs-12"></span>
+                                        </div>
+                                        <div class="fs-12 px-2">
+                                            <span class="steps pl-2">3</span>
+                                            <span class="px-1">在线支付</span>
+                                            <span class="iconfont iconicon_jiantou-you fs-12"></span>
+                                        </div>
+                                        <div class="fs-12">
+                                            <span class="steps pl-2">4</span>
+                                            <span class="px-1">支付成功</span>
+                                        </div>
+                                      </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <div class="card-body fs-12">
+                    <div class="cont-box">
+                        <div class="dnsanalysis-server-buy2">
+                            <div class="py-2 ml-nge">
+                                <div>
+                                    <table class="table mytb">
+                                        <thead class="bg-fB p-2">
+                                            <tr class="font-weight-light">
+                                                <th>产品类型</th>
+                                                <th>产品名称</th>
+                                                <th>配置</th>
+                                                <th>数量</th>
+                                                <th>时长</th>
+                                                <th>单价</th>
+                                                <th>计费方式</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>预付费</td>
+                                                <td>DNS(智能云解析)</td>
+                                                <td>
+                                                    <div>购买版本：<span>普惠版</span></div>
+                                                    <div>关联域名：<span>www.huihui</span></div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>1年</td>
+                                                <td class="text-danger">￥9</td>
+                                                <td>包年包月</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="my-3">
+                                <a href="#" class="mr-2">+激活代金券</a>
+                                <a href="#">代金券管理</a>
+                            </div>
+                            <div>
+                                代金券(<span class="text-danger">0</span>张可用)
+                            </div>
+                            <div class="form-inline">
+                                <div class="mr-4">产品类型：DNS</div>
+                                <select class="form-control form-control-sm">
+                                    <option>无可用代金券</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">更改密码</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="registerform" class="px-3 py-3">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="请输入手机号" name="compPhone"
+                               autocomplete="off" maxlength="11">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="请输入验证码" name="code" maxlength="6"
+                                   autocomplete="off">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-primary" type="button" onclick="fetchMsg(120, this)" disabled="">获取验证码</button>
+                                <span class="btn btn-secondary disabled" style="display: none;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-sm" placeholder="请输入密码" name="compPassword"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group mb-0">
+                        <input type="password" class="form-control form-control-sm" placeholder="请输入密码" name="recompPassword"
+                               autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary">确定</button>
+                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered show" role="document" style="min-width: 500px">
+        <div class="modal-content m-auto">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">激活代金券</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="col-12">
+                        <div class="form-row">
+                            <label class="col-form-label-sm col-3">代金券号：</label>
+                            <div class="col-5">
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-row form-group">
+                            <label class="col-form-label-sm col-3"></label>
+                            <div class="col">
+                                <span>激活后，您可以在代金券列表中查看，已在列表中的代金券无需激活。</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js"></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.1.0/echarts.min.js"></script>
+<script src="https://cdn.bootcss.com/qs/6.5.2/qs.min.js"></script>
+<script src="https://cdn.bootcss.com/decimal.js/10.0.1/decimal.min.js"></script>
+<script src="../js/lib/jQuery.Pinyin-min.js"></script>
+<script src="../js/lib/datepicker.all.js"></script>
+<script src="../js/app.js"></script>
+<!-- <script src="js/router.js "></script> -->
+<script src="../js/rule.js"></script>
+<script src="../js/temp.js"></script>
+<script src="../js/region.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/comp.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,378 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <div class="mr-auto col-8 px-0">
+      <div class="input-group input-group-sm mr-3">
+        <input type="text" class="form-control form-control-sm" placeholder="关键字">
+        <div class="input-group-append">
+          <button class="btn btn-xs tablesearch"><i class="iconfont iconicon_sousuo-xian text-height-2"></i></button>
+        </div>
+      </div>
+      <div class="input-group input-group-sm" style="width:230px;">
+        <input type="text" class="form-control input-sm pull-right datetime-range col7_filter datetime_filter"
+          placeholder="时间范围" data-column="7">
+        <div class="input-group-append">
+          <button class="btn btn-xs serchBtn"><i class="iconfont iconicon_sousuo-xian text-height-2"></i></button>
+        </div>
+      </div>
+      <button class="btn btn-link btn-sm tableclear">清空</button>
+    </div>
+  </div>
+  <div class="card-body text-center">
+    <div class="table-box">
+      <table class="table table-striped table-hover tableData">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left pl-2">ID</th>
+            <th scope="col">申请用户</th>
+            <th scope="col">发票号</th>
+            <th scope="col">发票抬头</th>
+            <th scope="col">发票金额</th>
+            <th scope="col">发票内容</th>
+            <th scope="col">发票类型</th>
+            <th scope="col">申请开票时间</th>
+            <th scope="col">发票状态</th>
+            <th scope="col">快递单号</th>
+            <th scope="col">备注</th>
+            <th scope="col" class=" text-right pr-4">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {if !empty($list)} {foreach name="list" item="v"}
+          <tr data-id="{$v.id}" data-config='{$v|json_encode}'>
+            <td class="text-left pl-2">{$v.id}</td>
+            <td>{$v.username}</td>
+            <td>{$v.number}</td>
+            <td>{$v.title}</td>
+            <td class="money">{$v.money|to_double}</td>
+            <td>{$v.content}</td>
+            <td>{$v.types}</td>
+            <td>{$v.create_time}</td>
+            <td>{$v.statuss}</td>
+            <td>{$v.express}</td>
+            <td>{$v.remark}</td>
+            <td class="text-right pr-4">
+              <div class="set_btn">
+                <i class="iconfont iconicon_huifu-xian"></i>
+                <div class="py-1 px-2">
+                  <div>
+                    <div>
+                      <a href="javascript:;" onclick="seeAll($(this))"><i class="iconfont iconbrowse"></i><br />详细</a>
+                    </div>
+                    {if $v['status'] == '0'}
+                    <div>
+                      <a href="javascript:;" onclick="showPass($(this))"><i class="iconfont iconicon_duihao-xian"></i><br />通过</a>
+                    </div>
+                    <div>
+                      <a href="javascript:;" onclick="nopass($(this))"><i class="iconfont iconguanbi"></i><br />拒绝</a>
+                    </div>
+                    {else /}
+                    {if $v['status'] == '1'}
+                    <div>
+                      <a href="javascript:;" onclick="showEdit($(this))"><i class="iconfont iconicon_xie1"></i><br />编辑</a>
+                    </div>
+                    {/if}
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {/foreach} {/if}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between p-0 fs-10">
+      <div class="page-info">
+        <span class="mr-3">总共<span class="page-total">-</span>条</span>
+      </div>
+      <div class="d-inline-block mt-1">
+        <ul class="pagination pagination-sm float-left">
+          <li class="page-item">
+            <a class="page-link fs-10 page-prev" href="JavaScript:;">&lt;</a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link page-text">1/2</span>
+          </li>
+          <li class="page-item">
+            <a class="page-link fs-10 page-next" href="JavaScript:;">&gt;</a>
+          </li>
+        </ul>
+        <input type="text" class="page-txt float-left form-control form-control-sm fs-10" style="height: 29px;"
+          value="1" maxlength="10">
+        <button class="page-btn btn btn-light btn-sm float-left fs-10">跳转</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<div class="modal fade" id="configInfo" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">发票详情</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <div>
+          <div class="page-header l-line mb-3">
+            <h5>申请信息</h5>
+          </div>
+          <div class="row fs-12">
+            <div class="col-md-4 mb-3">
+              <div>申请类目：消费类</div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>申请金额：<span class="money" data-name="money"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>申请时间：<span data-name="create_time"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>备注：<span data-name="remark"> - </span></div>
+            </div>
+          </div>
+          <div class="page-header l-line mb-3">
+            <h5>发票信息</h5>
+          </div>
+          <div class="row fs-12">
+            <div class="col-md-4 mb-3">
+              <div>发票类型：<span data-name="type"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>普票类型：<span data-name="n_type"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>发票抬头：<span data-name="title"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>纳税人识别号：<span data-name="taxpayerno"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>开户银行名称：<span data-name="bank"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>开户账号：<span data-name="bankuser"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>地址：<span data-name="address"> - </span></div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div>电话：<span data-name="tel"> - </span></div>
+            </div>
+          </div>
+          <div class="page-header l-line mb-3">
+            <h5>收取地址</h5>
+          </div>
+          <div class="row fs-12">
+            <div class="col-md-6 mb-3">
+              <div>收取人姓名：<span data-name="addr_name"> - </span></div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div>所在地区：<span data-name="addr_region"> - </span></div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div>街道地址：<span data-name="addr_address"> - </span></div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div>邮政编码：<span data-name="addr_code"> - </span></div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div>联系电话：<span data-name="addr_tel"> - </span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="passinfo" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">发票信息补充</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <form class="needs-validation" novalidate>
+          <div class="form-group form-row">
+            <label for="number" class="col-sm-3 col-form-label-sm">发票号：</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-sm" id="number" name="number">
+              <input type="hidden" name="id">
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="express" class="col-sm-3 col-form-label-sm">快递单号：</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-sm" id="express" name="express">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-info btn-sm" onclick="pass()">确认通过</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editinfo" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <h5 class="modal-title">编辑发票信息</h5>
+        <button type="button" class="close pb-2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2 px-3">
+        <form class="needs-validation" novalidate>
+          <div class="form-group form-row">
+            <label for="number" class="col-sm-3 col-form-label-sm">发票号：</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-sm" id="number" name="number">
+              <input type="hidden" name="id">
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="express" class="col-sm-3 col-form-label-sm">快递单号：</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control form-control-sm" id="express" name="express">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-info btn-sm" onclick="edit()">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .page-header.l-line {
+    border: none;
+  }
+
+  .page-header.l-line h1,
+  .page-header.l-line h2,
+  .page-header.l-line h3,
+  .page-header.l-line h4,
+  .page-header.l-line h5,
+  .page-header.l-line h6 {
+    border-left: 3px solid #007bff;
+    padding-left: 15px;
+  }
+
+  .mb-3 {
+    margin-bottom: 15px;
+  }
+</style>
+<script>
+  function seeAll(t) {
+    let _c = t.parents('tr').data('config');
+    console.log(_c)
+    for (let v in _c) {
+      console.log(v, _c[v], (!!_c[v] || _c[v] == 0))
+      if (v == 'type') {
+        $('#configInfo [data-name="' + v + '"]').text(_c[v] == '0' ? '增值税普通发票' : '增值税专用发票');
+      } else if (v == 'n_type') {
+        $('#configInfo [data-name="' + v + '"]').text(_c[v] == '0' ? '个人普票' : '企业类普票');
+      } else if (v == 'money') {
+        $('#configInfo [data-name="' + v + '"]').text(_c[v] ? _c[v].toFixed(2) : '0.00');
+      } else {
+        $('#configInfo [data-name="' + v + '"]').text((!!_c[v] || _c[v] == 0) ? _c[v] : ' - ');
+      }
+    }
+    $('#configInfo').modal('show');
+  }
+
+  function showPass(t) {
+    $('#passinfo [name]').val('')
+    $('#passinfo [name="id"]').val(t.parents('tr').data('id'))
+    $('#passinfo').modal('show')
+  }
+
+  function showEdit(t) {
+    $('#editinfo [name]').val('')
+    let _c = t.parents('tr').data('config')
+    $('#editinfo [name="id"]').val(t.parents('tr').data('id'))
+    $('#editinfo [name="number"]').val(_c.number)
+    $('#editinfo [name="express"]').val(_c.express)
+    $('#editinfo').modal('show')
+  }
+
+  function pass(t) {
+    if (confirm('确认要同意本次申请吗?')) {
+      ajax('{:url("manager/Finance/passinvoice")}', {
+        id: $('#passinfo [name="id"]').val(),
+        number: $('#passinfo [name="number"]').val(),
+        express: $('#passinfo [name="express"]').val(),
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          window.location.reload()
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  }
+
+  function edit(t) {
+    if (confirm('确认提交本次信息吗?')) {
+      ajax('{:url("manager/Finance/editinvoice")}', {
+        id: $('#editinfo [name="id"]').val(),
+        number: $('#editinfo [name="number"]').val(),
+        express: $('#editinfo [name="express"]').val(),
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          window.location.reload()
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  }
+
+  function nopass(t) {
+    if (confirm('确认要拒绝本次申请吗?')) {
+      ajax('{:url("manager/Finance/nopassinvoice")}', {
+        id: t.parents('tr').data('id')
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          window.location.reload()
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  }
+
+  $('.tableData').DataTable({
+    'paging': true,
+    'fixedHeader': true,
+    'lengthChange': false,
+    'searching': true,
+    'ordering': true,
+    'info': true,
+    'autoWidth': false,
+    'deferRender': true,
+    'processing': true,
+    "order": [
+      [0, "desc"]
+    ],
+    "pageLength": 20,
+  });
+</script>
+{/block}

@@ -1,0 +1,98 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    <h5 class="m-0">{$info?'修改':'新增'}增值服务</h5>
+  </div>
+  <div class="card-body pb-0">
+    <div class="table-box">
+      <div class="form">
+        <div class="form-group">
+          <label for="title" class="col-sm-2 control-label">增值服务名称</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="title" name="title" placeholder="请输入增值服务名称" value="{$info?$info['title']:''}" autocomplete="off">
+            <input type="hidden" name="id" value="{$info?$info['id']:''}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="group_id" class="col-sm-2 control-label">所属增值服务组</label>
+          <div class="col-2">
+            <select name="group_id" id="group_id" class="form-control form-control-sm">
+              {foreach name="groupList" item="v"}
+              <option value="{$v.id}" {$info?$info['group_id']==$v['id'] ?'selected':'':''}>{$v.title}</option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="month" class="col-sm-2 control-label">月价格</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="month" name="month" placeholder="请输入月价格"
+              value="{$info?$info['month']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="quarter" class="col-sm-2 control-label">季度价格</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="quarter" name="quarter" placeholder="请输入季度价格"
+              value="{$info?$info['quarter']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="semestrale" class="col-sm-2 control-label">半年价格</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="semestrale" name="semestrale" placeholder="请输入半年价格"
+              value="{$info?$info['semestrale']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="years" class="col-sm-2 control-label">年价格</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="years" name="years" placeholder="请输入年价格"
+              value="{$info?$info['years']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sort" class="col-sm-2 control-label">排序</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="sort" name="sort" placeholder="请输入排序"
+              value="{$info?$info['sort']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="value" class="col-sm-2 control-label">默认值</label>
+          <div class="col-2">
+            <input type="text" class="form-control form-control-sm" id="value" name="value" placeholder="请输入默认值"
+              value="{$info?$info['value']:''}" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-2">
+            <button type="button" class="btn btn-primary btn-sm sub">提交</button>
+            <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+  $('.sub').click(function () {
+    let names = document.querySelectorAll('.form-group > div > [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => {
+      vals[e.name] = $(e).val();
+    });
+    ajax('{:url("manager/Product/addaddedAuth")}', vals, 'post').then(e => {
+      if (e.status === 200) {
+        alert(e.msg);
+        location.href = "{:url('manager/Product/added')}";
+      } else {
+        alert(e.msg);
+      }
+    });
+  });
+</script>
+{/block}

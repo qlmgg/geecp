@@ -1,0 +1,40 @@
+{extend name='Common/index' /} {block name='content'}
+{if !$hasagent}
+<!-- 未绑定 -->
+<div class="agent-bind">
+  <h2 class="fs-md">七朵云授权合作服务商邀请您成为他的代理客户</h2>
+  <p class="fs-sm">
+    <label class="text-muted">邀请服务商：</label>{$agent['name']}
+  </p>
+  <p class="text-muted fs-12">* 备注：您确认邀请后，将通过该合作服务商接受七朵云服务，确认后您暂时不能更换合作服务商</p>
+  <div class="action-row text-center mt-3">
+    <button class="btn btn-primary btn-sm mr-4 accept">接受邀请</button>
+    <a href="/console" class="btn btn-default btn-sm" target="">取消</a>
+  </div>
+</div>
+{else/}
+<!-- 已绑定 -->
+<div class="agent-bind">
+  <h2 class="bind align-items-center bg-danger"><i class="iconfont icon-guanbi"></i></h2>
+  <p>您已经成为<span>{$agent['name']}</span>的客户，无法再与其他代理商绑定。</p>
+  <p>您可以在控制台“<a href="{:url('index/iam/overview')}">用户信息—基本信息</a>”处查看您的代理商信息。</p>
+</div>
+{/if}
+{/block} {block name='modal'} {/block} {block name='js'}
+
+<script>
+  $('.accept').click(function(){
+    ajax('{:url("index/agent/bindauth")}',{
+      token: '{$_GET["token"]}'
+    },'post').then(e=>{
+      if(e.status === 200){
+        alert(e.msg);
+        window.location.href = "{:url('index/iam/overview')}"
+      } else {
+        alert(e.msg);
+      }
+    })
+  })
+
+</script>
+{/block}

@@ -1,0 +1,322 @@
+{extend name='HomeCommon/index' /}
+{block name='content'}
+<style>
+    .ecs-page{
+        min-width: 1200px;
+    }
+    .ecs-page .ecs-banner-bg {
+        position: relative;
+        height: 500px;
+        background: url("__TEMP__/defualt/img/cdn/CDN-banner.jpg") no-repeat center center;
+    }
+    .ecs-banner-box{
+        width: 1200px;
+        height: 500px;
+        padding-top: 100px;
+        color: #ffffff;
+        margin: auto;
+    }
+    .ecs-banner-box h1{
+        margin-top: 15px;
+        color: #ffffff;
+    }
+    .ecs-banner-box .desc{
+        line-height: 2;
+        margin: 30px 0;
+        width: 700px;
+    }
+    .ecs-banner-bg nav {
+        position: absolute;
+        bottom: 0;
+        margin: auto;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .ecs-page .nav-tabs {
+        margin: 0 auto;
+       width: 1200px;
+        line-height: 35px;
+    }
+
+    .ecs-page .nav-tabs .nav-item {
+        width: 24.5%;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 0;
+        color: #ffffff;
+    }
+
+    .ecs-page .nav-tabs .nav-item.active {
+        color: #000;
+    }
+
+    .ecs-page .nav-tabs .nav-item:hover {
+        color: #000;
+        background-color: #ffffff;
+    }
+    .ecs-tab-content .tab-pane:nth-child(2){
+        background: #ffffff;
+    }
+    .ecs-tab-content > .tab-pane>div{
+        width: 1200px;
+        margin: auto;
+    }
+    .ecs-tab-content .tab-pane:nth-child(2) h2{
+        line-height: 4;
+    } 
+    .ecs-tab-content .tab-pane:nth-child(2) h5{
+        line-height: 2;
+    }
+    .ecs-tab-content .tab-pane:nth-child(2) .row h3{
+        line-height: 3;
+    }
+    .ecs-tab-content > .tab-pane:nth-child(4){
+        background: #f7f8fa;
+    }
+    .ecs-tab-content .tab-pane:nth-child(4) .list-group-item{
+        background: transparent;
+    }
+    .ecs-tab-content .tab-pane:nth-child(4) .list-group-item .row{
+        height: 120px;
+    }
+    .ecs-tab-content > .tab-pane:nth-child(8){
+        background: #f7f8fa;
+    }
+    .q_list ul{
+        padding-left:20px;
+       
+    }
+   
+    .q_list ul li{
+        line-height: 2;
+        list-style-type: disc ;
+    }
+    .nav-join  .card{
+        height: 500px;
+        line-height: 2.5;
+    }
+    .nav-join  .card h4{
+        line-height: 2;
+    }
+    .nav-connect{
+        background: url("__TEMP__/defualt/img/cdn/map_balck_whole_bg.jpg") no-repeat center center;
+    }
+    .nav-connect .set-img-click{
+        text-align: center;
+    }
+    .nav-connect .set-img-click button:nth-child(1){
+        text-align: center;
+        width: 200px;
+        border-top-left-radius: 20px !important;
+        border-bottom-left-radius: 20px !important;
+    }
+    .nav-connect .set-img-click button:nth-child(2){
+        text-align: center;
+        width: 200px;
+        border-top-right-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+    }
+</style>
+<div class="ecs-page">
+    <div class="ecs-banner">
+        <div class="ecs-banner-bg">
+            <div class="ecs-banner-box1">
+                <div class="ecs-banner-box">
+                    <h1>CDN加速</h1>
+                    <div class="desc">
+                        七朵云 CDN加速是在传统CDN加速基础上实现的对数据网络加速进一步优化的融合管理服务。除了服务于音视频点播，文件、应用与web加速，以及各类增值场景外，CDN加速还通过全方位的CDN质量监控，以及智能易用的加速节点调度等功能，保障用户服务的连续性，提供稳定快速的网络访问质量。                    </div>
+                    <div class="mb-4">
+                        <a href="/console/cdn/add" class="btn btn-primary mr-2">立即选购</a>
+                        <a href="/console/cdn/add" class="btn btn-outline-light">产品价格</a>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" data-toggle="anchor" href="#nav-introduce">产品优势</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-join">应用场景</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-news">产品节点</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-connect">常见问题</a>
+                </div>
+            </nav>
+        </div>
+        <div style="background: #ffffff;">
+            <div class="ecs-tab-content" id="nav-tabContent">
+                <a name="nav-introduce"></a>
+                <div class="tab-pane show active">
+                    <div class="pb-5">
+                        <h2 class="text-center text-dark">产品优势</h2>
+                        <div class="row justify-content-between">
+                            <div class="col-6 mt-3">
+                                <div class="card">
+                                    <div class="row m-2">
+                                        <div class="col-4 p-4"><img src="__TEMP__/defualt/img/cdn/advance01.png" alt="" width="100%"></div>
+                                        <div class="col-8 py-4"> 
+                                            <h3 class="text-dark">智能调度</h3>
+                                            <h4>基于自有IP库，结合全网宕机与性能监控，研发的智能融合调度系统，有效防止访问劫持，实现100%实时调度精准可控。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <div class="card">
+                                    <div class="row m-2">
+                                        <div class="col-4 p-4"><img src="__TEMP__/defualt/img/cdn/advance02.png" alt="" width="100%"></div>
+                                        <div class="col-8 py-4"> 
+                                            <h3 class="text-dark">稳定可靠</h3>
+                                            <h4>拥有全业务加速的技术能力，包括网站加速、下载加速、视频加速、全站加速，提供一站式的加速解决方案，提升整体用户体验。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <div class="card">
+                                    <div class="row m-2">
+                                        <div class="col-4 p-4"><img src="__TEMP__/defualt/img/cdn/advance03.png" alt="" width="100%"></div>
+                                        <div class="col-8 py-4"> 
+                                            <h3 class="text-dark">无盲区</h3>
+                                            <h4>成熟的多CDN加速管控方案，精选主流CDN厂商优质节点，全面覆盖各地区各运营商网络，真正做到无盲区。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <div class="card">
+                                    <div class="row m-2">
+                                        <div class="col-4 p-4"><img src="__TEMP__/defualt/img/cdn/advance04.png" alt="" width="100%"></div>
+                                        <div class="col-8 py-4"> 
+                                            <h3 class="text-dark">降低回源</h3>
+                                            <h4>BGP网络中间源，消除跨运营商网络回源慢甚至不可达等问题，保护源站带宽不受边缘节点请求波动影响，节省回源成本。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <div class="card">
+                                    <div class="row m-2">
+                                        <div class="col-4 p-4"><img src="__TEMP__/defualt/img/cdn/advance05.png" alt="" width="100%"></div>
+                                        <div class="col-8 py-4"> 
+                                            <h3 class="text-dark">简单容易</h3>
+                                            <h4>开通CDN加速服务并添加域名后，前往域名服务商添加对应CNAME记录，即可正式启用加速服务，无需业务员侧做任何调整。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <div class="card">
+                                    <div class="row m-2">
+                                        <div class="col-4 p-4"><img src="__TEMP__/defualt/img/cdn/advance06.png" alt="" width="100%"></div>
+                                        <div class="col-8 py-4"> 
+                                            <h3 class="text-dark">存储加速</h3>
+                                            <h4>边缘存储可充分利用可用链路带宽，数据在边缘节点上传和下载可平均提速60</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <a name="nav-join"></a>
+                <div class="tab-pane show active nav-join">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">产品功能</h2>
+                        <div class="row">
+                            <div class="col-3 mt-3">
+                                <div class="card">
+                                    <div class="row my-4 mx-3">
+                                        <div class="m-auto"><img src="__TEMP__/defualt/img/cdn/preview01.png" alt="" class="text-center"/></div>
+                                        <div class="py-4"> 
+                                            <h3 class="text-dark text-center mb-3">网页加速</h3>
+                                            <h4>网页静态资源优化加速分发，例如：html、css、js、img、短视频等；全站HTTPS保证网络访问安全；TCP压缩优化使网页大图，样式等完成秒级加载，缩短网页响应时间提高用户体验。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="card">
+                                    <div class="row my-4 mx-3">
+                                        <div class="m-auto"><img src="__TEMP__/defualt/img/cdn/preview01.png" alt="" class="text-center"/></div>
+                                        <div class="py-4"> 
+                                            <h3 class="text-dark text-center mb-3">文件下载</h3>
+                                            <h4>大文件下载优化加速分发，例如：apk、mp3、exe、zip 等；七朵云 CDN加速 在全球数千个节点，让用户在下载过程中获得更快的下载速度，并利用分段缓存技术提高了大文件下载传输的稳定性。配合等；七朵云-存储服务一起使用，可有效降低回源和存储成本。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="card">
+                                    <div class="row my-4 mx-3">
+                                        <div class="m-auto"><img src="__TEMP__/defualt/img/cdn/preview01.png" alt="" class="text-center"/></div>
+                                        <div class="py-4"> 
+                                            <h3 class="text-dark text-center mb-3">音视频点播</h3>
+                                            <h4>音视频点播优化加速服务，例如：mp4、flv、rmvb、wmv、hls 等；七朵云 CDN加速 利用 BGP 网络中间源技术降低回源带宽压力节省了用户回源成本、分段预取技术使用户在浏览音视频时更加的流畅，高级防盗链技术有效防止用户文件被盗用。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="card">
+                                    <div class="row my-4 mx-3">
+                                        <div class="m-auto"><img src="__TEMP__/defualt/img/cdn/preview01.png" alt="" class="text-center"/></div>
+                                        <div class="py-4"> 
+                                            <h3 class="text-dark text-center mb-3">动态加速</h3>
+                                            <h4>动态加速针对动态资源进行加速分发，借助特有的动态路由探测技术和私有传输协议优化，可以保证客户源站的内容通过安全稳定的最优链路分发到用户端，在电商、社交、社区论坛、金融支付和游戏娱乐等方面可以显著提升用户的访问性能。使用动态加速时，域名下面的所有请求都将通过动态路由回到客户源站。</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a name="nav-news"></a>
+                <div class="tab-pane show active nav-connect">
+                    <div class="py-5">
+                        <h2 class="text-center text-white">产品节点</h2>
+                        <div class="mt-5">
+                            <div class="set-img-click">
+                                <div class=" btn-group" role="group" aria-label="First group">
+                                    <button type="button" class="btn btn-primary btn-lg china">国内节点分布</button>
+                                    <button type="button" class="btn btn-secondary btn-lg world">海外节点分布</button>
+                                </div>
+                            </div>
+                            <div class="py-4 text-center set-btn-img">
+                                <img src="__TEMP__/defualt/img/cdn/china.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a name="nav-connect"></a>
+                <div class="tab-pane show active q_list">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">常见问题</h2>
+                        {include file='../public/template/default/Home/Problem/index.html'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}
+
+{block name='js'}
+<script>
+    $('.set-img-click .btn-group .china').click(function(){
+        $(this).addClass('btn-primary');
+        $(this).removeClass('btn-secondary');
+        $(this).siblings().removeClass('btn-primary');
+        $(this).siblings().addClass('btn-secondary');
+        $('.set-btn-img').html(`<img src="__TEMP__/defualt/img/cdn/china.png" alt="">`)
+    })
+    $('.set-img-click .btn-group .world').click(function(){
+        $(this).addClass('btn-primary');
+        $(this).removeClass('btn-secondary');
+        $(this).siblings().removeClass('btn-primary');
+        $(this).siblings().addClass('btn-secondary');
+        $('.set-btn-img').html(`<img src="__TEMP__/defualt/img/cdn/world.png" alt="">`)
+    })
+</script>
+{/block}

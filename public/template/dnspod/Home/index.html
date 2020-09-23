@@ -1,0 +1,29 @@
+{extend name='HomeCommon/index' /}
+{block name='content'}
+
+<div class=" index-centent">
+    <div class="index-centent-box">
+        <div>
+            {include file='../public/template/dnspod/Home/Public/banner.html'}
+        </div>
+    </div>
+    <div>
+        {include file='../public/template/dnspod/Home/Index/domain_search.html'}
+    </div>
+    <div>
+        {include file='../public/template/dnspod/Home/Index/domain_step.html'}
+    </div>
+    <div>
+        {include file='../public/template/dnspod/Home/Index/dnsPod.html'}
+    </div>
+    <div>
+        {include file='../public/template/dnspod/Home/Index/serve.html'}
+    </div>
+
+</div>
+
+{/block}
+
+{block name='js'}
+
+{/block}

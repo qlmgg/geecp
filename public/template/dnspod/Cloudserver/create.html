@@ -1,0 +1,516 @@
+{extend name='Common/index' /} {block name='content'} <div class="card p--2 create_exp">
+  <div class="card-header  border-t" style="background-color: #fff">
+    <div class="tool-list d-flex">
+      <ul class="list-inline mr-auto  m-0">
+        <li class="list-inline-item">
+          <h4 class="mb-0">创建实例</h4>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cont-box pb-5">
+      <div class="text-center p-3"> {$_GET['name']?'续费':'选择'}云服务器 </div>
+      <form action=""> {if (!$_GET['name'])} <div class="border p-3 mb-2">
+          <div class="title mb-3">地域</div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">当前地域：</label>
+            <div class="col-sm-10">
+              <div class="btn-group mb-2" data-name="group" role="group"> {if !empty($grouplist[0])} {foreach $grouplist
+                as $k => $v} <button type="button" data-value="{$v['id']}"
+                  class="btn btn-out btn-sm {$k == 0?'active':''}">{$v['name']}</button> {/foreach} {/if} </div>
+              <p class="text-black-50 fs-12">不同地域云产品之间内网不互通；选择最靠近您客户的地域，可降低访问延时，创建成功后不支持更换地域。</p>
+            </div>
+          </div>
+        </div>
+        <div class="border p-3 mb-2">
+          <div class="title mb-3">配置</div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">选择配置：</label>
+            <div class="col-sm-10">
+              <div style="max-height: 300px;overflow-y: auto;">
+                <table class="table table-border border  configure">
+                  <thead class="bg-fB p-2">
+                    <tr class="font-weight-light">
+                      <th class="px-3">规格族</th>
+                      <th class="p-2">实例规格</th>
+                      <th class="p-2">CPU</th>
+                      <th class="p-2">内存</th>
+                      <th class="p-2">处理器型号</th>
+                      <th class="p-2">处理器主频</th>
+                      <th class="p-2">内网带宽(Gbps)</th>
+                      <th class="p-2">网络收发包(万pps)</th>
+                    </tr>
+                  </thead>
+                  <tbody class="prolist"> {if !empty($prolist[0])} {foreach $prolist as $k => $v} <?php
+                      $c = explode('|',$v['describe']);
+                      $cinfo = implode(',',$c);
+                    ?> <tr data-config="{$cinfo}">
+                      <td>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="pro_id{$v['id']}" name="pro_id" class="custom-control-input"
+                            {$k==0?'checked':''} value="{$v['id']}">
+                          <label class="custom-control-label" for="pro_id{$v['id']}">{$v['name']}</label>
+                        </div>
+                      </td>
+                      <td>{$c[0]}</td>
+                      <td>{$c[1]} 核</td>
+                      <td>{$c[2]} GB</td>
+                      <td>{$c[3]}</td>
+                      <td>{$c[4]} GHz</td>
+                      <td>{$c[5]} Gbps</td>
+                      <td>{$c[6]} PPS</td>
+                    </tr> {/foreach} {/if} </tbody>
+                </table>
+              </div>
+              <!-- <p class="fs-12">当前选择实例：BCC bcc.g3.c1m4（1 核 4 GB）</p> -->
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">操作系统：</label>
+            <div class="col-sm-10 row">
+              <select class="form-control form-control-sm col-sm-2 mr-2" name="os_id"> {if !empty($osgrouplist[0])}
+                {foreach $osgrouplist as $k => $v} <option value="{$v['id']}" data-uname="{$v['uname']}"
+                  {$k==0?'selected':''}>{$v['title']}</option> {/foreach} {/if} </select>
+              <select class="form-control form-control-sm w-auto" name="os_versions_id"> {if !empty($ostypelist[0])}
+                {foreach $ostypelist as $k => $v} <option value="{$v['id']}" {$k==0?'selected':''}>{$v['title']}
+                </option> {/foreach} {/if} </select>
+            </div>
+          </div>
+        </div>
+        <div class="border p-3 mb-2">
+          <div class="title mb-3">存储</div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">系统盘：</label>
+            <div class="col-sm-6">
+              <p class="text-muted fs-12 btn btn-out">Windows默认40GB,Linux默认20GB</p>
+            </div>
+          </div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">CDS云磁盘：</label>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <input type="range" class="form-control-range col-sm-8 mr-2" min="50" step="10" max="32765" value="50">
+                <input type="number" class="form-control form-control-sm col-sm-1 d-inline-block" value="50" min="50"
+                  max="32765" step="1" name="cds_disk"> <span class="ml-1 mt-1"> GB</span>
+              </div>
+              <p class="text-black-50 fs-12">峰值性能：随机IO 3300 IOPS，吞吐量 145 MB/s</p>
+            </div>
+          </div>
+        </div>
+        <div class="border p-3 mb-2">
+          <div class="title mb-3">弹性资源</div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">带宽峰值：</label>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <input type="range" class="form-control-range col-sm-8 mr-2" min="1" step="1" max="200" value="1">
+                <input type="number" class="form-control form-control-sm col-sm-1 d-inline-block" value="1" min="1"
+                  max="200" step="1" name="mbps"> <span class="ml-1 mt-1">Mbps</span>
+              </div>
+              <p class="text-black-50 fs-12">峰值性能 - 随机IO 2120 IOPS，吞吐量 106 MB/s；免费赠送40GB，超出部分需要单独付费</p>
+            </div>
+          </div>
+        </div>
+        <div class="border p-3 mb-2">
+          <div class="title mb-3">系统信息</div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">实例名称：</label>
+            <div class="col-sm-10">
+              <div class="btn-group mb-2" data-name="name" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-out btn-sm active">随机生成</button>
+                <button type="button" class="btn btn-out btn-sm">用户自定义</button>
+              </div>
+              <input type="text" class="form-control form-control-sm w-25 d-none" name="name" placeholder="请输入实例名称">
+            </div>
+          </div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">管理用户名：</label>
+            <div class="col-sm-10">
+              <label class="col-form-label-sm" data-name="username">root</label>
+            </div>
+          </div>
+          <div class="form-group  row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">管理员密码：</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control form-control-sm col-sm-3 mb-2" placeholder="请输入密码"
+                name="password" maxlength="32">
+              <p class="text-black-50 fs-12">8～32位字符，英文、数字和符号必须同时存在，符号仅限!@#$%^*()</p class="text-black-50 fs-12">
+              <input type="password" class="form-control form-control-sm col-sm-3 mb-2" placeholder="请再次输入密码"
+                maxlength="32">
+              <p class="text-black-50 fs-12">请牢记此管理员密码，系统将不再通过短信发送用户自定义密码</p class="text-black-50 fs-12">
+            </div>
+          </div>
+        </div> {/if} <div class="border p-3 mb-4">
+          <div class="title mb-3">购买信息</div>
+          <div class="form-group row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">购买时长：</label>
+            <div class="col-sm-10">
+              <div class="btn-group mb-2 btn-g1" role="group" aria-label="Basic example">
+                <button type="button" data-name="years" data-value="1" class="btn btn-out btn-sm active">1个月</button>
+                <button type="button" data-name="years" data-value="2" class="btn btn-out btn-sm">2</button>
+                <button type="button" data-name="years" data-value="3" class="btn btn-out btn-sm">3</button>
+                <button type="button" data-name="years" data-value="4" class="btn btn-out btn-sm">4</button>
+                <button type="button" data-name="years" data-value="5" class="btn btn-out btn-sm">5</button>
+                <button type="button" data-name="years" data-value="6" class="btn btn-out btn-sm">6</button>
+                <button type="button" data-name="years" data-value="7" class="btn btn-out btn-sm">7</button>
+                <button type="button" data-name="years" data-value="8" class="btn btn-out btn-sm">8</button>
+                <button type="button" data-name="years" data-value="9" class="btn btn-out btn-sm">9</button>
+                <button type="button" data-name="years" data-value="12" class="btn btn-out btn-sm">1年</button>
+                <button type="button" data-name="years" data-value="24" class="btn btn-out btn-sm">2年</button>
+                <button type="button" data-name="years" data-value="36" class="btn btn-out btn-sm">3年</button>
+              </div>
+            </div>
+          </div> {if(!$_GET['name'])} <div class="form-group row">
+            <label for="staticEmail2" class="col-sm-1 col-form-label-sm">购买个数：</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control form-control-sm col-sm-1 d-inline-block" value="1" name="number">
+              <span class="ml-1 mt-1">台</span>
+            </div>
+          </div> {/if} <div class="p-2 bg-fB"> 温馨提示：<br /> 1. 弹性公网IP（EIP）需绑定在负载均衡（BLB）或预付费云服务器（BCC）上方可进行备案。<br /> 2.
+            若您涉及网站部署并需要使用独立域名，请绑定弹性公网IP（EIP）并进行备案；目前暂不受理西藏地区备案业务，请慎重购买。 </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="buybucket">
+    <div class="row col-8 p-4 fs-12 m-auto">
+      <div class="mr-3"><button class="btn btn-lg btn-primary next">下一步</button></div>
+      <div class="mr-3">
+        <div>配置费用</div>
+        <div class="price">¥ 0.00</div>
+      </div> {if(!$_GET['name'])} <div>
+        <div>已选配置：</div>
+        <div class="detail">查看详情 <div class="detail_list"></div>
+        </div>
+      </div> {/if}
+    </div>
+  </div>
+</div>
+<style>
+  .create_exp.p--2 {
+    margin: -15px;
+  }
+
+  .create_exp .title {
+    display: inline-block;
+    zoom: 1;
+    color: #333;
+    font-size: 16px;
+    margin: 8px 0;
+    border-left: solid 4px #108CEE;
+    padding-left: 14px;
+  }
+
+  .create_exp .btn-out {
+    border-color: #ccc;
+    color: #333;
+    background: #fff;
+  }
+
+  .create_exp .btn-out.active {
+    border-color: #108CEE !important;
+    color: #108CEE !important;
+    z-index: 2;
+  }
+
+  .create_exp .custom-control-label::before {
+    background-color: #fff;
+    border: 1px solid #108CEE;
+  }
+
+  .create_exp .custom-control-label {
+    top: 0;
+  }
+
+  .create_exp .configure td {
+    padding: 6px 22px;
+  }
+
+  .create_exp .configure th:nth-child(1) {
+    padding-left: 47px !important;
+  }
+
+  .create_exp .btn-g1 .btn-out {
+    min-width: 80px;
+  }
+
+  .create_exp .buybucket {
+    position: fixed;
+    bottom: 0;
+    left: 200px;
+    height: 80px;
+    background: #fff;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .1);
+    width: calc(100% - 200px);
+    z-index: 99999;
+  }
+
+  .create_exp .buybucket .price {
+    color: red;
+    font-size: 16px;
+  }
+
+  .create_exp .buybucket .detail {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .detail:hover .detail_list {
+    display: block;
+  }
+
+  .detail_list {
+    display: none;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .15);
+    min-width: 280px;
+    border-radius: 0;
+    padding: 10px;
+    bottom: 23px;
+    left: -120px;
+  }
+
+  .detail_list .layer-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -6px;
+  }
+
+  .detail_list .table th,
+  .detail_list .table td {
+    padding: 5px;
+  }
+</style> {/block} {block name='js'} <script>
+  $(function () {
+    $('.create_exp .btn-group .btn-out').click(function () {
+      $(this).addClass('active')
+      $(this).siblings().removeClass('active')
+    });
+  })
+  $(document).on('change', '[type="range"]', function () {
+    if (Number($(this).val()) >= Number($(this).attr('max'))) {
+      $(this).val(Number($(this).attr('max')))
+    }
+    if (Number($(this).val()) <= Number($(this).attr('min'))) {
+      $(this).val(Number($(this).attr('min')))
+    }
+    $(this).next().val(Number($(this).val()))
+  })
+  $(document).on('change', '[type="range"] + [type="number"]', function () {
+    if (Number($(this).val()) >= Number($(this).attr('max'))) {
+      $(this).val(Number($(this).attr('max')))
+    }
+    if (Number($(this).val()) <= Number($(this).attr('min'))) {
+      $(this).val(Number($(this).attr('min')))
+    }
+    $(this).prev().val(Number($(this).val()))
+  })
+  $('[data-name="name"] .btn').click(function () {
+    if ($(this).index() == 1) {
+      $('[name="name"]').removeClass('d-none');
+    } else {
+      $('[name="name"]').addClass('d-none');
+    }
+  })
+  const _M = {
+    init: () => {
+      setTimeout(function () {
+        let _vn = "{$_GET['name']}";
+        if (!_vn) {
+          $('.detail .detail_list').html(_M.setConfig());
+        }
+        _M.setPrice();
+      }, 20)
+    },
+    setConfig: () => {
+      let _c = $('[name="pro_id"]:checked').parents('tr').data('config').split(',');
+      let _h = `
+        <h4>购买信息</h4>
+        <table class="table table-borderless  border-0">
+            <tbody>
+                <tr>
+                    <th class="px-0 text-left">地域：</th>
+                    <td>${$('[data-name="group"] .btn.active').text()}</td>
+                </tr>
+                <tr>
+                    <th class="px-0 text-left"  style="vertical-align: text-top !important;">购买配置：</th>
+                    <td style="max-width: 165px;">
+                        <div>CPU：${_c[1]}核、</div>
+                        <div>内存：${_c[2]}GB、</div>
+                        <div>系统盘：Windows默认40GB,Linux默认20GB、</div>
+                        <div>云磁盘：${$('[name="cds_disk"]').val()}GB</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="px-0 text-left">公网带宽：</th>
+                    <td>包年包月计费 ${$('[name="mbps"]').val()}Mbps</td>
+                </tr>
+                <tr>
+                    <th class="px-0 text-left">购买配额：</th>
+                    <td>${$('[name="number"]').val()}台 * ${$('[data-name="years"].active').data('value')}月</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="layer-arrow"></div>
+      `
+      return _h;
+    },
+    setPrice: () => {
+      $('.next').prop('disabled', true)
+      let _vn = "{$_GET['name']}";
+      ajax('{:url("index/Cloudserver/getPrice")}', {
+        pro_id: $('[name="pro_id"]:checked').val(),
+        pay_length: $('[data-name="years"].active').data('value'),
+        cds_disk: $('[name="cds_disk"]').val(),
+        mbps: $('[name="mbps"]').val(),
+        number: $('[name="number"]').val(),
+        vname: _vn,
+        type: '',
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          $('.buybucket .price').text('￥ ' + e.data.price);
+          $('.next').prop('disabled', false)
+        } else {
+          alert(e.msg);
+        }
+      })
+    },
+    proConfig: (d) => {
+      let _h = ``;
+      d.map((e, i) => {
+        let _C = e.describe.split('|'),
+          config = _C.join(',');
+        _h += `
+          <tr data-config="${config}">
+            <td>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="pro_id${e.id}" name="pro_id" class="custom-control-input" ${i == 0 ?'checked':''} value="${e.id}">
+                <label class="custom-control-label" for="pro_id${e.id}">${e.name}</label>
+              </div>
+            </td>
+            <td>${_C[0]}</td>
+            <td>${_C[1]} 核</td>
+            <td>${_C[2]} GB</td>
+            <td>${_C[3]}</td>
+            <td>${_C[4]} GHz</td>
+            <td>${_C[5]} Gbps</td>
+            <td>${_C[6]} PPS</td>
+          </tr>
+        `;
+      });
+      return _h;
+    },
+    osConfig: (d) => {
+      let _h = ``;
+      d.map((e, i) => {
+        _h += `
+        <option value="${e.id}" ${i==0?'selected':''}>${e.title}</option>
+        `;
+      });
+      return _h;
+    }
+  };
+  _M.init()
+  //地域切换
+  $('[data-name="group"] .btn').click(function () {
+    if ($(this).data('value')) {
+      ajax('{:url("index/Cloudserver/getProlist")}', {
+        id: $(this).data('value')
+      }, 'post').then(e => {
+        console.log(e);
+        if (e.status == 200) {
+          $('.prolist').html(_M.proConfig(e.data));
+          _M.init();
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  })
+  //配置选择
+  $('[name="pro_id"]').change(function () {
+    _M.init();
+  })
+  //操作系统变更
+  $('[name="os_id"').change(function () {
+    $('[data-name="username"]').text($(this).find('option:selected').data('uname'))
+    if ($(this).val()) {
+      ajax('{:url("index/Cloudserver/getOstype")}', {
+        id: $(this).val()
+      }, 'post').then(e => {
+        if (e.status == 200) {
+          $('[name="os_versions_id"]').html(_M.osConfig(e.data));
+          _M.init();
+        } else {
+          alert(e.msg)
+        }
+      })
+    }
+  })
+  //CDS调整
+  $('[name="cds_disk"]').change(function () {
+    _M.init();
+  })
+  $('[name="cds_disk"]').prev().change(function () {
+    _M.init();
+  })
+  //EIP调整
+  $('[name="mbps"]').change(function () {
+    _M.init();
+  })
+  $('[name="mbps"]').prev().change(function () {
+    _M.init();
+  })
+  //购买时长变更
+  $('[data-name="years"]').click(function () {
+    _M.init();
+  })
+  //购买个数变更
+  $('[name="number"]').change(function () {
+    _M.init();
+  })
+  //提交订单
+  $('.next').click(function () {
+    if ($('[name="password"]').val() != $('[name="password"]').next().next().val()) {
+      alert('两次管理员密码不一致');
+      return false;
+    }
+    let _vn = "{$_GET['name']}",
+      data;
+    if (_vn) {
+      data = {
+        vname: _vn,
+        pay_length: $('[data-name="years"].active').data('value'),
+        type: 'renew',
+      }
+    } else {
+      data = {
+        group_id: $('[data-name="group"] .btn.active').data('value'),
+        pro_id: $('[name="pro_id"]:checked').val(),
+        os_id: $('[name="os_id"]').val(),
+        os_versions_id: $('[name="os_versions_id"]').val(),
+        cds_disk: $('[name="cds_disk"]').val(),
+        mbps: $('[name="mbps"]').val(),
+        name: $('[name="name"]').val(),
+        password: $('[name="password"]').val(),
+        pay_length: $('[data-name="years"].active').data('value'),
+        number: $('[name="number"]').val(),
+      }
+    }
+    ajax('{:url("index/Cloudserver/addAuth")}', data, 'post').then(e => {
+      if (e.status == 200) {
+        location.href = "{:url('index/Buy/confirm')}";
+      } else {
+        alert(e.msg)
+      }
+    })
+  })
+</script> {/block}

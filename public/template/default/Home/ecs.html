@@ -1,0 +1,267 @@
+{extend name='HomeCommon/index' /}
+{block name='content'}
+<div class="ecs-page">
+    <div class="ecs-banner">
+        <div class="ecs-banner-bg">
+            <div class="ecs-banner-box1">
+                <div class="ecs-banner-box">
+                    <h1>弹性云服务器</h1>
+                    <div class="desc">
+                        七朵云服务器配备纯SSD架构打造的高性能存储，旨在为用户提供优质、高效、弹性伸缩的云计算服务。云服务器采用由数据切片技术构建的三层存储功能，切实保护客户数据的安全。同时可弹性扩展的资源用量，为客户业务在高峰期的顺畅保驾护航；灵活多样的计费方式，为客户最大程度的节省IT运营成本，提高资源的有效利用率。
+                    </div>
+                    <div class="mb-4">
+                        <a href="/console/vps/add" class="btn btn-primary mr-2">立即选购</a>
+                        <a href="/console/vps/add" class="btn btn-outline-light">产品价格</a>
+                    </div>
+                    <div>
+                        支持 5天无理由退款 服务
+                    </div>
+                </div>
+            </div>
+            
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" data-toggle="anchor" href="#nav-introduce">产品优势</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-course">产品功能</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-news">优势对比</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-join">应用场景</a>
+                    <a class="nav-item nav-link" data-toggle="anchor" href="#nav-connect">常见问题</a>
+                </div>
+            </nav>
+        </div>
+        <div style="background: #ffffff;">
+            <div class="ecs-tab-content" id="nav-tabContent">
+                <a name="nav-introduce"></a>
+                <div class="tab-pane show active">
+                    <div class="pb-5">
+                        <h2 class="text-center text-dark">产品优势</h2>
+                        <div class="row">
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_1.png" alt="" ></div>
+                                <h3 class="text-dark text-center">跨机房热迁移服务</h3>
+                                <h5>打破地域限制，轻松应对时间空间带来的运营困扰，最快仅需5分钟，即可将数据从一机房迁移至另一机房。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_2.png" alt="" ></div>
+                                <h3 class="text-dark text-center">服务器在线push功能</h3>
+                                <h5>七朵云鼓励支持用户将手中闲置服务器随时转让，提高闲置资源使用率，减少资源浪费并帮用户有效降低成本。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_3.png" alt="" ></div>
+                                <h3 class="text-dark text-center">三层存储技术</h3>
+                                <h5>缓存、沉淀、备份层，三层分别对数据进行处理、缓存与灾备，三层间实时同步，数据安全性达到99.999%，高可用性达到99.99%。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_4.png" alt="" ></div>
+                                <h3 class="text-dark text-center">免费20G防御</h3>
+                                <h5>七朵云采用自带硬防节点，部分节点享免费20G防御，可实现300G防御峰值，有效防御DDoS、CC等恶意攻击，保障用户网络安全。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_5.png" alt="" ></div>
+                                <h3 class="text-dark text-center">性能可靠,确保业务稳定</h3>
+                                <h5>七朵云服务器在硬件级别上实现云主机之间的完全隔离；采用高端服务器进行部署，同时采用集中的管理与监控，确保业务稳定可靠。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_6.png" alt="" ></div>
+                                <h3 class="text-dark text-center">灵活部署,助您一键上云</h3>
+                                <h5>针对不同行业、领域的企业级用户，以专业成熟的一站式行业云解决方案，帮助用户快速应用云计算。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_7.png" alt="" ></div>
+                                <h3 class="text-dark text-center">纯SSD架构配备至强硬件</h3>
+                                <h5>搭建纯SSD架构的高性能企业级云服务器，同时采用Intel Haswell CPU、高频DDR4内存、高速Sas3 SSD闪存作为底层硬件配置，分钟级响应速度。</h5>
+                            </div>
+                            <div class="col-3 mt-3">
+                                <div class="text-center"><img src="__TEMP__/defualt/img/ecs/product_adv_8.png" alt="" ></div>
+                                <h3 class="text-dark text-center">全网BGP带宽</h3>
+                                <h5>七朵云使用BGP线路，解决了南北互联互通的问题。同时自身具有容灾性，保障线路安全稳定。</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a name="nav-course"></a>
+                <div class="tab-pane show active">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">产品功能</h2>
+                        <div class="mt-5">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-1 pl-3 m-auto"><img src="__TEMP__/defualt/img/ecs/product_count_1.png" alt=""></div>
+                                        <div class="col-11 m-auto">
+                                            <h3 class="text-dark">计算</h3>
+                                            <div>丰富的实例规格，灵活扩容，支撑用户业务发展；有北京、辽宁、江苏、香港、广东五大节点，满足用户多样化需求。云服务器提供丰富的实例规格(CPU、内存）和带宽、云盘选择，支持随时升级，满足各种业务需求。99.99%的高可用性，为业务的稳定运行提供保障。</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-1 pl-3 m-auto"><img src="__TEMP__/defualt/img/ecs/product_count_2.png" alt=""></div>
+                                        <div class="col-11 m-auto">
+                                            <h3 class="text-dark">计算</h3>
+                                            <div>三层存储技术，支撑用户数据自动生成备份，切实保障用户数据安全，满足不同的I/O性能要求。采用七朵云三层存储革新技术，自动分层缓存、沉淀、备份数据 保障用户数据完整性、可用性，数据安全性高达99.999%。</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-1 pl-3 m-auto"><img src="__TEMP__/defualt/img/ecs/product_count_3.png" alt=""></div>
+                                        <div class="col-11 m-auto">
+                                            <h3 class="text-dark">安全</h3>
+                                            <div>网络安全、服务器安全等基础防护 ；云监控监测，实时预警。 提供DDoS防护、DNS劫持检测、入侵检测、漏洞扫描、网页木马检测、登录防护等安全服务 。对服务器的监控报警服务，提供实时监控，性能高低一目了然。</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-1 pl-3 m-auto"><img src="__TEMP__/defualt/img/ecs/product_count_4.png" alt=""></div>
+                                        <div class="col-11 m-auto">
+                                            <h3 class="text-dark">管理</h3>
+                                            <div>提供控制台、远程终端和 API 等多种管理方式，给您完全管理权限。提供web控制台、API两种方式，能够轻松的开通、关闭、重启、升级云服务器；提供CPU、内存、硬盘IO的实时监控和报表，随时了解云服务器运行情况。</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-1 pl-3 m-auto"><img src="__TEMP__/defualt/img/ecs/product_count_5.png" alt=""></div>
+                                        <div class="col-11 m-auto">
+                                            <h3 class="text-dark">网络</h3>
+                                            <div>全网BGP带宽，承诺独享，多运营商覆盖。 BGP网络支持国内所有主流运营商接入；覆盖全国的快速公网体验，提供灵活的网络规划选择。</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+                <a name="nav-news"></a>
+                <div class="tab-pane show active">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">优势对比</h2>
+                        <div class="mt-5">
+                            {include file='../public/template/default/Home/Ecs/table.html'}
+                        </div>
+                    </div>
+                </div>
+                <a name="nav-join"></a>
+                <div class="tab-pane show active">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">应用场景</h2>
+                        <div class="mt-5">
+                            {include file='../public/template/default/Home/Ecs/join.html'}
+                        </div>
+                    </div>       
+                </div>
+                <a name="nav-connect"></a>
+                <div class="tab-pane show active q_list">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">常见问题</h2>
+                        {include file='../public/template/default/Home/Problem/index.html'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .ecs-page{
+        min-width: 1200px;
+    }
+    .ecs-page .ecs-banner-bg {
+        position: relative;
+        height: 500px;
+        background: url("__TEMP__/defualt/img/ecs/banner.png") no-repeat center center;
+    }
+    .ecs-banner-box{
+        width: 1200px;
+        height: 500px;
+        padding-top: 100px;
+        color: #ffffff;
+        margin: auto;
+    }
+    .ecs-banner-box h1{
+        margin-top: 15px;
+        color: #ffffff;
+    }
+    .ecs-banner-box .desc{
+        line-height: 2;
+        margin: 30px 0;
+        width: 700px;
+    }
+    .ecs-banner-bg nav {
+        position: absolute;
+        bottom: 0;
+        margin: auto;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .ecs-page .nav-tabs {
+        margin: 0 auto;
+       width: 1200px;
+        line-height: 35px;
+    }
+
+    .ecs-page .nav-tabs .nav-item {
+        width: 19.5%;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 0;
+        color: #ffffff;
+    }
+
+    .ecs-page .nav-tabs .nav-item.active {
+        color: #000;
+    }
+
+    .ecs-page .nav-tabs .nav-item:hover {
+        color: #000;
+        background-color: #ffffff;
+    }
+    .ecs-tab-content .tab-pane:nth-child(2){
+        background: #ffffff;
+    }
+    .ecs-tab-content > .tab-pane>div{
+        width: 1200px;
+        margin: auto;
+    }
+    .ecs-tab-content .tab-pane:nth-child(2) h2{
+        line-height: 4;
+    } 
+    .ecs-tab-content .tab-pane:nth-child(2) h5{
+        line-height: 2;
+    }
+    .ecs-tab-content .tab-pane:nth-child(2) .row h3{
+        line-height: 3;
+    }
+    .ecs-tab-content > .tab-pane:nth-child(4){
+        background: #f7f8fa;
+    }
+    .ecs-tab-content .tab-pane:nth-child(4) .list-group-item{
+        background: transparent;
+    }
+    .ecs-tab-content .tab-pane:nth-child(4) .list-group-item .row{
+        height: 120px;
+    }
+    .ecs-tab-content > .tab-pane:nth-child(8){
+        background: #f7f8fa;
+    }
+    .q_list ul{
+        padding-left:20px;
+       
+    }
+   
+    .q_list ul li{
+        line-height: 2;
+        list-style-type: disc ;
+    }
+</style>
+{/block}
+
+{block name='js'}
+<script>
+
+</script>
+{/block}

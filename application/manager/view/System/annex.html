@@ -1,0 +1,287 @@
+{extend name='Common/index' /}
+{block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    附件设置
+  </div>
+  <div class="card-body border-0 py-0">
+    <div class="table-box px-3 pb-3">
+      <form class="needs-validation" novalidate>
+        <div class="form-group border-bottom pb-3 pt-3">
+          <label for="type">附件管理类型:</label>
+          <div class="col form-inline px-0">
+            <select name="type" id="type" class="custom-select custom-select-sm col-2">
+              <option value="0" {$info?$info['type'] == '0'?'selected':'':''}>本地服务器</option>
+              <!-- <option value="ftp" {$info?$info['type'] == 'ftp'?'selected':'':''}>FTP服务器</option> -->
+              <option value="bos" {$info?$info['type'] == 'bos'?'selected':'':''}>百度云存储</option>
+              <option value="qiniu" {$info?$info['type'] == 'qiniu'?'selected':'':''}>七牛云存储</option>
+              <!-- <option value="oss" {$info?$info['type'] == 'oss'?'selected':'':''}>阿里云OSS</option> -->
+            </select>
+          </div>
+          <div class="valid-feedback">
+            ok
+          </div>
+        </div>
+        <div data-type="ftp" class="d-none">
+          <div class="form-group border-bottom pb-3">
+            <label for="setinput2">FTP服务器域名:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="ftp_sever" name="ftp_sever" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ftp_name']:''}">
+              <small class="text-muted ">FTP服务器域名必须以 "http://"、"http://"、"//" 开头 例：https://www.baidu.com(它将作为文件读取地址) </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="setinput2">FTP账号:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="ftp_name" name="ftp_name" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ftp_name']:''}">
+              <small class="text-muted ">请输入FTP账号 </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="setinput2">FTP密码:</label>
+            <div class="col form-inline px-0">
+              <input type="password" id="ftp_pwd" name="ftp_pwd" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ftp_pwd']:''}">
+              <small class="text-muted ">请输入FTP密码 </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="setinput2">FTP端口号:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="ftp_port" name="ftp_port" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ftp_port']:''}">
+              <small class="text-muted ">请输入FTP端口号 </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="ftp_pasv">被动模式:</label>
+            <div class="col form-inline px-0">
+              <div class="col-6 form-control-sm switch-box">
+                <input type="checkbox" name="ftp_pasv" id="ftp_pasv" data-mid="isAlarm" value="0" {$info?$info['ftp_pasv'] == '1'?'checked':'':''}>
+                <label for="ftp_pasv" class="switch"></label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="ftp_ssl">SSL模式:</label>
+            <div class="col form-inline px-0">
+              <div class="col-6 form-control-sm switch-box">
+                <input type="checkbox" name="ftp_ssl" id="ftp_ssl" data-mid="isAlarm" value="0" {$info?$info['ftp_ssl'] == '1'?'checked':'':''}>
+                <label for="ftp_ssl" class="switch"></label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="ftp_timeout">超时时间:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="ftp_timeout" name="ftp_timeout" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ftp_timeout']:''}">
+              <small class="text-muted ">请输入超时时间 </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="ftp_remoteroor">图片服务器根目录:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="ftp_remoteroor" name="ftp_remoteroor" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['ftp_remoteroor']:''}">
+              <small class="text-muted ">请输入图片服务器根目录 </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+
+        </div>
+        <div data-type="bos" class="d-none">
+          <div class="form-group border-bottom pb-3">
+            <label for="bos_ak">AK:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="bos_ak" name="bos_ak" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['bos_ak']:''}">
+              <small class="text-muted ">请输入Ak </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="bos_sk">SK:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="bos_sk" name="bos_sk" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['bos_sk']:''}">
+              <small class="text-muted ">请输入SK </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+  
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="bos_bucket">Bucket:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="bos_bucket" name="bos_bucket" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['bos_bucket']:''}">
+              <small class="text-muted ">
+                请输入Bucket
+              </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label>绑定域名:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="bos_domain" name="bos_domain" placeholder="" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['bos_domain']:''}">
+              <small class="text-muted ">
+                绑定域名必须以 "http://"、"http://"、"//" 开头 例：https://www.baidu.com
+              </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+
+        </div>
+        <div data-type="qiniu" class="d-none">
+          <div class="form-group border-bottom pb-3">
+            <label for="qiniu_ak">AK:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="qiniu_ak" name="qiniu_ak" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['qiniu_ak']:''}">
+              <small class="text-muted ">请输入Ak </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="qiniu_sk">SK:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="qiniu_sk" name="qiniu_sk" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['qiniu_sk']:''}">
+              <small class="text-muted ">请输入SK </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+  
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="qiniu_bucket">Bucket:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="qiniu_bucket" name="qiniu_bucket" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['qiniu_bucket']:''}">
+              <small class="text-muted ">
+                请输入Bucket
+              </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label>绑定域名:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="qiniu_domain" name="qiniu_domain" placeholder="" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['qiniu_domain']:''}">
+              <small class="text-muted ">
+                绑定域名必须以 "http://"、"http://"、"//" 开头 例：https://www.baidu.com
+              </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+        </div>
+        <div data-type="oss" class="d-none">
+          <div class="form-group border-bottom pb-3">
+            <label for="oss_ak">AK:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="oss_ak" name="oss_ak" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['oss_ak']:''}">
+              <small class="text-muted ">请输入Ak </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="oss_sk">SK:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="oss_sk" name="oss_sk" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['oss_sk']:''}">
+              <small class="text-muted ">请输入SK </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+  
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label for="oss_bucket">Bucket:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="oss_bucket" name="oss_bucket" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['oss_bucket']:''}">
+              <small class="text-muted ">
+                请输入Bucket
+              </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+          <div class="form-group border-bottom pb-3">
+            <label>绑定域名:</label>
+            <div class="col form-inline px-0">
+              <input type="text" id="oss_domain" name="oss_domain" placeholder="" class="form-control form-control-sm col-2 mr-3" value="{$info?$info['oss_domain']:''}">
+              <small class="text-muted ">
+                绑定域名必须以 "http://"、"http://"、"//" 开头 例：https://www.baidu.com
+              </small>
+            </div>
+            <div class="valid-feedback">
+              ok
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" class="btn btn-primary btn-sm px-5 sub"> 提交</button>
+          <a href="javascript:history.go(-1);" class="btn btn-outline-secondary btn-sm px-5">返回</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{/block}
+{block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+  $('.sub').click(function () {
+    let names = document.querySelectorAll('.form-group  [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => {
+      if($(e).attr('type') == 'checkbox'){
+        vals[e.name] = $(e).prop('checked')?'1':'0';
+      } else {
+        vals[e.name] = e.value;
+      }
+    });
+    ajax('{:url("manager/System/annexAuth")}', vals, 'post').then(e => {
+      if (e.status === 200) {
+        alert(e.msg);
+        location.href = "{:url('manager/System/annex')}";
+      } else {
+        alert(e.msg);
+      }
+    });
+  });
+  $('[data-type="' + $('[name="type"]').val() + '"]').removeClass('d-none');
+  $('[name="type"]').change(function () {
+    $('[data-type]').addClass('d-none');
+    $('[data-type="' + $(this).val() + '"]').removeClass('d-none');
+  });
+</script>
+{/block}

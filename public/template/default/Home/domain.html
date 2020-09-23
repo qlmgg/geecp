@@ -1,0 +1,533 @@
+{extend name='HomeCommon/index' /}
+{block name='content'}
+
+<div class="domain-page">
+    <div class="domain-banner">
+        <div class="domain-banner-bg">
+            <div class="domain-banner-box1">
+                <div class="domain-banner-box">
+                    <h1 class="text-center">注册一个域名，实现更多可能</h1>
+                    <div class="p-3 mt-3 domain-search">
+                        <div class="bg-white  m-auto w-50">
+                            <input type="text" placeholder="请输入你的域名">
+                            <a href="/console/domain/search" class="btn btn-primary">查询域名</a>
+                            <button  type="button" class="btn btn-light">.com</button>
+                        </div>
+                    </div>
+                    <div class="domain-help mt-3">
+                        <a href="/console/domain/search">WHOIS查询</a>
+                        <a href="/console/domain/search" target="/user/">域名续费</a>
+                        <a href="/console/domain/search" target="/user/">域名解析</a>
+                        <a href="/console/domain/search">价格总览</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background: #ffffff;">
+            <div class="domain-tab-content" id="nav-tabContent">
+                <div class="tab-pane show active bg-light nav1">
+                    <div class="pt-3">
+                        <div class="row">
+                            <div id="epxbanner" class="carousel slide w-100 p-5" data-ride="carousel">
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active" data-interval="10000">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_net.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price">￥75.00</span>/首年</p>
+                                                <p>最具互联网特色的通用顶级域名之一</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_comcn.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price"> ￥30.00</span>/首年</p>
+                                                <p>双重含义，优质域名必选！</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_cnzh.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price">￥180.00</span>/首年</p>
+                                                <p>富有影响力的国家中文域名！</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_netcn.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price">￥30.00</span>/首年</p>
+                                                <p>双重含义，优质域名必选！</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="carousel-item" data-interval="2000">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_site.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price">￥25.00</span>/首年</p>
+                                                <p>site表示站点，更一目了然</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_info.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price"> ￥100.00</span>/首年</p>
+                                                <p>国际顶级域名，信息时代的标识！</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_com.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price">￥65.00</span>/首年</p>
+                                                <p>域名注册首选，全球注册量第一！</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="card text-center">
+                                                <img src="__TEMP__/defualt/img/domain/single_logo_cn.png" alt="" class="w-50 m-auto py-4">
+                                                <p><span class="rec-price">￥30.00</span>/首年</p>
+                                                <p>寓意中国，具有中国特色的域名！</p>
+                                                <a href="/console/domain/search" class="btn btn-warning text-white mx-3">立即注册</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#epxbanner" role="button" data-slide="prev">
+                                  <i class="iconfont icon-icon_jiantou-zuo" aria-hidden="true"></i>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#epxbanner" role="button" data-slide="next">
+                                  <i class="iconfont icon-icon_jiantou-you" aria-hidden="true"></i>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                               
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane show active nav2" style="background-color: #f5f5f5;">
+                    <div class="pb-5 pt-3">
+                        <h2 class="text-center text-dark text-height-3">特点与优势</h2>
+                        <div class="row">
+                           <div class="col-3">
+                               <div class="card bg-white text-center p-5">
+                                <div class="p-4"><img src="__TEMP__/defualt/img/domain/domain_icon_2.png" alt=""></div>
+                                <h3>快速</h3>
+                                <h6 class="text-height-2">快速的解析响应速度，保障访问服务器畅通</h6>
+                               </div>
+                           </div>
+                           <div class="col-3">
+                            <div class="card bg-white text-center p-5">
+                             <div class="p-4"><img src="__TEMP__/defualt/img/domain/domain_icon_4.png" alt=""></div>
+                             <h3>便捷</h3>
+                             <h6 class="text-height-2">域名自助管理平台，域名转入/转出自如，修改信息简单方便</h6>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-white text-center p-5">
+                             <div class="p-4"><img src="__TEMP__/defualt/img/domain/domain_icon_1.png" alt=""></div>
+                             <h3>安全</h3>
+                             <h6 class="text-height-2">免费域名隐私保护服务，防止注册人信息被盗号导致的骚扰和诈骗</h6>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-white text-center p-5">
+                             <div class="p-4"><img src="__TEMP__/defualt/img/domain/domain_icon_3.png" alt=""></div>
+                             <h3>放心</h3>
+                             <h6 class="text-height-2">7X24小时客户服务，随时解答您的问题，让您售后无忧</h6>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane show active bg-white nav3">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">域名价格</h2>
+                        <div class="mt-5">
+                            <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab21" role="tab"
+                                        aria-controls="home" aria-selected="true">全部</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab22" role="tab"
+                                        aria-controls="profile" aria-selected="false">新顶级域名</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab23" role="tab"
+                                        aria-controls="contact" aria-selected="false">国际域名</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab24" role="tab"
+                                        aria-controls="contact" aria-selected="false">国内域名</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content mt-3" id="myTabContent2">
+                                <div class="tab-pane fade show active nav4-1" id="tab21" role="tabpanel"
+                                    aria-labelledby="home-tab">
+                                    <table class="table border w-100 text-center">
+                                        <tr>
+                                            <th>域名类型</th>
+                                            <th>首年注册（元）</th>
+                                            <th>续费（元/年）</th>
+                                            <th>转入（元）</th>
+                                            <th>赎回（元）</th>
+                                        </tr>
+                                        <tr>
+                                            <td>.com 域名注册首选，全球注册量第一！</td>
+                                            <td>65.00</td>
+                                            <td>65.00</td>
+                                            <td>65.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.cn 寓意中国，具有中国特色的域名！</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.net 最具互联网特色的通用顶级域名之一 </td>
+                                            <td>75.00</td>
+                                            <td>75.00</td>
+                                            <td>75.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.ltd 有限公司后缀</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>1000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.vip VIP,寓意着尊贵的象征！</td>
+                                            <td>26.00</td>
+                                            <td>32.00</td>
+                                            <td>32.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.shop shop,商店，购物的寓意！</td>
+                                            <td>47.00</td>
+                                            <td>188.00</td>
+                                            <td>188.00</td>
+                                            <td>2600.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.wang 寓意网络，互联网域名首选！</td>
+                                            <td>57.00</td>
+                                            <td>57.00</td>
+                                            <td>57.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.club 莫愁前路无知己 天下谁人不识</td>
+                                            <td>68.00</td>
+                                            <td>68.00</td>
+                                            <td>68.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.group 大气的的新顶级域名</td>
+                                            <td>108.00</td>
+                                            <td>108.00</td>
+                                            <td>108.00</td>
+                                            <td>600.00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>.site site表示站点，更一目了然</td>
+                                            <td>25.00</td>
+                                            <td>60.00</td>
+                                            <td>60.00</td>
+                                            <td>1000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.link 即刻链接世界</td>
+                                            <td>60.00</td>
+                                            <td>60.00</td>
+                                            <td>60.00</td>
+                                            <td>1000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.info 国际顶级域名，信息时代的标识！</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>.biz biz域名，非常具有商业特色的域名！</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.mobi mobi域名，是移动网站首选！</td>
+                                            <td>115.00</td>
+                                            <td>150.00</td>
+                                            <td>150.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.com.cn 双重含义，优质域名必选！</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.net.cn .net.cn体现强烈的中国文化特色！</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.org.cn 一般用于机构组织注册</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.中国 富有影响力的国家中文域名！</td>
+                                            <td>180.00</td>
+                                            <td>320.00</td>
+                                            <td>320.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.公司 新一代的中文域名，值得拥有！</td>
+                                            <td>180.00</td>
+                                            <td>320.00</td>
+                                            <td>320.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.信息 中国互联网产业升华的象征！</td>
+                                            <td>135.00</td>
+                                            <td>135.00</td>
+                                            <td>135.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade nav4-1" id="tab22" role="tab22" aria-labelledby="profile-tab">
+                                    <table class="table border w-100 text-center">
+                                        <tr>
+                                            <th>域名类型</th>
+                                            <th>首年注册（元）</th>
+                                            <th>续费（元/年）</th>
+                                            <th>转入（元）</th>
+                                            <th>赎回（元）</th>
+                                        </tr>
+                                        <tr>
+                                            <td>.ltd 有限公司后缀</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>1000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.vip VIP,寓意着尊贵的象征！</td>
+                                            <td>26.00</td>
+                                            <td>32.00</td>
+                                            <td>32.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.shop shop,商店，购物的寓意！</td>
+                                            <td>47.00</td>
+                                            <td>188.00</td>
+                                            <td>188.00</td>
+                                            <td>2600.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.wang 寓意网络，互联网域名首选！</td>
+                                            <td>57.00</td>
+                                            <td>57.00</td>
+                                            <td>57.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.club 莫愁前路无知己 天下谁人不识</td>
+                                            <td>68.00</td>
+                                            <td>68.00</td>
+                                            <td>68.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.group 大气的的新顶级域名</td>
+                                            <td>108.00</td>
+                                            <td>108.00</td>
+                                            <td>108.00</td>
+                                            <td>600.00</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>.site site表示站点，更一目了然</td>
+                                            <td>25.00</td>
+                                            <td>60.00</td>
+                                            <td>60.00</td>
+                                            <td>1000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.link 即刻链接世界</td>
+                                            <td>60.00</td>
+                                            <td>60.00</td>
+                                            <td>60.00</td>
+                                            <td>1000.00</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade nav4-1" id="tab23" role="tab23" aria-labelledby="contact-tab">
+                                    <table class="table border w-100 text-center">
+                                        <tr>
+                                            <th>域名类型</th>
+                                            <th>首年注册（元）</th>
+                                            <th>续费（元/年）</th>
+                                            <th>转入（元）</th>
+                                            <th>赎回（元）</th>
+                                        </tr>
+                                        <tr>
+                                            <td>.com 域名注册首选，全球注册量第一！</td>
+                                            <td>65.00</td>
+                                            <td>65.00</td>
+                                            <td>65.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.net 最具互联网特色的通用顶级域名之一 </td>
+                                            <td>75.00</td>
+                                            <td>75.00</td>
+                                            <td>75.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.info 国际顶级域名，信息时代的标识！</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>.biz biz域名，非常具有商业特色的域名！</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>100.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.mobi mobi域名，是移动网站首选！</td>
+                                            <td>115.00</td>
+                                            <td>150.00</td>
+                                            <td>150.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade nav4-1" id="tab24" role="tab23" aria-labelledby="contact-tab">
+                                    <table class="table border w-100 text-center">
+                                        <tr>
+                                            <th>域名类型</th>
+                                            <th>首年注册（元）</th>
+                                            <th>续费（元/年）</th>
+                                            <th>转入（元）</th>
+                                            <th>赎回（元）</th>
+                                        </tr>
+                                        <tr>
+                                            <td>.com 域名注册首选，全球注册量第一！</td>
+                                            <td>65.00</td>
+                                            <td>65.00</td>
+                                            <td>65.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.cn 寓意中国，具有中国特色的域名！</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.com.cn 双重含义，优质域名必选！</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.net.cn .net.cn体现强烈的中国文化特色！</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.org.cn 一般用于机构组织注册</td>
+                                            <td>30.00</td>
+                                            <td>40.00</td>
+                                            <td>40.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.中国 富有影响力的国家中文域名！</td>
+                                            <td>180.00</td>
+                                            <td>320.00</td>
+                                            <td>320.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.公司 新一代的中文域名，值得拥有！</td>
+                                            <td>180.00</td>
+                                            <td>320.00</td>
+                                            <td>320.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>.信息 中国互联网产业升华的象征！</td>
+                                            <td>135.00</td>
+                                            <td>135.00</td>
+                                            <td>135.00</td>
+                                            <td>1200.00</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>注：以上“注册”价格均为首年注册价格，注册多年价格=首年注册价+续费价*(注册年数-1)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane show active q_list bg-light">
+                    <div class="py-5">
+                        <h2 class="text-center text-dark">常见问题</h2>
+                        {include file='../public/template/default/Home/Problem/index.html'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}
+
+{block name='js'}
+<script>
+
+</script>
+{/block}

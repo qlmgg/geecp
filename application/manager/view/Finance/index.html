@@ -1,0 +1,124 @@
+{extend name='Common/index' /} {block name='content'}
+<!-- <section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                  <p>请购买商用授权</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<div class="card bg-white">
+  <div class="card-body p-0">
+    <div class="p-3">
+      <div class="table-box">
+        <div class="finance-box">
+          <div class="">
+            <div class="card bg-white mb-3 border">
+              <div class="card-header border-bottom">
+                <h5 class="title mb-0" style="font-size: 14px;">数据总览</h5>
+              </div>
+              <div class="card-body p-0 text-center">
+                <div class="d-flex">
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-4 py-3 border-right">
+                        <div class="description-block">
+                          <h5 class="description-percentage">累计充值金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">{$accruing|to_double}</h4>
+                        </div>
+                      </div>
+                      <div class="col-md-4 py-3 border-right">
+                        <div class="description-block">
+                          <h5 class="description-percentage">未消费金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">{$unspentAmount|to_double}</h4>
+                        </div>
+                      </div>
+                      <div class="col-md-4 py-3 border-right">
+                        <div class="description-block">
+                          <h5 class="description-percentage">已消费金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">{$amountConsumed|to_double}</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-2 py-3 border-right" style="width: 20%;">
+                        <div class="description-block">
+                          <h5 class="description-percentage">今日充值金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">{$todayaccruing|to_double}</h4>
+                        </div>
+                      </div>
+                      <div class="col-md-2 py-3 border-right" style="width: 20%;">
+                        <div class="description-block">
+                          <h5 class="description-percentage">今日消费金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">{$todaypayaccruing|to_double}</h4>
+                        </div>
+                      </div>
+                      <div class="col-md-2 py-3 border-right" style="width: 20%;">
+                        <div class="description-block">
+                          <h5 class="description-percentage">今日订单数</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">{$now}</h4>
+                        </div>
+                      </div>
+                      <div class="col-md-2 py-3 border-right" style="width: 20%;">
+                        <div class="description-block">
+                          <h5 class="description-percentage">今日退款金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">0.00</h4>
+                        </div>
+                      </div>
+                      <div class="col-md-2 py-3 border-right" style="width: 20%;">
+                        <div class="description-block">
+                          <h5 class="description-percentage">累计退款金额</h5>
+                          <h4 class="description-text" style="font-size: 28px;margin: 0;">0.00</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="card border">
+              <div class="card-header border-bottom">
+                <span>快捷操作</span>
+              </div>
+              <div class="card-body p-0 text-center">
+                <div class="d-flex">
+                  <div class="col-1 border-right">
+                    <a class="text-black py-3 d-block" href="{:url('manager/User/list')}" target="_blank">
+                      <i class="iconfont iconyonghu fs-lg"></i>
+                      <div>快捷充值</div>
+                    </a>
+                  </div>
+                  <div class="col-1 border-right">
+                    <a class="text-black py-3 d-block" href="{:url('manager/User/list')}" target="_blank">
+                      <i class="iconfont iconidentification fs-lg"></i>
+                      <div>快捷退款</div>
+                    </a>
+                  </div>
+                  <div class="col-1 border-right">
+                    <a class="text-black py-3 d-block" href="{:url('manager/Finance/invoice')}" target="_blank">
+                      <i class="iconfont iconcaiwurenminbizhifu-copy fs-lg"></i>
+                      <div>发票开具 </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<script>
+
+</script>
+{/block}

@@ -1,0 +1,68 @@
+<div style="width: 100% !important;" class="network">
+    <div class="p-1">
+        <span>公网 IP：</span>
+    </div>
+    <div class="mb-4 pb-4">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>IP地址</th>
+                        <th>掩码</th>
+                        <th>网关</th>
+                    </tr>
+                </thead>
+                <tbody> {if(!empty($csinfo['info']['ip_list']))} {foreach $csinfo['info']['ip_list'] as $k=>$v} <tr>
+                        <td>{$v['ip']} {$k == 0?'<span class="zhu">主</span>':''}</td>
+                        <td>{$v['ip_pools']['mask']}</td>
+                        <td>{$v['ip_pools']['gateway']}</td>
+                    </tr> {/foreach}{else /} <tr>
+                        <td colspan="3" class="text-center">暂无快照</td>
+                    </tr> {/if} </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade restart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">重启</h5>
+                </div>
+                <div class="modal-body">
+                    <p>确定对选中的云主机进行 重启？</p>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-primary btn-sm">确定</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .network .table tr {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .network .table th,
+    .network .table td {
+        line-height: 40px;
+        padding: 0 !important;
+        font-size: 14px;
+    }
+
+    .network .table th {
+        text-align: left !important;
+    }
+
+    .network .zhu {
+        display: inline-block;
+        line-height: 1.5;
+        padding: 0 5px;
+        background: #007bff;
+        color: #fff;
+    }
+</style>
+<script>
+</script>

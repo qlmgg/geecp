@@ -1,0 +1,264 @@
+{extend name='index@Common/index' /}
+{block name='content'}
+<div class="card">
+  <div class="card-header  border-t pb-0" style="background-color: #fff">
+    <!-- <p><small>查询财务状况或管理优惠券和发票。</small></p> -->
+    <div class="tool-list d-flex">
+      <ul class="list-inline mr-auto  m-0">
+        <li class="list-inline-item p-2">
+          <h4>解析服务</h4>
+        </li>
+      </ul>
+      <!-- <ul class="list-inline form-inline m-0 zfs-12">
+        <li class="list-inline-item"><span>相关产品：</span></li>
+        <li class="list-inline-item"><a href="#">域名</a></li>
+        <li class="list-inline-item"><span>丨</span></li>
+        <li class="list-inline-item"><a href="#">BCH云虚拟主机</a></li>
+        <li class="list-inline-item"><span>丨</span></li>
+        <li class="list-inline-item"><a href="#">SSL证书</a></li>
+      </ul> -->
+    </div>
+  </div>
+  <div class="card-body fs-12">
+    <div class="cont-box">
+      <div class="dnsanalysis-server">
+        <ul class="list-inline d-flex mb-1">
+          <li class="list-inline-item">
+            <a href="#" class="btn btn-primary btn-sm">
+              <span class="iconfont iconicon_tianjia font-weight-bold"></span>
+              <span class="zfs-12" data-toggle="modal" data-target="#adddomain">添加域名</span>
+            </a>
+          </li>
+          <li class="list-inline-item mr-auto">
+            <a href="dnsanalysis-server-buy1.html" class="btn btn-primary btn-sm">
+              <span class="iconfont iconicon_tianjia font-weight-bold"></span>
+              <span class="zfs-12">购买升级版解析</span>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <input type="text" class="form-control form-control-sm zfs-12" placeholder="请输入域名进行搜索"
+                  style="width: 200px">
+              </div>
+              <div class="input-group-append">
+                <button type="button" class="btn btn-primary btn-sm"><span
+                    class="iconfont icon-icon_sousuo-xian font-weight-bold"></span></button>
+              </div>
+            </div>
+          </li>
+          <!-- <li class="list-inline-item">
+            <button type="button" class="btn btn-light btn-sm">
+              <span class="iconfont iconicon_shuaxin font-weight-bold"></span>
+            </button>
+          </li>
+          <li class="list-inline-item">
+            <button type="button" class="btn btn-light btn-sm">
+              <span class="iconfont iconicon_xiazai font-weight-bold"></span>
+            </button>
+          </li> -->
+        </ul>
+        <div class="py-2 ml-nge">
+          <div>
+            <table class="table table mytb">
+              <thead class="bg-fB p-2">
+                <tr class="font-weight-light">
+                  <th>域名</th>
+                  <th>
+                    <select class="form-control form-control-sm w-50">
+                      <option>状态</option>
+                      <option>全部域名</option>
+                      <option>正常</option>
+                      <option>服务异常</option>
+                      <option>未被注册</option>
+                      <option>NS尚未修改</option>
+                      <option>未备案</option>
+                      <option>暂停中</option>
+                    </select>
+                  </th>
+                  <th>
+                    <select class="form-control form-control-sm w-50">
+                      <option>全部版本</option>
+                      <option>基础版</option>
+                      <option>普惠版</option>
+                      <option>高防版</option>
+                    </select>
+                  </th>
+                  <th class="toggledemo" style="width:300px">到期时间<span class="iconfont iconweb__die zfs-12"></span><span
+                      class="iconfont iconweb__zhang zfs-12"></span></th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="demo-tbody">
+                {foreach name="list" item="v"}
+                {if isset($v.domain)}
+                <tr>
+                  <td>{$v.domain}</td>
+                  <td class="text-success">
+                    <span class="iconfont icondian"></span>
+                    <span>{$v.status}</span>
+                  </td>
+                  <td>基础版</td>
+                  <td>-</td>
+                  <td style="width: 180px">
+                    <span><a href="{:url('index/Dns/recordlist',['id'=>$v.id,'domain_id'=>$v.domain_id])}">解析</a></span>
+                    <a href="#" class="text-secondary">删除</a>
+                    <span><a href="dnsanalysis-server-buy1.html">升级</a></span>
+                    <span><a href="#" onclick="updatastatus({$v.id},{$v.domain_id})">刷新状态</a></span>
+                  </td>
+                </tr>
+                {/if}
+
+                {/foreach}
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-end pt-3 pl-3">
+            <ul class="list-inline form-inline px-2">
+              <li class="list-inline-item">每页显示</li>
+              <li>
+                <select name="" id="" class="form-control form-control-sm">
+                  <option value="">10</option>
+                  <option value="">20</option>
+                  <option value="">30</option>
+                  <option value="">40</option>
+                </select>
+              </li>
+            </ul>
+            <ul class="pagination mb-0 mr-3">
+              <li class="page-item disabled">
+                <a class="page-link" href="#">&lt;</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">&gt;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+{/block} {block name='modal'}
+<div id="adddomain" class="modal fade" tabindex="-1" style="display: none">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header py-0">
+        <span class="text-secondary zfs-14">添加域名</span>
+        <a data-dismiss="modal">
+          <span class="iconfont iconicon_guanbi zfs-14 font-weight-bold text-secondary"></span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div class="px-5">
+          <span class="text-999 zfs-12">温馨提示：免费DNS服务（基础版）默认服务为1年，产品到期前，可在解析操作管理中手动续期</span>
+        </div>
+        <div class="form-inline px-5 mt-3">
+          <div style="width: 100px"><span class="text-danger">*</span><span class="text-secondary">域名：</span></div>
+          <input type="text" class="form-control form-control-sm zfs-12" name="domain" placeholder="请输入需要添加的域名,不含www"
+            style="width: 264px" />
+        </div>
+        <div class="form-inline px-5 my-3">
+          <div style="width: 100px"></div>
+          <div class="custom-checkbox custom-control">
+            <input type="checkbox" class="custom-control-input" value="1" id="check1" />
+            <label class="custom-control-label justify-content-start zfs-12" for="check1">
+              为此域名购买升级版解析服务
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-light btn-sm border" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="adddomain()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">更改密码</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="registerform" class="px-3 py-3">
+          <div class="form-group">
+            <input type="text" class="form-control form-control-sm" placeholder="请输入手机号" name="compPhone"
+              autocomplete="off" maxlength="11">
+          </div>
+          <div class="form-group">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control" placeholder="请输入验证码" name="code" maxlength="6" autocomplete="off">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" onclick="fetchMsg(120, this)" disabled="">获取验证码</button>
+                <span class="btn btn-secondary disabled" style="display: none;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control form-control-sm" placeholder="请输入密码" name="compPassword"
+              autocomplete="off">
+          </div>
+          <div class="form-group mb-0">
+            <input type="password" class="form-control form-control-sm" placeholder="请输入密码" name="recompPassword"
+              autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary">确定</button>
+        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+{block name='js'}
+<script>
+  function adddomain() {
+    let vals = {
+      check1: $('[name="check1"]:checked').val(),
+      domain: $('[name="domain"]').val(),
+      //check: $('[name="check1"]').is(':checked'),
+
+    };
+    ajax('{:url("console/Dns/add_dns")}', vals, 'post').then(e => {
+      if (e.status == 1) {
+        window.location.reload();
+        $('#adddomain').modal('hide');
+      } else {
+        alert(e.msg);
+      }
+    });
+  }
+
+
+  function updatastatus(dns_id, domain_id) {
+    let vals = {
+      dns_id: dns_id,
+      domain_id: domain_id
+    };
+    ajax('{:url('
+      index / Dns / update_status ')}', vals, 'post').then(e => {
+      if (e.status == 200) {
+        alert(e.msg + "正刷新页面");
+        window.location.reload();
+        $('#adddomain').modal('hide');
+      } else {
+        alert(e.msg);
+      }
+    });
+  }
+</script>
+{/block}

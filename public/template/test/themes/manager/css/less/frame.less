@@ -1,0 +1,158 @@
+body{
+    background-color: @cgy!important;
+    .fs(14px);    
+}
+
+.custom-control{
+    line-height: 24px;
+}
+
+.custom-file-label::after{
+    content: '点击上传图片';
+    height: calc(1.8125rem)!important;
+}
+
+.nav{
+    &.flex-column{
+        background-color: @cwh;
+    }
+}
+
+.custom-file.custom-file-sm{
+    .custom-file-label,.custom-file-input,.custom-file-label::after{
+        height: calc(1.8125rem + 2px);
+    }
+}
+
+.pagination{
+    dl, ol, ul{
+        .mgb(0);
+    }
+}
+
+.btn{
+    border-radius: .2rem;
+}
+
+.table{
+    thead{
+        tr{
+            td,th{
+                .bdrt(0);
+            }
+        }
+    }
+    tr{
+        td,th{
+            .fs(12px);
+        }
+    }
+}
+
+.navbar-nav .nav-item .btn-group > button{
+    background-color: transparent;
+    border: none;
+    color: @cwh;
+    cursor: pointer;
+    outline: none;
+}
+
+.nav{
+    .nav-item{
+        .nav-link{
+            border-color: transparent;
+            &.active{
+                .bdrb(2px,solid,@ces);
+                color: @ces;
+            }
+        }
+    }
+    .card &{
+        .nav-item{
+            .nav-link{
+                &.active{
+                    .bdrb(0);
+                    color: @ces;
+                }
+            }
+        }
+    }
+}
+
+.dropdown-menu{
+    .fs(12px);
+}
+
+.dropdown-menu{
+    min-width: 8rem;
+}
+
+.list-group{
+    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+        color: inherit;
+    }
+}
+
+.sidebar{
+    
+}
+
+.scroll{
+    .pr;
+    height: 100%;
+    .ohy; 
+}
+
+.scroll::-webkit-scrollbar{
+    width: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: @ces;
+}
+
+.scroll::-webkit-scrollbar-track {
+    border-radius: 0;
+    background: @cgy;
+}
+
+.rc-group{
+    .dif;
+    input[type='radio']{
+        position: absolute;
+        clip: rect(0,0,0,0);
+        pointer-events: none;
+        overflow: visible;
+        &:disabled{
+            &+label{
+                .bgc(@cc2);
+                .crw;
+                cursor: not-allowed;
+            }
+        }
+        &:checked{
+            &+label{
+                .bgc(@ces);
+                .crw;
+            }
+        }
+    }
+    &-item{
+        .pr;
+        flex: 0 1 auto;
+        .pd(0.6*@mpb 2*@mpb);
+        .lh(20px);
+        .cp;
+        .bgce;
+        .cr(@ces);
+        .trs;
+        &:hover{
+            .bgce;
+        }
+        &.active{
+            .bgc(@ces);
+            .crw;
+        }
+    }
+}

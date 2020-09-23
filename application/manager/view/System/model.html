@@ -1,0 +1,83 @@
+{extend name='Common/index' /} {block name='content'}
+<div class="card bg-white">
+  <div class="card-header toolbar bg-light d-flex p-3">
+    模板设置
+  </div>
+  <div class="card-body border-0 py-0">
+    <div class="table-box px-3 pb-3">
+      <div class="needs-validation pt-3" novalidate>
+        <div class="model-list row">
+          {foreach name="dirinfo" item="v"}
+          <div class="col-2 model-list-item mb-3">
+            <div class="cover"
+              style="width: 100%;height: 190px;background-position: center;background-size: cover;background-image: url('{$v.cover?$v.cover:'/themes/manager/img/un_model_cover.jpg'}');">
+              <div class="text-right">
+                {if($v['name'] == 'default')}<label class="badge badge-primary my-0">默认</label>{/if}
+                {if($v['is_use'])}<label class="badge badge-primary ml-3 my-0">正在使用</label>{/if}
+              </div>
+            </div>
+            <div class="intro mb-3">
+              <h5 class="pt-3">{$v.name}</h5>
+              <div>目录：{$v.src?$v.src:'未读取到目录'}</div>
+              <div>{$v.intro?'介绍：'.$v.intro:'　'}</div>
+              <div>{$v.version?'版本：'.$v.version:'　'}</div>
+              <div>{$v.author?'作者：'.$v.author:'　'}</div>
+            </div>
+            <div class="action text-right">
+              <button class="btn btn-sm btn-success rounded-0" {if($v['is_use'])} disabled {/if} onclick="use('{$v.name}')">应用</button>
+              <button class="btn btn-sm btn-danger rounded-0" {if($v['is_use'] || $v['name']==='default')} disabled {/if} onclick="uninstall('{$v.name}')">卸载</button>
+            </div>
+          </div>
+          {/foreach}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='js'}
+<!-- <script src="__STATIC__/dist/js/formBasic.js"></script> -->
+<script>
+  function use(name){
+    if(confirm('确定要应用该模板吗?')){
+      ajax('{:url("manager/System/usemodel")}',{
+        tempname: name
+      },'post').then(e=>{
+        if(e.status === 200){
+          window.location.reload()
+        } else {
+          alert(e.msg);
+        }
+      })
+    }
+  }
+  function uninstall(name){
+    if(confirm('卸载模板将删除本地模板目录,确定要卸载该模板吗?')){
+      ajax('{:url("manager/System/uninstallmodel")}',{
+        tempname: name
+      },'post').then(e=>{
+        if(e.status === 200){
+          window.location.reload()
+        } else {
+          alert(e.msg);
+        }
+      })
+    }
+  }
+  $('.sub').click(function () {
+    let names = document.querySelectorAll('.form-group [name]'),
+      vals = {};
+    names = [].slice.call(names);
+    names.map((e) => {
+      vals[e.name] = e.value;
+    });
+    ajax('{:url("manager/System/smsapiAuth")}', vals, 'post').then(e => {
+      if (e.status === 200) {
+        alert(e.msg);
+        location.href = "{:url('manager/System/smsapi')}";
+      } else {
+        alert(e.msg);
+      }
+    });
+  });
+</script>
+{/block}

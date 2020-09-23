@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  {include file='../public/template/crumina/Home/Public/head.html'} {block name='style'}{/block}
+</head>
+
+<body>
+  
+  {include file='../public/template/crumina/Home/Public/header.html'}
+  {block name='content'}{/block}
+  {include file='../public/template/crumina/Home/Public/footer.html'}
+  {include file='../public/template/crumina/Home/Public/aside.html'}
+  {block name='modal'}
+
+	<!-- Popup Search -->
+
+	<div class="modal fade window-popup popup-search" id="popupSearch" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="modal-close-btn-wrapper">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close"></button>
+									<svg class="crumina-icon">
+										<use xlink:href="#icon-close"></use>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="navigation-search-popup">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 m-auto">
+									<h2 class="fw-medium text-white">您需要什么帮助？</h2>
+									<form class="search-popup-form">
+										<div class="input-btn--inline">
+											<input class="input--dark" type="text"
+												placeholder="Choose your new web address…">
+											<button type="button"
+												class="crumina-button button--primary button--l">搜索</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ... end Popup Search -->
+
+	<!-- User Menu Popup -->
+
+	<div class="modal fade window-popup user-menu-popup" id="userMenuPopup" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="modal-close-btn-wrapper">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close"></button>
+									<svg class="crumina-icon">
+										<use xlink:href="#icon-close"></use>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="user-menu">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 m-auto">
+									<a href="index.html" class="site-logo">
+
+
+										<img loading="lazy" src="{$basicInfo.logo}" alt="logo"
+											width="185">
+
+									</a>
+									<p class="fw-medium">登录控制台，管理您的产品与服务，获取最快的技术支持体验.</p>
+									<form class="sign-in-form">
+										<h6 class="text-white">登陆你的帐号</h6>
+										<div class="form-item">
+											<input class="input--dark input--squared" type="text" placeholder="手机号">
+										</div>
+										<div class="form-item">
+											<input class="input--dark input--squared" type="password" placeholder="密码">
+										</div>
+										<div class="form-item">
+											<div class="remember-wrapper text-white">
+												<div class="checkbox">
+													<label>
+														<input type="checkbox" name="optionsCheckboxes4">
+
+														记住账号
+													</label>
+												</div>
+												<a href="#">忘记密码?</a>
+											</div>
+										</div>
+										<div class="form-item">
+											<button type="button"
+												class="crumina-button button--primary button--l w-100">登录</button>
+										</div>
+									</form>
+
+									<p class="text-white fw-medium">社交账户登录:</p>
+									<ul class="socials">
+										<li>
+											<a href="#">
+
+
+												<img class="crumina-icon " loading="lazy"
+													src="__TEMP__/home/img/theme-content/social-icons/facebook.png" alt="facebook">
+
+											</a>
+										</li>
+										<li>
+											<a href="#">
+
+
+												<img class="crumina-icon " loading="lazy"
+													src="__TEMP__/home/img/theme-content/social-icons/twitter.png" alt="twitter">
+
+											</a>
+										</li>
+										<li>
+											<a href="#">
+
+
+												<img class="crumina-icon " loading="lazy"
+													src="__TEMP__/home/img/theme-content/social-icons/google.png" alt="google">
+
+											</a>
+										</li>
+									</ul>
+
+									<button type="button"
+										class="crumina-button button--grey button--l button--bordered w-100">创建账户</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ... end User Menu Popup -->
+
+  {/block}
+  {include file='../public/template/crumina/Home/Public/script.html'}
+  {block name='js'}
+  <style>
+
+  </style>
+  <script>
+
+
+  </script>
+  <!-- 公共JS -->
+  {/block}
+</body>
+
+</html>

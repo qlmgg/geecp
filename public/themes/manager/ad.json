@@ -1,0 +1,84 @@
+{
+  "ad_install_ready_img": {
+    "src": "https://tpc.googlesyndication.com/simgad/2280250172279249775?sqp=4sqPyQQ7QjkqNxABHQAAtEIgASgBMAk4A0DwkwlYAWBfcAKAAQGIAQGdAQAAgD-oAQGwAYCt4gS4AV_FAS2ynT4&rs=AOga4qlHr7OR4WnNwcjhwN_gO98SIeOOfA",
+    "url": "//www.baidu.com"
+  },
+  "ad_install_finish_img": [
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    }
+  ],
+  "ad_manager_login_img": [
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "//oss.feiniaomy.com/ads/ce001.png",
+      "url": "//www.baidu.com"
+    }
+  ],
+  "ad_manager_home_img":[
+    {
+      "src": "https://tpc.googlesyndication.com/simgad/17045441775162333496/downsize_200k_v1",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "https://tpc.googlesyndication.com/simgad/17045441775162333496/downsize_200k_v1",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "https://tpc.googlesyndication.com/simgad/17045441775162333496/downsize_200k_v1",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "https://tpc.googlesyndication.com/simgad/17045441775162333496/downsize_200k_v1",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "https://tpc.googlesyndication.com/simgad/17045441775162333496/downsize_200k_v1",
+      "url": "//www.baidu.com"
+    },
+    {
+      "src": "https://tpc.googlesyndication.com/simgad/17045441775162333496/downsize_200k_v1",
+      "url": "//www.baidu.com"
+    }
+  ]
+}

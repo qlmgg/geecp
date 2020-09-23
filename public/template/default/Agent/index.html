@@ -1,0 +1,412 @@
+{extend name='Common/index' /} {block name='content'}
+
+<div class="card">
+  <div class="card-header  border-t pb-0" style="background-color: #fff">
+    <div class="tool-list d-flex">
+      <ul class="list-inline mr-auto  m-0">
+        <li class="list-inline-item p-2"  style="border-bottom:3px solid #108cee;">
+          <h4>代理信息</h4>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body fs-12">
+    <div class="cont-box">
+      <div class="pb-3">
+        <div class="row">
+          <div class="col">
+            <div class="border p-3">
+              <div class="pb-3 border-t-fff">
+                <span class="fs-16 ">{$agent['agentname']}<small
+                    class="ml-2 badge badge-primary rounded-0">{$agent['agentlevel']}</small></span>
+              </div>
+              <div class="py-1 border-t-fff fs-12 row mb-2">
+                <span class="text-muted col-2">联系电话：</span>
+                <span class="col">{$agent['agentphone']}</span>
+              </div>
+              <div class="py-1 border-t-fff fs-12 row mb-2">
+                <span class="text-muted col-2">联系邮箱：</span>
+                <span class="col">{$agent['email']}</span>
+              </div>
+              <div class="py-1 border-t-fff fs-12 row mb-2">
+                <span class="text-muted col-2">客户数：</span>
+                <span class="col">{$agent['clientnum']}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div style="width:100%;height: 185px;">
+              <div class="page-header l-line mb-2 d-flex">
+                <h4 class="m-0 mr-auto">近期返点收益分布</h4>
+                <div>
+                  <ul class="list-inline  m-0 form-inline">
+                    <li class="list-inline-item">
+                      <div class="c-datepicker-date-editor J-datepicker-range-day lefts mt10">
+                        <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                        <input placeholder="开始日期" name="pstarttime" class="c-datepicker-data-input only-date"
+                          autocomplete="off" value="{:date('Y-m-d', strtotime('-30 day'))}">
+                        <span class="c-datepicker-range-separator">-</span>
+                        <input placeholder="结束日期" name="pendtime" class="c-datepicker-data-input only-date"
+                          autocomplete="off" value="{:date('Y-m-d', strtotime('-0 day'))}">
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="report-order-chart" style="width:100%;height: 100%;overflow: hidden;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 p-3">
+        <div class="form-group">
+          <span class="fs-16">返点收益趋势</span>
+        </div>
+        <div class="form-group form-inline">
+          <ul class="list-inline  m-0 form-inline">
+            <li class="list-inline-item">
+              <div class="c-datepicker-date-editor J-datepicker-range-day mt10">
+                <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                <input placeholder="开始日期" name="rlstarttime" class="c-datepicker-data-input only-date"
+                  autocomplete="off" value="<?php echo date('Y-m-d', strtotime('-30 day')); ?>">
+                <span class="c-datepicker-range-separator">-</span>
+                <input placeholder="结束日期" name="rlendtime" class="c-datepicker-data-input only-date" autocomplete="off"
+                  value="<?php echo date('Y-m-d', strtotime('-0 day')); ?>">
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="px-2" style="width:100%;border: 1px solid #EEE;">
+          <div id="report_consume" style="width:100%;height: 400px;overflow: hidden;"></div>
+        </div>
+      </div>
+      <div class=" p-3">
+        <div class="form-group">
+          <span class="fs-16">现金&返点消费趋势</span>
+        </div>
+        <div class="form-group form-inline">
+          <ul class="list-inline  m-0 form-inline">
+            <li class="list-inline-item">
+              <div class="c-datepicker-date-editor J-datepicker-range-day mt10">
+                <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                <input placeholder="开始日期" name="hstarttime" class="c-datepicker-data-input only-date" autocomplete="off"
+                  value="<?php echo date('Y-m-d', strtotime('-30 day')); ?>">
+                <span class="c-datepicker-range-separator">-</span>
+                <input placeholder="结束日期" name="hendtime" class="c-datepicker-data-input only-date" autocomplete="off"
+                  value="<?php echo date('Y-m-d', strtotime('-0 day')); ?>">
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="px-2" style="width:100%;border: 1px solid #EEE;">
+          <div id="cashrebates_consume" style="width:100%;height: 400px;overflow: hidden;"></div>
+        </div>
+      </div>
+      <div class="py-3">
+        <div class="ml-nge">
+          <div class="px-3">
+            <div class="page-header l-line">
+              <h4>客户返点TOP10</h4>
+            </div>
+          </div>
+          <table class="table table-border">
+            <thead class="bg-fB p-2">
+              <tr class="font-weight-light">
+                <th class="px-3">排序</th>
+                <th>客户注册名称</th>
+                <th>联系人姓名</th>
+                <th>获得返点</th>
+              </tr>
+            </thead>
+            <tbody data-name="prolist">
+              {if (!empty($clientTop) && $clientTop[0])}
+              {foreach name="clientTop" item="v" key="k"}
+              <tr>
+                <td>{$k+1}</td>
+                <td>{$v.name}</td>
+                <td>{$v.realname}</td>
+                <td>￥{$v.make_rebates_money|to_double}</td>
+              </tr>
+              {/foreach}
+              {else /}
+              <tr>
+                <td colspan="5" rowspan="1" class="text-center">暂无相关消费数据</td>
+              </tr>
+              {/if}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/block} {block name='modal'} {/block} {block name='js'}
+
+<script>
+  function callHistory() {
+    gethistory();
+  }
+
+  function callHistoryPie() {
+    gethistory('pie');
+  }
+
+  function callHistoryRLine() {
+    gethistory('rline');
+  }
+
+  function gethistory(type = '') {
+    let val;
+    if (type == 'pie') {
+      val = {
+        start: $('[name="pstarttime"]').val(),
+        end: $('[name="pendtime"]').val(),
+      }
+    } else if (type == 'rline') {
+      val = {
+        start: $('[name="rlstarttime"]').val(),
+        end: $('[name="rlendtime"]').val(),
+      }
+    } else {
+      val = {
+        start: $('[name="hstarttime"]').val(),
+        end: $('[name="hendtime"]').val(),
+      }
+    }
+    val.ctype = type;
+
+    ajax('{:url("index/Agent/gethistory")}', {
+      ...val
+    }, 'post').then(e => {
+      if (e.status == 200) {
+        if (type == 'pie') {
+          pHistory(e.data.data)
+        } else if (type == 'rline') {
+          rHistory(e.data.date, e.data.data, e.data.types)
+        } else {
+          cHistory(e.data.date, e.data.data)
+        }
+      }
+    })
+  }
+  setTimeout(function () {
+    let pdata = JSON.parse('{$agentRebatesData|json_encode}');
+    pHistory(pdata)
+    
+    let cdate = JSON.parse('{$getCashRebateLine["hdate"]|json_encode}'),
+      cdata = JSON.parse('{$getCashRebateLine["hval"]|json_encode}');
+    cHistory(cdate, cdata)
+
+    let rldate = JSON.parse('{$agentRebatesLine["date"]|json_encode}'),
+        rldata = JSON.parse('{$agentRebatesLine["data"]|json_encode}'),
+        rltypes = JSON.parse('{$agentRebatesLine["types"]|json_encode}')
+    rHistory(rldate,rldata,rltypes)
+  }, 500);
+  window.cbdate = () => {
+      callHistory()
+      callHistoryPie()
+      callHistoryRLine()
+  }
+
+  function pHistory(data) {
+    let namelist = [];
+    namelist = data.map(e => {
+      return {
+        name: e.name + ',' + e.value.toFixed(2),
+        value: e.value.toFixed(2)
+      }
+    });
+    report = [];
+    report = echarts.init(document.getElementById('report-order-chart'), ETheme.ligntBlue);
+    option = {
+      tooltip: {
+        trigger: 'item',
+        formatter: (v) => {
+          let res = v.name.split(',');
+          let str = res[0];
+          return `消费统计<br />${str}：￥${v.value}(${v.percent.toFixed(2)}%)`;
+        }
+      },
+      legend: {
+        type: 'scroll',
+        orient: 'vertical',
+        x: 'right',
+        data: namelist,
+        formatter: function (e) {
+          let res = e.split(',');
+          let str = res[0];
+          if (str.length > 10) {
+            str = str.slice(0, 10) + "..."
+          }
+          return `${str}：￥${Number(res[1]).toFixed(2)}`;
+        }
+      },
+      series: [{
+        type: 'pie',
+        radius: '55%',
+        center: ['20%', '50%'],
+        data: namelist,
+      }]
+    };
+
+    report.setOption(option);
+  }
+
+  function rHistory(date, data,types) {
+    let datas = {},
+        series = [];
+
+    types.map(e=>{
+      if(!datas[e]){
+        datas[e] = []
+      }
+      datas[e] = data.map(ev=>{
+        return ev[e] || 0
+      })
+    })
+    for(k in datas){
+      series.push({
+        name: k,
+        data: datas[k],
+        type: 'line',
+        areaStyle: {}
+      })
+    }
+
+    report = [];
+    report = echarts.init(document.getElementById('report_consume'), ETheme.ligntBlue);
+    option = {
+      grid: {
+        left: 0,
+        right: 30,
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+        formatter: (e, i) => {
+          let html = `${e[0].axisValue}<br>`;
+          e.map(ev => {
+            html += `${ev.seriesName}： ￥${ev.value.toFixed(2)}<br>`;
+          })
+          return html;
+        }
+      },
+      legend: {
+        data: types
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+      },
+      yAxis: {
+        type: 'value'
+      },
+      dataZoom: [{
+        id: 'dataZoomX',
+        type: 'slider',
+        xAxisIndex: [0],
+        start: 0,
+        end: 100
+      }],
+      series: series
+    };
+    report.setOption(option);
+  }
+
+  function cHistory(date, data) {
+    let datas = {},
+      namelist = {
+        'cash': [],
+        'rebates': []
+      };
+    data.map((e) => {
+      if (!datas.cash) {
+        datas.cash = []
+      }
+      if (!datas.rebates) {
+        datas.rebates = []
+      }
+
+      datas.cash.push(e.cash);
+      datas.rebates.push(e.rebates);
+    })
+
+
+    namelist['cash'] = data.map(e => {
+      return {
+        name: '现金消费,' + e.cash,
+        value: e.cash
+      }
+    });
+    namelist['rebates'] = data.map(e => {
+      return {
+        name: '返点消费,' + e.rebates,
+        value: e.cash
+      }
+    });
+
+    report = [];
+    report = echarts.init(document.getElementById('cashrebates_consume'), ETheme.ligntBlue);
+    option = {
+      grid: {
+        left: 0,
+        right: 30,
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+        formatter: (e, i) => {
+          let html = `${e[0].axisValue}<br>`;
+          e.map(ev => {
+            html += `${ev.seriesName}： ￥${ev.value}<br>`;
+          })
+          return html;
+        }
+      },
+      legend: {
+        data: ['现金消费', '返点消费']
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+      },
+      yAxis: {
+        type: 'value'
+      },
+      dataZoom: [{
+        id: 'dataZoomX',
+        type: 'slider',
+        xAxisIndex: [0],
+        start: 0,
+        end: 100
+      }],
+      series: [{
+        name: '现金消费',
+        data: datas.cash,
+        type: 'line',
+        areaStyle: {}
+      }, {
+        name: '返点消费',
+        data: datas.rebates,
+        type: 'line',
+        areaStyle: {}
+      }]
+    };
+    report.setOption(option);
+  }
+</script>
+{/block}

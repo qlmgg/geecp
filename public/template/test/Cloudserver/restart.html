@@ -1,0 +1,86 @@
+<div style="width: 100% !important;" class="setstyem">
+    <div class="p-1">
+        <span>镜像：</span>
+    </div>
+    <div class="alert alert-info">重装系统将重新格式化系统盘分区(Windows 为 C盘 Linux 为 /dev/xvda)，数据盘分区数据不受影响！ </div>
+    <div class="mb-4 pb-4 bt-1">
+        <div class="card-deck">
+            <div class="card bg-light">
+                <div class="card-body text-center p-0">
+                    <div class="iconf"><i class="iconfont icon-windows11"></i></div>
+                    <div class="icontext">Windows</div>
+                    <select class="custom-select w-100 ">
+                        <option selected disabled value="">选择系统</option> {foreach $osinfo['Windows']['child'] as $k=>$v}
+                        <option value="{$v.id}">{$v.title}</option> {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="card-body text-center p-0">
+                    <div class="iconf"><i class="iconfont icon-icon_centos"></i></div>
+                    <div class="icontext">Centos</div>
+                    <select class="custom-select w-100">
+                        <option selected disabled value="">选择系统</option> {foreach $osinfo['CentOs']['child'] as $k=>$v}
+                        <option value="{$v.id}">{$v.title}</option> {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="card-body text-center p-0">
+                    <div class="iconf"><i class="iconfont icon-icon_ubuntu"></i></div>
+                    <div class="icontext">Ubuntu</div>
+                    <select class="custom-select w-100">
+                        <option selected disabled value="">选择系统</option> {foreach $osinfo['Ubuntu']['child'] as $k=>$v}
+                        <option value="{$v.id}">{$v.title}</option> {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="card-body text-center p-0">
+                    <div class="iconf"><i class="iconfont icon-debianos"></i></div>
+                    <div class="icontext">Debian</div>
+                    <select class="custom-select w-100">
+                        <option selected disabled value="">选择系统</option> {foreach $osinfo['Debian']['child'] as $k=>$v}
+                        <option value="{$v.id}">{$v.title}</option> {/foreach}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-right">预装镜像：<span class="nowos">选择系统</span> <button type="button" class="btn btn-sm btn-outline-primary" onclick="toresetos()">确定</button></p>
+</div>
+<style>
+    .setstyem .iconf .iconfont {
+        font-size: 50px;
+    }
+
+    .setstyem .icontext {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .setstyem .card .custom-select {
+        border: 0;
+        border-top: 1px solid #ced4da;
+        border-radius: 0;
+        background: transparent;
+        text-align-last: center !important;
+        padding: 0;
+    }
+
+    .setstyem .active {
+        border: 1px solid #2ea1f8;
+        color: #2ea1f8;
+    }
+
+    .setstyem .active .custom-select {
+        border-top: 1px solid #2ea1f8;
+        color: #2ea1f8;
+    }
+
+    option {
+        text-align: center;
+    }
+</style>
+<script>
+</script>
